@@ -131,7 +131,7 @@
 
 \begin{document}
 
-\newcommand{\MyEmail}{clean.post9026@tenesm.us}
+\newcommand{\MyEmail}{last.bird7463@tenesm.us}
 \newcommand{\MyTitle}{Senior Platform Engineer}
 \newcommand{\MyFirstName}{Nathan}
 \newcommand{\MyLastName}{Douglas}
@@ -148,13 +148,14 @@
   \textbf{\Huge \scshape \MyFullName} \\ \vspace{1pt}
   \small \faPhone\hspace{0.5em}\MyPhoneNumber\hspace{0.25em} $|$ \href{mailto:\MyEmail}{\faAt\hspace{0.5em}\underline{\MyEmail}} $|$
   \href{https://linkedin.com/in/\MyLinkedInUsername}{\faLinkedin\hspace{0.5em}\underline{linkedin.com/in/\MyLinkedInUsername}} $|$
-  \href{https://github.com/\MyGitHubUsername}{\faGithub\hspace{0.5em}\underline{github.com/\MyGitHubUsername}}
+  \href{https://github.com/\MyGitHubUsername}{\faGithub\hspace{0.5em}\underline{github.com/\MyGitHubUsername}} $|$
+  \href{https://\MyWebsite}{\faGlobe\hspace{0.5em}\underline{\MyWebsite}}
 \end{center}
 
 \begin{center}
-Platform engineer with 14+ years building infrastructure for distributed systems.
-Currently focused on ML/HPC infrastructure: Kubernetes, Slurm, GPU workloads.
-Seeking roles bridging platform engineering and scientific computing.
+Platform engineer with 14+ years building distributed infrastructure and observability-heavy systems.
+Focused on making complex systems behave predictably: migration without downtime, deployment without failure, correctness by design.
+Exploring formal verification (TLA+) for distributed and ML-serving systems. Relocating to Europe 2028.
 \end{center}
 
 %-----------EXPERIENCE-----------
@@ -162,34 +163,47 @@ Seeking roles bridging platform engineering and scientific computing.
   \resumeSubHeadingListStart
 
     \resumeSubheading
-      {Senior Platform Engineer}{Oct. 2020 – Present}
-      {Agile Six Applications, Inc (contract to U.S. Department of Veterans Affairs)}{Remote}
+      {Agile Six Applications, Inc (contract to U.S. Department of Veterans Affairs)}{}
+      {Senior Platform Engineer}{Feb. 2024 – Present}
       \resumeItemListStart
-        \resumeItem{Migrated VA.gov Check-In infrastructure between AWS accounts; converted CloudFormation to Terraform with automated module testing}
-        \resumeItem{Led VA.gov CMS team through two major Drupal upgrades (8 → 9 → 10) with zero unplanned downtime}
-        \resumeItem{Parallelized test suite, reducing CI time by 60\%; built system tests spanning multiple products and upstream integrations}
-        \resumeItem{Architected content release pipeline serving VA.gov's 300K+ pages to millions of veterans}
-        \resumeItem{Managed ATO compliance for PHI/PII-handling systems; hired senior engineers and QA architect}
+        \resumeItem{Migrated VA.gov Check-In infrastructure between AWS accounts with zero downtime; converted CloudFormation to Terraform with automated testing to resolve configuration drift}
+        \resumeItem{Engineered cross-product system tests for VA.gov, automating integrations with VistA EHR, Oracle Health, and VEText to ensure PHI/PII compliance across veteran healthcare workflows}
+      \resumeItemListEnd
+
+    \resumeSubSubheading
+      {Technical Lead}{Jul. 2023 – Feb. 2024}
+      \resumeItemListStart
+        \resumeItem{Led Drupal 8→9 and 9→10 upgrades as Technical Lead for a 12-person CMS team, coordinating tenant teams and stakeholders with zero unplanned downtime}
+        \resumeItem{Reduced CI runtime by 60\% through test parallelization; architected event-driven content release pipeline serving VA.gov's static content with zero deployment-related failures}
+        \resumeItem{Sustained ATO compliance for VistA-integrated PHI systems via audits and tabletop exercises}
+        \resumeItem{Recruited senior engineers and a QA architect to remediate systemic technical debt and flaky tests}
+      \resumeItemListEnd
+
+    \resumeSubSubheading
+      {Senior Software/DevOps Engineer}{Oct. 2020 – Jul. 2023}
+      \resumeItemListStart
+        \resumeItem{Spearheaded QA initiative to broaden unit test coverage, refine behavioral and accessibility tests, and mentor engineers on test and system design}
+        \resumeItem{Implemented a service to monitor and respond to corner cases in GitHub Actions self-hosted runner registration and orchestration, improving CI reliability}
       \resumeItemListEnd
 
     \resumeSubheading
+      {Convention News Company}{}
       {Senior Software/DevOps Engineer}{Jan. 2016 – Oct. 2020}
-      {Convention News Company}{Remote}
       \resumeItemListStart
-        \resumeItem{Migrated all products from Acquia to AWS, reducing yearly infrastructure costs by 70\%}
-        \resumeItem{Architected infrastructure and backend services for FutureFlight.aero and Business Jet Traveler}
-        \resumeItem{Built Lambda-based subscriber services and data pipelines for ad sales and circulation}
-        \resumeItem{Established CI/CD pipelines and containerized development environments across all products}
-        \resumeItem{Mentored junior engineers on engineering best practices and professional development}
+        \resumeItem{Orchestrated migration from Acquia to AWS, reducing annual infrastructure costs by 70\% and eliminating legacy stability issues}
+        \resumeItem{Engineered a headless Drupal and Next.js architecture on AWS, integrating Stripe and AWS Cognito for subscription services with independent scaling}
+        \resumeItem{Built Lambda-based subscriber services and data pipelines with CloudWatch and Slack for real-time monitoring; optimized performance via Varnish and Redis caching}
+        \resumeItem{Established CI/CD pipelines and containerized development environments, increasing deployment frequency to multiple times daily}
+        \resumeItem{Mentored junior engineers on clean code practices and peer review, improving ticket turnaround and codebase maintainability}
       \resumeItemListEnd
 
     \resumeSubheading
+      {DEVONtechnologies}{}
       {Software Engineer}{Jan. 2012 – Dec. 2015}
-      {DEVONtechnologies}{Remote (Bietigheim-Bissingen, Germany)}
       \resumeItemListStart
-        \resumeItem{Developed multi-leader sync system for flagship macOS/iOS apps with millions of users}
-        \resumeItem{Introduced CI/CD pipelines and Agile practices to the development team}
-        \resumeItem{Collaborated with a distributed international team across multiple time zones}
+        \resumeItem{Developed client-side features and synchronization functionality for DEVONthink across macOS and iOS, working across cloud storage and peer-to-peer sync backends}
+        \resumeItem{Took ownership of a complex sync subsystem during a high-risk engineer transition, supporting release stabilization, defect resolution, and customer issue triage}
+        \resumeItem{Contributed to release engineering and iterative debugging in a legacy Objective-C codebase with significant performance, reliability, and memory-management constraints}
       \resumeItemListEnd
 
   \resumeSubHeadingListEnd
@@ -211,7 +225,7 @@ Seeking roles bridging platform engineering and scientific computing.
 \section{Projects}
   \resumeSubHeadingListStart
     \resumeListicleStart
-      \resumeSideProjectListicleItem{https://github.com/goldentooth/}{🦷 Goldentooth}{Multi-node Kubernetes cluster with Slurm job scheduling, GPU compute, and JupyterLab; full observability stack and GitOps deployment}{Talos, Kubernetes, Flux CD, Slurm} \\
+      \resumeSideProjectListicleItem{https://github.com/goldentooth/}{🦷 Goldentooth}{Personal research lab: multi-node Kubernetes cluster exploring infrastructure verification (TLA+), GPU compute, and Slurm scheduling; full observability and GitOps deployment}{Talos, Kubernetes, Flux CD, TLA+} \\
       \resumeSideProjectListicleItem{https://bit-wit.com/}{📚 Bitwit}{Spaced repetition platform for CS education with time-based grading and parameterized card generation}{TypeScript, AWS Lambda, DynamoDB} \\
       \resumeSideProjectListicleItem{https://github.com/ndouglas/whispers/}{🗣️ Whispers}{Gossip-based mesh network with fraud-resistant distributed optimization via audited CRDTs}{Rust} \\
       \resumeSideProjectListicleItem{https://github.com/ndouglas/distillation/}{🧪 Distillation}{Knowledge distillation with Jacobian/Hessian regularization and adversarial training}{Python, PyTorch} \\

@@ -1,28 +1,46 @@
 Nathan Douglas
-Phone (330) 998-8049 | @ clean.post9026@tenesm.us | LINKEDIN linkedin.com/in/nug-doug | Github github.com/ndouglas
-Platform engineer with 14+ years building infrastructure for distributed systems. Currently focused on ML/HPC
-infrastructure: Kubernetes, Slurm, GPU workloads. Seeking roles bridging platform engineering and scientific computing.
+Phone (330) 998-8049 | @ last.bird7463@tenesm.us | LINKEDIN linkedin.com/in/nug-doug | Github github.com/ndouglas | GLOBE darkdell.net
+Platform engineer with 14+ years building distributed infrastructure and observability-heavy systems. Focused on making
+complex systems behave predictably: migration without downtime, deployment without failure, correctness by design.
+Exploring formal verification (TLA+) for distributed and ML-serving systems. Relocating to Europe 2028.
 Experience
-Senior Platform Engineer Oct. 2020 – Present
-Agile Six Applications, Inc (contract to U.S. Department of Veterans Affairs) Remote
-• Migrated VA.gov Check-In infrastructure between AWS accounts; converted CloudFormation to Terraform with automated
-module testing
-• Led VA.gov CMS team through two major Drupal upgrades (8 → 9 → 10) with zero unplanned downtime
-• Parallelized test suite, reducing CI time by 60%; built system tests spanning multiple products and upstream integrations
-• Architected content release pipeline serving VA.gov’s 300K+ pages to millions of veterans
-• Managed ATO compliance for PHI/PII-handling systems; hired senior engineers and QA architect
+Agile Six Applications, Inc (contract to U.S. Department of Veterans Affairs)
+Senior Platform Engineer Feb. 2024 – Present
+• Migrated VA.gov Check-In infrastructure between AWS accounts with zero downtime; converted CloudFormation to
+Terraform with automated testing to resolve configuration drift
+• Engineered cross-product system tests for VA.gov, automating integrations with VistA EHR, Oracle Health, and VEText to
+ensure PHI/PII compliance across veteran healthcare workflows
+Technical Lead Jul. 2023 – Feb. 2024
+• Led Drupal 8→9 and 9→10 upgrades as Technical Lead for a 12-person CMS team, coordinating tenant teams and
+stakeholders with zero unplanned downtime
+• Reduced CI runtime by 60% through test parallelization; architected event-driven content release pipeline serving VA.gov’s
+static content with zero deployment-related failures
+• Sustained ATO compliance for VistA-integrated PHI systems via audits and tabletop exercises
+• Recruited senior engineers and a QA architect to remediate systemic technical debt and flaky tests
+Senior Software/DevOps Engineer Oct. 2020 – Jul. 2023
+• Spearheaded QA initiative to broaden unit test coverage, refine behavioral and accessibility tests, and mentor engineers on test
+and system design
+• Implemented a service to monitor and respond to corner cases in GitHub Actions self-hosted runner registration and
+orchestration, improving CI reliability
+Convention News Company
 Senior Software/DevOps Engineer Jan. 2016 – Oct. 2020
-Convention News Company Remote
-• Migrated all products from Acquia to AWS, reducing yearly infrastructure costs by 70%
-• Architected infrastructure and backend services for FutureFlight.aero and Business Jet Traveler
-• Built Lambda-based subscriber services and data pipelines for ad sales and circulation
-• Established CI/CD pipelines and containerized development environments across all products
-• Mentored junior engineers on engineering best practices and professional development
+• Orchestrated migration from Acquia to AWS, reducing annual infrastructure costs by 70% and eliminating legacy stability
+issues
+• Engineered a headless Drupal and Next.js architecture on AWS, integrating Stripe and AWS Cognito for subscription services
+with independent scaling
+• Built Lambda-based subscriber services and data pipelines with CloudWatch and Slack for real-time monitoring; optimized
+performance via Varnish and Redis caching
+• Established CI/CD pipelines and containerized development environments, increasing deployment frequency to multiple times
+daily
+• Mentored junior engineers on clean code practices and peer review, improving ticket turnaround and codebase maintainability
+DEVONtechnologies
 Software Engineer Jan. 2012 – Dec. 2015
-DEVONtechnologies Remote (Bietigheim-Bissingen, Germany)
-• Developed multi-leader sync system for flagship macOS/iOS apps with millions of users
-• Introduced CI/CD pipelines and Agile practices to the development team
-• Collaborated with a distributed international team across multiple time zones
+• Developed client-side features and synchronization functionality for DEVONthink across macOS and iOS, working across
+cloud storage and peer-to-peer sync backends
+• Took ownership of a complex sync subsystem during a high-risk engineer transition, supporting release stabilization, defect
+resolution, and customer issue triage
+• Contributed to release engineering and iterative debugging in a legacy Objective-C codebase with significant performance,
+reliability, and memory-management constraints
 Technical Skills
 Languages: Rust, Python, Bash, JavaScript, Go, C, PHP, Objective-C, Clojure
 Infrastructure-as-Code: Terraform, Ansible, CloudFormation
@@ -30,9 +48,9 @@ Orchestration/HPC: Kubernetes, Slurm, Docker, Nomad, Nextflow
 CI/CD: GitHub Actions, Jenkins, CodeBuild/CodePipeline
 Observability: Prometheus, Grafana, OpenTelemetry, Datadog, CloudWatch
 Service Mesh/Security: Consul, Envoy, Vault, Cilium
-Projects
-Goldentooth: Multi-node Kubernetes cluster with Slurm job scheduling, GPU compute, and JupyterLab; full observability stack
-and GitOps deployment (Talos, Kubernetes, Flux CD, Slurm)
+Projects
+Goldentooth: Personal research lab: multi-node Kubernetes cluster exploring infrastructure verification (TLA+), GPU compute,
+and Slurm scheduling; full observability and GitOps deployment (Talos, Kubernetes, Flux CD, TLA+)
 Bitwit: Spaced repetition platform for CS education with time-based grading and parameterized card generation (TypeScript,
 AWS Lambda, DynamoDB)
 Whispers: Gossip-based mesh network with fraud-resistant distributed optimization via audited CRDTs (Rust)

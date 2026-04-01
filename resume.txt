@@ -4,7 +4,7 @@ Platform engineer with 14+ years building distributed infrastructure and observa
 complex systems behave predictably: migration without downtime, deployment without failure, correctness by design.
 Exploring formal verification (TLA+) for distributed and ML-serving systems. Relocating to Europe 2028.
 Experience
-Agile Six Applications, Inc (contract to U.S. Department of Veterans Affairs)
+Agile Six Applications, Inc (contract to U.S. Department of Veterans Affairs) Oct. 2020 – Present
 Senior Platform Engineer Feb. 2024 – Present
 • Migrated VA.gov Check-In infrastructure between AWS accounts with zero downtime; converted CloudFormation to
 Terraform with automated testing to resolve configuration drift
@@ -22,10 +22,9 @@ Senior Software/DevOps Engineer Oct. 2020 – Jul. 2023
 and system design
 • Implemented a service to monitor and respond to corner cases in GitHub Actions self-hosted runner registration and
 orchestration, improving CI reliability
-Convention News Company
-Senior Software/DevOps Engineer Jan. 2016 – Oct. 2020
-• Orchestrated migration from Acquia to AWS, reducing annual infrastructure costs by 70% and eliminating legacy stability
-issues
+Convention News Company Jan. 2016 – Oct. 2020
+Senior Software/DevOps Engineer
+• Led migration from Acquia to AWS, reducing annual infrastructure costs by 70% and eliminating legacy stability issues
 • Engineered a headless Drupal and Next.js architecture on AWS, integrating Stripe and AWS Cognito for subscription services
 with independent scaling
 • Built Lambda-based subscriber services and data pipelines with CloudWatch and Slack for real-time monitoring; optimized
@@ -33,8 +32,8 @@ performance via Varnish and Redis caching
 • Established CI/CD pipelines and containerized development environments, increasing deployment frequency to multiple times
 daily
 • Mentored junior engineers on clean code practices and peer review, improving ticket turnaround and codebase maintainability
-DEVONtechnologies
-Software Engineer Jan. 2012 – Dec. 2015
+DEVONtechnologies Jan. 2012 – Dec. 2015
+Software Engineer
 • Developed client-side features and synchronization functionality for DEVONthink across macOS and iOS, working across
 cloud storage and peer-to-peer sync backends
 • Took ownership of a complex sync subsystem during a high-risk engineer transition, supporting release stabilization, defect
@@ -42,12 +41,14 @@ resolution, and customer issue triage
 • Contributed to release engineering and iterative debugging in a legacy Objective-C codebase with significant performance,
 reliability, and memory-management constraints
 Technical Skills
-Languages: Rust, Python, Bash, JavaScript, Go, C, PHP, Objective-C, Clojure
-Infrastructure-as-Code: Terraform, Ansible, CloudFormation
-Orchestration/HPC: Kubernetes, Slurm, Docker, Nomad, Nextflow
+Languages: Rust, Python, Bash, JavaScript, TypeScript, PHP, Go, C, Objective-C, Clojure, L
+A
+TEX
+Infrastructure-as-Code: Terraform, Ansible, CloudFormation, Terragrunt
+Orchestration: Kubernetes, Docker, Nomad
 CI/CD: GitHub Actions, Jenkins, CodeBuild/CodePipeline
 Observability: Prometheus, Grafana, OpenTelemetry, Datadog, CloudWatch
-Service Mesh/Security: Consul, Envoy, Vault, Cilium
+Networking/Security: Consul, Envoy, Vault, Cilium
 Projects
 Goldentooth: Personal research lab: multi-node Kubernetes cluster exploring infrastructure verification (TLA+), GPU compute,
 and Slurm scheduling; full observability and GitOps deployment (Talos, Kubernetes, Flux CD, TLA+)
@@ -62,4 +63,7 @@ Clork: Zork I port with an OpenAI Gym-style RL training API (Clojure)
 Education
 University of Nevada, Las Vegas Las Vegas, NV
 Bachelor of Arts in Computer Science Dec. 2011
+Languages
+English: Native
+French: A2/B1 (in progress)
 

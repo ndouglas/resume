@@ -1,5 +1,5 @@
 Nathan Douglas
-Phone (330) 998-8049 | @ last.bird7463@tenesm.us | LINKEDIN linkedin.com/in/nug-doug | Github github.com/ndouglas | GLOBE darkdell.net
+Phone (330) 998-8049 | @ calm.moon9097@tenesm.us | LINKEDIN linkedin.com/in/nug-doug | Github github.com/ndouglas | GLOBE darkdell.net
 Platform engineer with 14+ years building distributed infrastructure and observability-heavy systems. Focused on making
 complex systems behave predictably: migration without downtime, deployment without failure, correctness by design.
 Exploring formal verification (TLA+) for distributed and ML-serving systems. Relocating to Europe 2028.

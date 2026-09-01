@@ -2,7 +2,7 @@ Nathan Douglas
 Phone (330) 998-8049 | @ close.milk4776@tenesm.us | LINKEDIN linkedin.com/in/nug-doug | Github github.com/ndouglas | GLOBE darkdell.net
 Platform engineer with 14+ years building distributed infrastructure and observability-heavy systems. Focused on making
 complex systems behave predictably: migration without downtime, deployment without failure, correctness by design.
-Exploring formal verification (TLA+) for distributed and ML-serving systems. Relocating to Europe 2028.
+Exploring formal verification (TLA+) for distributed and ML-serving systems.
 LOCK U.S. Public Trust (Tier 2, active) · Prior Top Secret clearance
 Experience
 Agile Six Applications, Inc (contract to U.S. Department of Veterans Affairs) Oct. 2020 – Present

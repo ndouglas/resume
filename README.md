@@ -33,13 +33,15 @@ skip.
 Copy an existing file in `profiles/`, change `name` to match the filename,
 adjust `tags`, `caps`, `include`, and `exclude`. Selection is deliberate and
 boring: keep bullets sharing a tag with the profile, sort by shared tags then
-weight, enforce any `require` minimums, cut at the cap. `exclude` beats
-`include` beats tags.
+weight, cut at the cap, then promote any `include` ids and `require`
+minimums into the cap, each evicting the weakest remaining bullet in that
+role. `exclude` beats `include` beats tags, and `include` means the bullet
+appears.
 
 A bullet may carry `alt: <key>`. Bullets sharing a key are alternative forms
 of the same line (say, one emphasizing security, one emphasizing testing);
 a profile renders only the best-ranked form, so tags decide which reading a
-given job sees. To force the other form, `exclude` the one you do not want.
+given job sees. To force the other form, `include` it.
 
 ## Design
 

@@ -200,16 +200,23 @@ For each role (and for projects, and for each skills group):
 1. Start from all items. If the profile has a tag list, keep items sharing at
    least one tag with it.
 2. Apply `exclude`, then `include` (an included item is kept even if the tag
-   rule dropped it).
+   rule dropped it; the loader rejects an id in both lists).
 3. Sort by number of shared tags descending, then weight descending, then
    original order.
-4. For each `require` entry that names this role, ensure at least `min`
-   items with the tag survive the cap by promoting the highest-ranked such
-   items.
+4. Keep one form per `alt` key: the included form if the profile names one,
+   otherwise the best-ranked.
 5. Truncate to the cap.
+6. Promote every included item the cap left out, each evicting the
+   lowest-ranked item that is neither included nor already promoted.
+7. For each `require` entry that names this role, ensure at least `min`
+   items with the tag are present by promoting the highest-ranked such
+   items the same way; included and required items are never evicted.
 
-`exclude` beats `include` beats the tag rule. No other scoring. The reason a
-bullet appears must be predictable from the profile file alone.
+`exclude` beats `include` beats the tag rule; `include` means the item
+appears. No other scoring. The reason a bullet appears is predictable from
+the profile file alone. The reason a bullet disappeared may be a promotion
+elsewhere in the same role, so a profile author who pins with `include`
+should expect the weakest tag-selected bullet in that role to drop out.
 
 ## 7. Generator
 

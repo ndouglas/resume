@@ -12,7 +12,7 @@ caps:
   default: 5
   roles: {cie: 7, cms-tl: 4, cms-sse: 5, ain: 4, devon: 2}
   projects: 6
-include: [cms-sse-release-safety]
-exclude: [cms-sse-new-team-tests, cms-sse-scope, cms-sse-supply-chain, cms-sse-drupal9, cms-sse-observability]
+include: [cms-sse-release-safety, cms-sse-ci-unification]
+exclude: [cms-sse-scope]   # duplicates the guest-contributor volume claim for this audience
 require:
   - {tag: leadership, min: 1, roles: [cie, cms-tl, cms-sse]}

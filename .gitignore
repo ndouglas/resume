@@ -302,3 +302,9 @@ TSWLatexianTemp*
 
 # Brainstorming visual companion sessions
 .superpowers/
+
+# Generator output
+build/
+dist/
+.venv/
+__pycache__/

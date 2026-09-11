@@ -1,0 +1,33 @@
+backend: Application and API engineering
+platform: Internal developer platform, shared infrastructure
+aws: Amazon Web Services
+kubernetes: Kubernetes and container orchestration
+terraform: Terraform, Terragrunt, infrastructure as code
+serverless: Lambda, API Gateway, managed services
+drupal: Drupal and PHP content platforms
+php: PHP
+node: Node.js
+typescript: TypeScript and JavaScript
+rust: Rust
+testing: Test engineering, static analysis, quality gates
+ci-cd: Pipelines, delivery automation, release engineering
+security: Credentials, supply chain, hardening
+observability: Metrics, logs, traces, monitors, dashboards
+incident-response: Incidents, postmortems, on-call
+cost: Cost analysis and capacity
+migration: Migrations, upgrades, cutovers, decommissions
+architecture: System design and patterns adopted by others
+ownership: End-to-end responsibility for a system
+leadership: Recruiting, running process, decomposing work for others
+mentoring: Growing other engineers
+documentation: Runbooks, strategy docs, guides
+cross-team: Sustained work in other teams' systems
+federal: Federal-specific signal
+ato: Authority to Operate and compliance
+fedramp: FedRAMP-constrained tooling
+govcloud: AWS GovCloud
+healthcare: Healthcare data and EHR integration
+open-source: Upstream contributions
+ml: Machine learning
+research: Exploratory or research-flavoured work
+macos: macOS and iOS

@@ -1,0 +1,8 @@
+clearance: "U.S. Public Trust (Tier 2, active) · Prior Top Secret clearance"
+variants:
+  commercial: >-
+    Platform engineer with 14+ years building distributed infrastructure and
+    observability-heavy systems. Focused on making complex systems behave
+    predictably: migration without downtime, deployment without failure,
+    correctness by design. Exploring formal verification (TLA+) for
+    distributed and ML-serving systems.

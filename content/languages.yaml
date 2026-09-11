@@ -1,0 +1,3 @@
+languages:
+  - {name: English, level: Native, tags: [backend]}
+  - {name: French, level: "A2/B1 (in progress, targeting C1 by 2028)", tags: [backend]}

@@ -1,0 +1,96 @@
+projects:
+  - id: goldentooth
+    name: Goldentooth
+    emoji: "🦷"
+    url: https://github.com/goldentooth/
+    text: >-
+      Personal research lab: multi-node Kubernetes cluster exploring
+      infrastructure verification (TLA+), GPU compute, full observability, and
+      GitOps deployment
+    stack: [Talos, Kubernetes, Flux CD, TLA+]
+    tags: [kubernetes, observability, platform]
+    weight: 5
+    evidence: ~/Projects/goldentooth
+  - id: bitwit
+    name: Bitwit
+    emoji: "📚"
+    url: https://bit-wit.com/
+    text: >-
+      Spaced repetition platform for CS education with time-based grading and
+      parameterized card generation
+    stack: [TypeScript, AWS Lambda, DynamoDB]
+    tags: [typescript, serverless, backend]
+    weight: 3
+    evidence: https://bit-wit.com/
+  - id: whispers
+    name: Whispers
+    emoji: "🗣️"
+    url: https://github.com/ndouglas/whispers/
+    text: >-
+      Gossip-based mesh network with fraud-resistant distributed optimization
+      via audited CRDTs
+    stack: [Rust]
+    tags: [rust, research]
+    weight: 2
+    evidence: https://github.com/ndouglas/whispers/
+  - id: distillation
+    name: Distillation
+    emoji: "🧪"
+    url: https://github.com/ndouglas/distillation/
+    text: >-
+      Knowledge distillation with Jacobian/Hessian regularization and
+      adversarial training
+    stack: [Python, PyTorch]
+    tags: [ml, research]
+    weight: 2
+    evidence: https://github.com/ndouglas/distillation/
+  - id: blackpool
+    name: Blackpool
+    emoji: "💻"
+    url: https://github.com/ndouglas/blackpool/
+    text: >-
+      Stack-based bytecode VM with mark-and-sweep GC, closures, and
+      inheritance
+    stack: [Rust]
+    tags: [rust, backend]
+    weight: 3
+    evidence: https://github.com/ndouglas/blackpool/
+  - id: longtable
+    name: Longtable
+    emoji: "🎲"
+    url: https://github.com/ndouglas/longtable/
+    text: >-
+      Rule-based simulation engine with LISP DSL, immutable world state, and
+      time-travel debugging
+    stack: [Rust]
+    tags: [rust, backend]
+    weight: 3
+    evidence: ~/Projects/ndouglas/longtable
+  - id: greenstone
+    name: Greenstone
+    emoji: "🎮"
+    url: https://github.com/ndouglas/greenstone/
+    text: >-
+      Cycle-accurate NES emulator with precise timing and hardware modeling
+    stack: [Rust]
+    tags: [rust, backend]
+    weight: 3
+    evidence: ~/Projects/ndouglas/greenstone
+  - id: clork
+    name: Clork
+    emoji: "📜"
+    url: https://github.com/ndouglas/clork/
+    text: >-
+      Zork I port with an OpenAI Gym-style RL training API
+    stack: [Clojure]
+    tags: [research, backend]
+    weight: 2
+    evidence: ~/Projects/ndouglas/clork
+notes:
+  - id: open-source-note
+    text: >-
+      Open-source contributor to Terraform, OpenTofu, Argo CD, Datadog,
+      Couchbase, and Drupal, among others
+    tags: [open-source]
+    weight: 1
+    evidence: "gh search prs --author ndouglas --merged (verified 2026-09-11; OpenTofu not found, to fix in content plan)"

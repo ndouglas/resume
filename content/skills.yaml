@@ -1,0 +1,43 @@
+groups:
+  - name: Languages
+    items:
+      - {text: Rust, tags: [rust]}
+      - {text: Python, tags: [backend]}
+      - {text: Bash, tags: [platform]}
+      - {text: JavaScript, tags: [typescript, node]}
+      - {text: TypeScript, tags: [typescript, node]}
+      - {text: PHP, tags: [php, drupal]}
+      - {text: Go, tags: [backend]}
+      - {text: C, tags: [backend]}
+      - {text: Objective-C, tags: [macos]}
+      - {text: Clojure, tags: [research]}
+      - {text: LaTeX, tags: [documentation]}
+  - name: Infrastructure-as-Code
+    items:
+      - {text: Terraform, tags: [terraform]}
+      - {text: Ansible, tags: [platform]}
+      - {text: CloudFormation, tags: [aws]}
+      - {text: Terragrunt, tags: [terraform]}
+  - name: Orchestration
+    items:
+      - {text: Kubernetes, tags: [kubernetes]}
+      - {text: Docker, tags: [platform]}
+      - {text: Nomad, tags: [research]}
+  - name: CI/CD
+    items:
+      - {text: GitHub Actions, tags: [ci-cd]}
+      - {text: Jenkins, tags: [ci-cd]}
+      - {text: CodeBuild/CodePipeline, tags: [ci-cd, aws]}
+  - name: Observability
+    items:
+      - {text: Prometheus, tags: [observability]}
+      - {text: Grafana, tags: [observability]}
+      - {text: OpenTelemetry, tags: [observability]}
+      - {text: Datadog, tags: [observability]}
+      - {text: CloudWatch, tags: [observability, aws]}
+  - name: Networking/Security
+    items:
+      - {text: Consul, tags: [research]}
+      - {text: Envoy, tags: [research]}
+      - {text: Vault, tags: [security]}
+      - {text: Cilium, tags: [kubernetes]}

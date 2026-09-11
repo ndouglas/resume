@@ -1,0 +1,164 @@
+employers:
+  - name: Agile Six Applications, Inc (contract to U.S. Department of Veterans Affairs)
+    start: 2020-10
+    end: present
+    roles:
+      - id: cie
+        title: Senior Platform Engineer
+        start: 2024-02
+        end: present
+        bullets:
+          - id: cie-account-migration
+            text: >-
+              Migrated VA.gov Check-In infrastructure between AWS accounts with
+              zero downtime; converted CloudFormation to Terraform with
+              automated testing to resolve configuration drift
+            tags: [aws, terraform, migration, ownership, govcloud]
+            weight: 5
+            evidence: "cutover 2026-07-29; checkin-devops#1958"
+          - id: cie-system-tests
+            text: >-
+              Engineered cross-product system tests for VA.gov, automating
+              integrations with VistA EHR, Oracle Health, and VEText to verify
+              PHI/PII compliance across critical veteran healthcare workflows
+            tags: [testing, healthcare, aws, serverless]
+            weight: 4
+            evidence: "cie-system-tests repo"
+      - id: cms-tl
+        title: Technical Lead
+        start: 2023-07
+        end: 2024-02
+        bullets:
+          - id: cms-tl-drupal-upgrades
+            text: >-
+              Led Drupal 8→9 and 9→10 upgrades as Technical Lead for a
+              12-person CMS team, coordinating tenant teams and stakeholders
+              with zero unplanned downtime
+            tags: [drupal, migration, leadership, cross-team]
+            weight: 5
+            evidence: "va.gov-cms#5667, #8159, #11014; D10 shipped 2023-11-29"
+          - id: cms-tl-ci-and-release
+            text: >-
+              Reduced CI runtime by 60% through test parallelization;
+              architected event-driven content release pipeline serving
+              VA.gov's static content with zero deployment-related failures
+            tags: [ci-cd, testing, architecture, drupal]
+            weight: 5
+            evidence: "va.gov-cms#14540, #14834, #13844, #14794"
+          - id: cms-tl-ato
+            text: >-
+              Maintained Authority to Operate (ATO) for VistA-integrated
+              PHI/PII systems, resolving regulatory identity gaps through
+              audits and tabletop exercises
+            tags: [ato, federal, security, healthcare]
+            weight: 3
+            evidence: "from memory; discuss in interview"
+          - id: cms-tl-recruiting
+            text: >-
+              Recruited senior engineers and a QA architect to remediate
+              systemic technical debt and flaky tests
+            tags: [leadership, testing]
+            weight: 3
+            evidence: "from memory; discuss in interview"
+      - id: cms-sse
+        title: Senior Software/DevOps Engineer
+        start: 2020-10
+        end: 2023-07
+        bullets:
+          - id: cms-sse-qa-initiative
+            text: >-
+              Spearheaded QA initiative to broaden unit test coverage, refine
+              behavioral and accessibility tests, and mentor engineers on test
+              and system design
+            tags: [testing, mentoring, leadership, drupal]
+            weight: 4
+            evidence: "62% of tests/ by blame at exit; va.gov-cms#8746, #12620"
+          - id: cms-sse-runner-service
+            text: >-
+              Implemented a service to monitor and respond to corner cases in
+              GitHub Actions self-hosted runner registration and
+              orchestration, improving CI reliability
+            tags: [ci-cd, aws, node]
+            weight: 2
+            evidence: "content-build#1676, #1687"
+  - name: Convention News Company
+    start: 2016-01
+    end: 2020-10
+    roles:
+      - id: ain
+        title: Senior Software/DevOps Engineer
+        start: 2016-01
+        end: 2020-10
+        bullets:
+          - id: ain-acquia-to-aws
+            text: >-
+              Led migration from Acquia to AWS, reducing annual infrastructure
+              costs by 70% and eliminating legacy stability issues
+            tags: [aws, migration, cost, ownership, drupal]
+            weight: 5
+            evidence: "from memory; discuss in interview"
+          - id: ain-headless-architecture
+            text: >-
+              Engineered a headless Drupal and Next.js architecture on AWS,
+              integrating Stripe and AWS Cognito for subscription services with
+              independent scaling
+            tags: [architecture, backend, aws, drupal, typescript]
+            weight: 4
+            evidence: "from memory; discuss in interview"
+          - id: ain-lambda-services
+            text: >-
+              Built Lambda-based subscriber services and data pipelines with
+              CloudWatch and Slack for real-time monitoring; optimized
+              performance via Varnish and Redis caching
+            tags: [serverless, backend, observability, aws]
+            weight: 3
+            evidence: "from memory; discuss in interview"
+          - id: ain-ci-cd
+            text: >-
+              Established CI/CD pipelines and containerized development
+              environments, increasing deployment frequency to multiple times
+              daily
+            tags: [ci-cd, platform]
+            weight: 4
+            evidence: "from memory; discuss in interview"
+          - id: ain-mentoring
+            text: >-
+              Mentored junior engineers on clean code practices and peer
+              review, improving ticket turnaround and codebase
+              maintainability
+            tags: [mentoring, leadership]
+            weight: 3
+            evidence: "from memory; discuss in interview"
+  - name: DEVONtechnologies
+    start: 2012-01
+    end: 2015-12
+    roles:
+      - id: devon
+        title: Software Engineer
+        start: 2012-01
+        end: 2015-12
+        bullets:
+          - id: devon-sync-features
+            text: >-
+              Developed client-side features and synchronization functionality
+              for DEVONthink across macOS and iOS, working across cloud storage
+              and peer-to-peer sync backends
+            tags: [backend, macos]
+            weight: 3
+            evidence: "from memory; discuss in interview"
+          - id: devon-sync-ownership
+            text: >-
+              Took ownership of a complex sync subsystem during a high-risk
+              engineer transition, supporting release stabilization, defect
+              resolution, and customer issue triage
+            tags: [ownership, backend, macos]
+            weight: 4
+            evidence: "from memory; discuss in interview"
+          - id: devon-legacy-objc
+            text: >-
+              Contributed to release engineering and iterative debugging in a
+              legacy Objective-C codebase with significant performance,
+              reliability, and memory-management constraints
+            tags: [backend, macos, ci-cd]
+            weight: 2
+            evidence: "from memory; discuss in interview"

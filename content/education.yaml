@@ -1,0 +1,6 @@
+education:
+  - institution: University of Nevada, Las Vegas
+    location: Las Vegas, NV
+    degree: Bachelor of Arts in Computer Science
+    date: 2011-12
+    tags: [backend]

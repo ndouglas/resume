@@ -1,0 +1,215 @@
+% !TeX program = lualatex
+% Nug Doug's Tunable Résumé. Rendered from content/ and profiles/ by build.py;
+% do not edit the generated .tex by hand.
+%
+% (c) 2024 Nathan Douglas https://darkdell.net
+% Released under the Unlicense. See LICENSE for details.
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{fontspec}
+
+\directlua{luaotfload.add_fallback
+  ("emojifallback",
+    {
+      "NotoColorEmoji:mode=harf;"
+    }
+  )}
+
+\setmainfont{texgyretermes-regular}[
+  Extension      = .otf ,
+  BoldFont       = texgyretermes-bold,
+  ItalicFont     = texgyretermes-italic,
+  BoldItalicFont = texgyretermes-bolditalic,
+  RawFeature={fallback=emojifallback}
+]
+
+\def\pdfglyphtounicode#1#2{}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\newcommand{\emoji}[1]{\ifmmode \text{\emojifont{#1}} \else \emojifont{#1} \fi}
+
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubheadingNote}[1]{\vspace{0pt}\item\hspace{1em}\small{\emph{#1}}\vspace{-7pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\newenvironment{resumeListicle}{
+    \small
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+}{}
+
+\newcommand{\resumeListicleStart}{\begin{resumeListicle}}
+\newcommand{\resumeListicleEnd}{\end{resumeListicle}}
+\newcommand{\resumeListicleItem}[2]{%
+  \item \textbf{#1}: #2%
+}
+\newcommand{\resumeSideProjectListicleItem}[4]{%
+  \item \textbf{\href{#1}{#2}}: #3 (\emph{#4})%
+}
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+  \textbf{\Huge \scshape \VAR{cfg.name|tex}} \\ \vspace{1pt}
+  \small \faPhone\hspace{0.5em}\VAR{cfg.phone|tex}\hspace{0.25em} $|$ \href{mailto:\VAR{email}}{\faAt\hspace{0.5em}\underline{\VAR{email|tex}}} $|$
+  \href{https://linkedin.com/in/\VAR{cfg.linkedin}}{\faLinkedin\hspace{0.5em}\underline{linkedin.com/in/\VAR{cfg.linkedin|tex}}} $|$
+  \href{https://github.com/\VAR{cfg.github}}{\faGithub\hspace{0.5em}\underline{github.com/\VAR{cfg.github|tex}}} $|$
+  \href{https://\VAR{cfg.website}}{\faGlobe\hspace{0.5em}\underline{\VAR{cfg.website|tex}}}
+\end{center}
+
+\begin{center}
+\VAR{sel.summary|tex}
+\BLOCK{if sel.clearance}
+\\
+\faLock\hspace{0.5em}\VAR{sel.clearance|tex}
+\BLOCK{endif}
+\end{center}
+
+\BLOCK{for section in sel.sections}
+\BLOCK{if section == "experience" and sel.employers}
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+\BLOCK{for se in sel.employers}
+\BLOCK{set first = se.roles[0]}
+\BLOCK{set single = se.roles|length == 1}
+    \resumeSubheading
+      {\VAR{se.employer.name|tex}}{\VAR{se.employer.start|date} – \VAR{se.employer.end|date}}
+      {\VAR{first.role.title|tex}}{\BLOCK{if not single}\VAR{first.role.start|date} – \VAR{first.role.end|date}\BLOCK{endif}}
+\BLOCK{if first.bullets}
+      \resumeItemListStart
+\BLOCK{for b in first.bullets}
+        \resumeItem{\VAR{b.text|tex}}
+\BLOCK{endfor}
+      \resumeItemListEnd
+\BLOCK{endif}
+\BLOCK{for sr in se.roles[1:]}
+
+    \resumeSubSubheading
+      {\VAR{sr.role.title|tex}}{\VAR{sr.role.start|date} – \VAR{sr.role.end|date}}
+\BLOCK{if sr.bullets}
+      \resumeItemListStart
+\BLOCK{for b in sr.bullets}
+        \resumeItem{\VAR{b.text|tex}}
+\BLOCK{endfor}
+      \resumeItemListEnd
+\BLOCK{endif}
+\BLOCK{endfor}
+
+\BLOCK{endfor}
+  \resumeSubHeadingListEnd
+
+\BLOCK{elif section == "skills" and sel.skills}
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+  \resumeSubHeadingListStart
+    \resumeListicleStart
+\BLOCK{for g in sel.skills}
+      \resumeListicleItem{\VAR{g.name|tex}}{\VAR{g.items|map(attribute="text")|map("tex")|join(", ")}} \\
+\BLOCK{endfor}
+    \resumeListicleEnd
+  \resumeSubHeadingListEnd
+
+\BLOCK{elif section == "projects" and (sel.projects or sel.project_notes)}
+%-----------PROJECTS-----------
+\section{Projects}
+  \resumeSubHeadingListStart
+\BLOCK{if sel.projects}
+    \resumeListicleStart
+\BLOCK{for p in sel.projects}
+      \resumeSideProjectListicleItem{\VAR{p.url}}{\BLOCK{if p.emoji}\VAR{p.emoji} \BLOCK{endif}\VAR{p.name|tex}}{\VAR{p.text|tex}}{\VAR{p.stack|map("tex")|join(", ")}} \\
+\BLOCK{endfor}
+    \resumeListicleEnd
+\BLOCK{endif}
+\BLOCK{for n in sel.project_notes}
+    \resumeSubheadingNote{\VAR{n.text|tex}}
+\BLOCK{endfor}
+  \resumeSubHeadingListEnd
+
+\BLOCK{elif section == "education" and sel.education}
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+\BLOCK{for x in sel.education}
+    \resumeSubheading
+      {\VAR{x.institution|tex}}{\VAR{x.location|tex}}
+      {\VAR{x.degree|tex}}{\VAR{x.date|date}}
+\BLOCK{endfor}
+  \resumeSubHeadingListEnd
+
+\BLOCK{elif section == "languages" and sel.languages}
+%-----------LANGUAGES-----------
+\section{Languages}
+  \resumeSubHeadingListStart
+    \resumeListicleStart
+\BLOCK{for x in sel.languages}
+      \resumeListicleItem{\VAR{x.name|tex}}{\VAR{x.level|tex}} \\
+\BLOCK{endfor}
+    \resumeListicleEnd
+  \resumeSubHeadingListEnd
+
+\BLOCK{endif}
+\BLOCK{endfor}
+
+\end{document}

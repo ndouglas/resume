@@ -89,8 +89,8 @@ projects:
 notes:
   - id: open-source-note
     text: >-
-      Open-source contributor to Terraform, OpenTofu, Argo CD, Datadog,
+      Open-source contributor to Terraform, Argo CD, Datadog,
       Couchbase, and Drupal, among others
     tags: [open-source]
     weight: 1
-    evidence: "gh search prs --author ndouglas --merged (verified 2026-09-11; OpenTofu not found, to fix in content plan)"
+    evidence: "gh search prs --author ndouglas --merged (verified 2026-09-11)"

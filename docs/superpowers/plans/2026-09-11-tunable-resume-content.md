@@ -144,28 +144,21 @@ Expected: FAIL on the variant set.
 clearance: "U.S. Public Trust (Tier 2, active) · Prior Top Secret clearance"
 variants:
   commercial: >-
-    Senior software engineer and generalist with 14 years in production
-    systems, most recently the engineer of record for four healthcare
-    services handling nearly two million requests a day. Comfortable
-    anywhere between application code and the platform beneath it, and drawn
-    to the unglamorous work that makes systems safe to change: tests that
-    gate every migration, monitors that fail loud, credentials that cannot
-    leak, legacy that gets deleted rather than accumulated. Tends to arrive
-    as a contributor and leave as the person others come to with questions.
-    Works AI-assisted end to end, with the evidence discipline that makes
-    that trustworthy.
-  govtech: >-
-    Senior software engineer and generalist with 14 years in production
-    systems, six of them on VA.gov, most recently the engineer of record for
-    the VA.gov Check-In platform in AWS GovCloud, nearly two million requests
-    a day under ATO and FedRAMP constraints. Comfortable anywhere between
-    application code and the platform beneath it, and drawn to the
-    unglamorous work that makes systems safe to change: tests that gate
-    every migration, monitors that fail loud, credentials that cannot leak,
-    legacy that gets deleted rather than accumulated. Tends to arrive as a
+    Senior software engineer and generalist, 14 years in production systems,
+    most recently the engineer of record for four healthcare services
+    handling nearly two million requests a day. Drawn to the unglamorous
+    work that makes systems safe to change, and tends to arrive as a
     contributor and leave as the person others come to with questions. Works
     AI-assisted end to end, with the evidence discipline that makes that
     trustworthy.
+  govtech: >-
+    Senior software engineer and generalist, 14 years in production systems,
+    six of them on VA.gov, most recently the engineer of record for the
+    VA.gov Check-In platform in AWS GovCloud, nearly two million requests a
+    day under ATO and FedRAMP constraints. Drawn to the unglamorous work
+    that makes systems safe to change, and tends to arrive as a contributor
+    and leave as the person others come to with questions. Works AI-assisted
+    end to end, with the evidence discipline that makes that trustworthy.
   short: >-
     Senior software engineer and generalist, 14 years. Makes production
     systems safe to change, ends up owning them, and works AI-assisted with

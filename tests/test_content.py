@@ -41,3 +41,14 @@ def test_core_tag_keeps_education_in_every_tuned_profile():
         sel = select(content, profile)
         if "education" in profile.sections:
             assert sel.education, f"{p.name} dropped education"
+
+
+def test_summary_variants_exist_and_are_assigned():
+    content = load_content(ROOT / "content")
+    assert set(content.summaries) == {"commercial", "govtech", "short"}
+    for text in content.summaries.values():
+        assert "TLA" not in text and "formal verification" not in text.lower()
+    govtech = load_profile(ROOT / "profiles" / "govtech-platform.yaml", content)
+    assert govtech.summary == "govtech"
+    commercial = load_profile(ROOT / "profiles" / "commercial-senior-swe.yaml", content)
+    assert commercial.summary == "commercial"

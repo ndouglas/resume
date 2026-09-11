@@ -55,7 +55,7 @@ def test_tuned_profiles_carry_the_throughline(name):
     # outcome: owner of record
     assert "cie-ownership" in ids
     assert "ain-arc" in ids
-    assert "devon-sync-ownership" in ids
+    assert "devon-owned-sync" in ids
 
 
 def test_commercial_hides_federal_only_bullets():

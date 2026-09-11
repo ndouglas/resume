@@ -361,48 +361,64 @@ employers:
         bullets:
           - id: ain-arc
             text: >-
-              Joined to improve developer experience and left owning the
-              platform: migrated every service off a managed Drupal host
-              onto AWS at substantially lower annual cost, and built the
-              backend, subscription platform, and APIs.
+              Joined to improve developer experience and
+              left owning the platform: migrated every
+              service off a managed Drupal host onto AWS
+              at substantially lower annual cost, and
+              built the backend and its public APIs.
             tags: [ownership, migration, aws, platform, backend]
             weight: 5
             evidence: "from memory; discuss in interview"
+          - id: ain-subscription-service
+            text: >-
+              Designed and built the subscription
+              management service from scratch: Stripe
+              payments, Cognito identity, DynamoDB, and
+              Lambda with CloudWatch monitoring, at full
+              test coverage; it ran in production for
+              years afterward.
+            tags: [backend, serverless, aws, architecture, testing, ownership]
+            weight: 5
+            evidence: "from memory; discuss in interview; total test coverage; ran ~4-5 years after departure, decommissioned ~2024-2025; no defect ever reported to me; source no longer available"
           - id: ain-headless-architecture
             text: >-
-              Engineered a headless Drupal and Next.js architecture on AWS,
-              integrating Stripe and AWS Cognito for subscription services
-              with independent scaling.
+              Engineered a headless Drupal and Next.js
+              architecture on AWS with independently
+              scaling frontend and backend.
             tags: [architecture, backend, aws, drupal, typescript]
             weight: 4
             evidence: "from memory; discuss in interview"
           - id: ain-ci-cd
             text: >-
-              Established CI/CD pipelines and containerized development
-              environments, taking deployments from occasional to multiple
-              times daily.
+              Established CI/CD pipelines and
+              containerized development environments,
+              taking deployments from occasional to
+              multiple times daily.
             tags: [ci-cd, platform]
             weight: 4
             evidence: "from memory; discuss in interview"
-          - id: ain-lambda-services
+          - id: ain-drupal-performance
             text: >-
-              Built Lambda-based subscriber services and data pipelines with
-              CloudWatch and Slack for real-time monitoring; improved
-              performance with Varnish and Redis caching.
-            tags: [serverless, backend, observability, aws]
+              Tuned the Drupal backend with Varnish and
+              Redis caching and CloudWatch-to-Slack
+              alerting so a small team saw problems before
+              readers did.
+            tags: [backend, drupal, observability, aws]
             weight: 3
             evidence: "from memory; discuss in interview"
           - id: ain-mentoring
             text: >-
-              Mentored junior engineers on clean code and peer review,
-              improving ticket turnaround and codebase maintainability.
+              Mentored junior engineers on clean code and
+              peer review, improving ticket turnaround and
+              codebase maintainability.
             tags: [mentoring, leadership]
             weight: 3
             evidence: "from memory; discuss in interview"
           - id: ain-devex
             text: >-
-              Built the Vagrant-based local development environment every
-              engineer used, later containerized, so the team ran one stack.
+              Built the Vagrant-based local development
+              environment every engineer used, later
+              containerized, so the team ran one stack.
             tags: [platform, ci-cd]
             weight: 2
             evidence: "from memory; discuss in interview"
@@ -415,27 +431,33 @@ employers:
         start: 2012-01
         end: 2015-12
         bullets:
-          - id: devon-sync-ownership
+          - id: devon-owned-sync
             text: >-
-              Took ownership of DEVONthink's sync subsystem during a
-              high-risk engineer transition, supporting release
-              stabilization, defect resolution, and customer issue triage.
+              Owned the sync engine behind DEVONthink and
+              its iOS app, DEVONthink To Go, for four
+              years: took it over during a high-risk
+              engineer transition, shipped the first
+              version, and completed the second before
+              leaving.
             tags: [ownership, backend, macos]
-            weight: 4
-            evidence: "from memory; discuss in interview"
-          - id: devon-sync-features
+            weight: 5
+            evidence: "from memory; discuss in interview; small company; first version brought to market, second completed before departure"
+          - id: devon-sync-engine
             text: >-
-              Developed client-side features and synchronization for
-              DEVONthink across macOS and iOS, spanning cloud-storage and
-              peer-to-peer sync backends.
+              Built the client-side features and sync
+              engine across macOS and iOS, spanning
+              cloud-storage and peer-to-peer backends, in
+              a legacy Objective-C codebase with hard
+              performance and memory constraints.
             tags: [backend, macos]
             weight: 3
             evidence: "from memory; discuss in interview"
-          - id: devon-legacy-objc
+          - id: devon-support
             text: >-
-              Contributed to release engineering and iterative debugging in
-              a legacy Objective-C codebase with significant performance,
-              reliability, and memory-management constraints.
-            tags: [backend, macos, ci-cd]
-            weight: 2
+              Served as front-line support for the product
+              at a small company, turning customer reports
+              into reproductions, fixes, and release
+              notes.
+            tags: [ownership, backend, macos]
+            weight: 3
             evidence: "from memory; discuss in interview"

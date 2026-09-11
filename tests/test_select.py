@@ -52,9 +52,13 @@ def test_sort_is_shared_tags_then_weight_then_order(tmp_root):
 
 
 def test_exclude_beats_include(tmp_root):
-    content, profile = _profile(tmp_root, "include: [b-one]\nexclude: [b-one]\n")
+    # b-two matches the tag filter and would be selected on its own; excluding
+    # it must still win even though b-one is separately forced in via include.
+    content, profile = _profile(tmp_root, "tags: [leadership, testing]\ninclude: [b-one]\nexclude: [b-two]\n")
     sel = select(content, profile)
-    assert "b-one" not in _ids(sel.employers[0].roles[0].bullets)
+    ids = _ids(sel.employers[0].roles[0].bullets)
+    assert "b-two" not in ids
+    assert "b-one" in ids
 
 
 def test_caps_apply_per_role_with_default(tmp_root):

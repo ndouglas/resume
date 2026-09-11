@@ -191,6 +191,9 @@ def load_profile(path: Path, content: Content) -> Profile:
     for i in include + exclude:
         if i not in item_ids:
             errors.add(f"{where}: unknown item id '{i}'")
+    both = sorted(set(include) & set(exclude))
+    if both:
+        errors.add(f"{where}: ids in both include and exclude: {', '.join(both)}")
 
     role_ids = content.role_ids()
     caps_raw = raw.get("caps") or {}

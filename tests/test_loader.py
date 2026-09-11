@@ -216,6 +216,7 @@ def test_master_profile_defaults(tmp_root):
     ("summary: commercial\nsections: [experience]\ncaps: {projects: lots}", "caps.projects must be an integer"),
     ("summary: commercial\nsections: [experience]\nrequire: [{tag: backend, min: two, roles: [acme-senior]}]", "min for tag 'backend' must be an integer"),
     ("summary: commercial\nsections: [experience]\npage_limit: two", "page_limit must be an integer"),
+    ("summary: commercial\nsections: [experience]\ninclude: [b-one]\nexclude: [b-one]", "both include and exclude"),
 ])
 def test_profile_validation(tmp_root, body, msg):
     content = load_content(tmp_root / "content")

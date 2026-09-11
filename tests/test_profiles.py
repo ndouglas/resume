@@ -66,3 +66,14 @@ def test_commercial_hides_federal_only_bullets():
 def test_govtech_shows_ato():
     ids = _selected_ids("govtech-platform")
     assert "cms-tl-ato" in ids
+
+
+@pytest.mark.parametrize("path", sorted((ROOT / "profiles").glob("*.yaml")), ids=lambda p: p.stem)
+def test_include_ids_are_selected(path):
+    content = load_content(ROOT / "content")
+    profile = load_profile(path, content)
+    sel = select(content, profile)
+    selected = {b.id for e in sel.employers for r in e.roles for b in r.bullets}
+    selected |= {p.id for p in sel.projects} | {n.id for n in sel.project_notes}
+    for i in profile.include:
+        assert i in selected, f"{path.name}: include id '{i}' was not selected"

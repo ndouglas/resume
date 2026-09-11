@@ -94,3 +94,15 @@ def test_cie_bullets():
         sel = select(content, load_profile(p, content))
         ids = [x.id for e in sel.employers for r in e.roles for x in r.bullets]
         assert not ({"cie-platform-founded", "cie-platform-founded-testing"} <= set(ids)), p.name
+
+
+def test_cms_bullets():
+    content = load_content(ROOT / "content")
+    tl = _bullets(content, "cms-tl")
+    sse = _bullets(content, "cms-sse")
+    assert len(tl) >= 6 and len(sse) >= 12
+    assert any("leadership" in x.tags for x in tl.values())
+    assert any("leadership" in x.tags for x in sse.values())
+    joined = " ".join(x.text for x in list(tl.values()) + list(sse.values()))
+    assert "performed the upgrade" not in joined
+    assert "Lagoon" not in joined

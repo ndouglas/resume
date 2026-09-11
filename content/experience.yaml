@@ -155,34 +155,55 @@ employers:
             weight: 4
             evidence: "~200 Co-Authored-By commits, ~90 PR footers, Aug 2025 onward; chip#2514 hash proof"
       - id: cms-tl
-        title: Technical Lead
+        title: Technical Lead, VA.gov CMS
         start: 2023-07
         end: 2024-02
         bullets:
-          - id: cms-tl-drupal-upgrades
+          - id: cms-tl-content-release
             text: >-
-              Led Drupal 8→9 and 9→10 upgrades as Technical Lead for a
-              12-person CMS team, coordinating tenant teams and stakeholders
-              with zero unplanned downtime
+              Re-architected the VA.gov publishing pipeline into five
+              tested Drupal modules with zero downtime, shipping the
+              replacement beside the legacy path and deleting the old
+              code only after test parity.
+            tags: [architecture, drupal, php, testing, migration]
+            weight: 5
+            evidence: "va.gov-cms#13844 (problem statement), #14160/#14191/#14212, #14157, #14424, #14478, #14794 (deletion)"
+          - id: cms-tl-drupal10
+            text: >-
+              Led the Drupal 10 program for a multi-vendor CMS with
+              dozens of contributors: seeded it over a year early with a
+              module-by-module checklist and two dozen tickets other
+              teams could pick up.
             tags: [drupal, migration, leadership, cross-team]
             weight: 5
-            evidence: "va.gov-cms#5667, #8159, #11014; D10 shipped 2023-11-29"
-          - id: cms-tl-ci-and-release
+            evidence: "va.gov-cms#8159 (epic), #11014, #14852; D10 shipped 2023-11-29 by teammates with me as program owner"
+          - id: cms-tl-cypress-parallel
             text: >-
-              Reduced CI runtime by 60% through test parallelization;
-              architected event-driven content release pipeline serving
-              VA.gov's static content with zero deployment-related failures
-            tags: [ci-cd, testing, architecture, drupal]
-            weight: 5
-            evidence: "va.gov-cms#14540, #14834, #13844, #14794"
-          - id: cms-tl-ato
+              Cut end-to-end test wall time by more than half with
+              weighted parallelization, and retired the legacy Behat
+              suite after a scenario-by-scenario audit, thousands of
+              lines removed.
+            tags: [testing, ci-cd]
+            weight: 4
+            evidence: "va.gov-cms#14540, #14834, #14340"
+          - id: cms-tl-incidents
             text: >-
-              Maintained Authority to Operate (ATO) for VistA-integrated
-              PHI/PII systems, resolving regulatory identity gaps through
-              audits and tabletop exercises
-            tags: [ato, federal, security, healthcare]
-            weight: 3
-            evidence: "from memory; discuss in interview"
+              Ran and wrote up the team's production incidents with
+              minute-level timelines and ticketed action items, then
+              proposed the PagerDuty routing and on-call changes that
+              followed.
+            tags: [incident-response, documentation, leadership]
+            weight: 4
+            evidence: "va.gov-team-sensitive#1255, #1310, #1354; va.gov-cms#14923, #14920, #14319, #15086"
+          - id: cms-tl-pre-refinement
+            text: >-
+              Ran Engineering Pre-Refinement with a published review
+              rubric and estimation guide, and wrote the CODEOWNERS
+              taxonomy for a repository shared by ten teams as an open
+              RFC.
+            tags: [leadership, documentation, cross-team]
+            weight: 4
+            evidence: "va.gov-cms#15581 (CODEOWNERS RfC); pre-refinement Q4 2023"
           - id: cms-tl-recruiting
             text: >-
               Recruited senior engineers and a QA architect to remediate
@@ -190,27 +211,144 @@ employers:
             tags: [leadership, testing]
             weight: 3
             evidence: "from memory; discuss in interview"
+          - id: cms-tl-ato
+            text: >-
+              Maintained Authority to Operate (ATO) for EHR-integrated
+              systems handling protected health information, resolving
+              regulatory identity gaps through audits and tabletop exercises
+            tags: [ato, federal, security, healthcare]
+            weight: 3
+            evidence: "from memory; discuss in interview"
       - id: cms-sse
-        title: Senior Software/DevOps Engineer
+        title: Senior Software/DevOps Engineer, VA.gov CMS
         start: 2020-10
         end: 2023-07
         bullets:
-          - id: cms-sse-qa-initiative
+          - id: cms-sse-quality-program
             text: >-
-              Spearheaded QA initiative to broaden unit test coverage, refine
-              behavioral and accessibility tests, and mentor engineers on test
-              and system design
-            tags: [testing, mentoring, leadership, drupal]
+              Hired as a backend engineer; started and led the quality
+              program that became the team's test strategy, growing unit
+              tests fivefold, adding static analysis and accessibility
+              checks, and writing most of the test codebase.
+            tags: [testing, leadership, mentoring, drupal, php]
+            weight: 5
+            evidence: "va.gov-cms#4589, #8746, #6026, #10737, #12620, #14133; #9882 (QA & Testing Strategy)"
+          - id: cms-sse-ci-unification
+            text: >-
+              Moved CI into GitHub Actions and unified every check into
+              one command surface that runs identically on a laptop, in
+              previews, and in CI, removing thousands of lines in the
+              process.
+            tags: [ci-cd, platform, architecture]
+            weight: 5
+            evidence: "va.gov-cms#12192, #10712, #10715, #4880"
+          - id: cms-sse-scope
+            text: >-
+              Top human committer on the Drupal platform behind VA.gov
+              content for over three years: 500+ merged pull requests,
+              700+ issues, and 1,000+ code reviews, reviewing roughly
+              twice as much as I wrote.
+            tags: [ownership, drupal, php, backend, cross-team]
             weight: 4
-            evidence: "62% of tests/ by blame at exit; va.gov-cms#8746, #12620"
-          - id: cms-sse-runner-service
+            evidence: "git and GitHub counts as of 2026-09-11; 580 non-merge commits vs next 263"
+          - id: cms-sse-dora
             text: >-
-              Implemented a service to monitor and respond to corner cases in
-              GitHub Actions self-hosted runner registration and
-              orchestration, improving CI reliability
+              Built DORA-style delivery metrics from scratch (lead time,
+              change failure rate, time to restore) by walking Git
+              history and GitHub statuses, emitted from the deploy
+              pipeline even when tests fail.
+            tags: [observability, ci-cd, backend, node]
+            weight: 4
+            evidence: "va.gov-cms#13948 → #14089; devops#13155; preceded by 13-ticket QA-metrics epic #11070"
+          - id: cms-sse-supply-chain
+            text: >-
+              Hardened GitHub Actions as a supply-chain surface: SHA-
+              pinned every action, wrote the hardening guide and an
+              auto-posted security checklist, and answered a CISA
+              advisory the same day.
+            tags: [security, ci-cd, documentation]
+            weight: 4
+            evidence: "va.gov-cms#10617, #11199, #10955, #13622, #10703; content-build#1291"
+          - id: cms-sse-drupal9
+            text: >-
+              Drove the Drupal 8 to 9 upgrade end to end: compatibility
+              sweep across every custom module, a dozen-plus blocking
+              modules removed or replaced, core kept current through
+              every security release.
+            tags: [drupal, migration, php]
+            weight: 4
+            evidence: "va.gov-cms#4321, #5259, #5667, #5350–#5354"
+          - id: cms-sse-observability
+            text: >-
+              Built the CMS's Datadog observability layer as Terraform
+              in the platform team's repository, from synthetics with
+              PagerDuty routing to log shipping and error dashboards,
+              then un-Terraformed the dashboards deliberately for
+              velocity.
+            tags: [observability, terraform, cross-team]
+            weight: 4
+            evidence: "devops Oct 2021–Apr 2023; devops#12444, #12761"
+          - id: cms-sse-guest
+            text: >-
+              Sustained a guest-contributor role in seven other teams'
+              repositories for three years, 100+ merged pull requests
+              and 200+ reviews, up to platform-wide fixes in autoscaling
+              and image-build code.
+            tags: [cross-team, aws, platform, leadership]
+            weight: 4
+            evidence: "devops#10930, #12461, #8305; content-build#965"
+          - id: cms-sse-flaky
+            text: >-
+              Ran a systematic flaky-test program with dozens of root-
+              cause fixes, including cross-suite timestamps so
+              concurrent test logs could be merged to locate database
+              deadlocks; every disabled test got a re-enable issue.
+            tags: [testing, incident-response]
+            weight: 4
+            evidence: "va.gov-cms#11238, #12633, #12418, #11527"
+          - id: cms-sse-release-safety
+            text: >-
+              Caught a release-safety hole where auto-deploy read
+              combined status before checks had reported and shipped a
+              commit whose tests had failed; fixed it at the status-
+              reporting layer.
+            tags: [ci-cd, testing, incident-response]
+            weight: 4
+            evidence: "va.gov-cms#12851 → #14668; devops#13306"
+          - id: cms-sse-data-repair
+            text: >-
+              Repaired a content-cloning defect with idempotent,
+              transactional scripts carrying a built-in correctness
+              oracle (serialize, replace, diff, throw on any surprise),
+              promoted from local to production with published logs.
+            tags: [backend, drupal, php]
+            weight: 3
+            evidence: "va.gov-cms#3497, #3592, #5852; later #11719"
+          - id: cms-sse-new-team-tests
+            text: >-
+              Wrote the test strategy, reference suite, and example-test
+              curriculum for a newly created Next.js team two months
+              after its repository existed.
+            tags: [testing, mentoring, documentation, typescript]
+            weight: 3
+            evidence: "next-build#15, #41, #54 (May–Jul 2022)"
+          - id: cms-sse-performance
+            text: >-
+              Introduced Memcache across every environment with a kill
+              switch, benchmarked it honestly under load, and diagnosed
+              the connection exhaustion that had been blocking the full
+              unit suite.
+            tags: [backend, drupal, observability]
+            weight: 3
+            evidence: "va.gov-cms#5065–#5083, #6745, #8898, #5386, #12856"
+          - id: cms-sse-runner-lifecycle
+            text: >-
+              Wrote the lifecycle service that retires aging self-hosted CI
+              runner instances using GitHub's own view of runner idleness,
+              with dry-run and threshold controls
             tags: [ci-cd, aws, node]
             weight: 2
-            evidence: "content-build#1676, #1687"
+            evidence: "content-build#1676, #1687; devops#13366"
   - name: Convention News Company
     start: 2016-01
     end: 2020-10

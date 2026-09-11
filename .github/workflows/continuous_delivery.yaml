@@ -10,7 +10,7 @@ permissions:
 
 concurrency:
   group: 'continuous_deployment-${{ github.ref }}'
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   test:
@@ -56,6 +56,8 @@ jobs:
         run: .venv/bin/python -m pytest -q
       - name: Build every profile
         run: .venv/bin/python build.py --all
+      - name: Fail on missing glyphs
+        run: '! grep -l "Missing character" build/*.log'
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
         with:

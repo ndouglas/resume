@@ -124,6 +124,8 @@ def load_content(root: Path) -> Content:
             all_ids += [b.id for b in bullets]
             roles.append(Role(rid, str(r.get("title", "")), _date(r.get("start"), rwhere, errors),
                               _date(r.get("end"), rwhere, errors), tuple(bullets)))
+        if not roles:
+            errors.add(f"{where} must have at least one role")
         starts = [_date_key(r.start) for r in roles]
         if starts != sorted(starts, reverse=True):
             errors.add(f"roles of '{ename}' must be in reverse chronological order")
@@ -198,7 +200,17 @@ def load_profile(path: Path, content: Content) -> Profile:
     for r in role_caps:
         if r not in role_ids:
             errors.add(f"{where}: unknown role id '{r}' in caps")
-    caps = Caps(caps_raw.get("default"), role_caps, caps_raw.get("projects"))
+    default_cap_raw = caps_raw.get("default")
+    default_cap = (
+        _int(default_cap_raw, f"{where}: caps.default", errors, None)
+        if default_cap_raw is not None else None
+    )
+    projects_cap_raw = caps_raw.get("projects")
+    projects_cap = (
+        _int(projects_cap_raw, f"{where}: caps.projects", errors, None)
+        if projects_cap_raw is not None else None
+    )
+    caps = Caps(default_cap, role_caps, projects_cap)
 
     require: list[Require] = []
     for q in raw.get("require") or []:

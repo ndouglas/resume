@@ -147,6 +147,19 @@ def test_bad_date_fails(tmp_path):
         load_content(content_dir)
 
 
+def test_employer_with_no_roles_fails(tmp_path):
+    exp = """
+        employers:
+          - name: Acme
+            start: 2020-10
+            end: present
+            roles: []
+    """
+    content_dir = write_content(tmp_path, {"experience.yaml": exp})
+    with pytest.raises(ContentError, match=r"employer 'Acme' must have at least one role"):
+        load_content(content_dir)
+
+
 def test_loads_profile(tmp_root):
     content = load_content(tmp_root / "content")
     path = write_profile(tmp_root, "p", """
@@ -199,6 +212,8 @@ def test_master_profile_defaults(tmp_root):
     ("summary: commercial\nsections: [experience]\nrequire: [{tag: backend, min: 1, roles: [ghost]}]", "unknown role id 'ghost'"),
     ("summary: commercial\nsections: [experience]\nrequire: [{tag: nope, min: 1, roles: [acme-senior]}]", "unknown tag 'nope'"),
     ("summary: commercial\nsections: [experience]\ncaps: {roles: {acme-senior: seven}}", "cap for role 'acme-senior' must be an integer"),
+    ("summary: commercial\nsections: [experience]\ncaps: {default: five}", "caps.default must be an integer"),
+    ("summary: commercial\nsections: [experience]\ncaps: {projects: lots}", "caps.projects must be an integer"),
     ("summary: commercial\nsections: [experience]\nrequire: [{tag: backend, min: two, roles: [acme-senior]}]", "min for tag 'backend' must be an integer"),
     ("summary: commercial\nsections: [experience]\npage_limit: two", "page_limit must be an integer"),
 ])

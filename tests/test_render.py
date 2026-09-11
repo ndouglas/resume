@@ -66,9 +66,9 @@ def test_omits_unselected_sections_and_clearance(tmp_root):
     assert "Engineer." in out
 
 
-def test_single_role_employer_has_blank_role_dates(tmp_root):
-    # acme-junior is the second role; render a profile that only keeps acme-senior's bullets
-    # and check the two-role layout: employer dates on the heading, role dates on each role
+def test_two_role_employer_renders_role_dates(tmp_root):
+    # Acme has two roles (acme-senior, acme-junior); check the two-role layout:
+    # employer dates on the heading, role dates on each role.
     out = _render(tmp_root, """
         name: p
         summary: short
@@ -78,6 +78,54 @@ def test_single_role_employer_has_blank_role_dates(tmp_root):
     """)
     assert "{Senior Engineer}{Jan. 2022 – Present}" in out
     assert "{Engineer}{Oct. 2020 – Jan. 2022}" in out
+
+
+def test_single_role_employer_has_blank_role_dates(tmp_root):
+    from tests.conftest import write_content
+    write_content(tmp_root, {"experience.yaml": """
+        employers:
+          - name: Acme
+            start: 2020-10
+            end: present
+            roles:
+              - id: acme-solo
+                title: Engineer
+                start: 2020-10
+                end: present
+                bullets:
+                  - id: b-one
+                    text: Did a thing
+                    tags: [backend]
+                    weight: 1
+                    evidence: "acme#1"
+    """})
+    out = _render(tmp_root, """
+        name: p
+        summary: short
+        clearance_line: false
+        email: auto
+        sections: [experience]
+    """)
+    assert "{Engineer}{}" in out
+    # The preamble's \newcommand{\resumeSubSubheading}... definition always
+    # contains the literal command name, so check it is never invoked rather
+    # than absent outright: exactly one occurrence (the definition).
+    assert out.count(r"\resumeSubSubheading") == 1
+
+
+def test_selected_but_empty_section_is_omitted(tmp_root):
+    # projects is a requested section, but a tag filter that matches nothing
+    # leaves zero projects and zero notes selected (p-one and n-oss are
+    # tagged backend, not federal), so the section must not appear.
+    out = _render(tmp_root, """
+        name: p
+        summary: short
+        clearance_line: false
+        email: auto
+        sections: [projects]
+        tags: [federal]
+    """)
+    assert r"\section{Projects}" not in out
 
 
 def test_escapes_content(tmp_root):

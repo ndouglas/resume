@@ -178,7 +178,7 @@
 \BLOCK{if sel.projects}
     \resumeListicleStart
 \BLOCK{for p in sel.projects}
-      \resumeSideProjectListicleItem{\VAR{p.url}}{\BLOCK{if p.emoji}\VAR{p.emoji} \BLOCK{endif}\VAR{p.name|tex}}{\VAR{p.text|tex}}{\VAR{p.stack|map("tex")|join(", ")}} \\
+      \resumeSideProjectListicleItem{\VAR{p.url}}{\BLOCK{if p.emoji}\VAR{p.emoji|tex} \BLOCK{endif}\VAR{p.name|tex}}{\VAR{p.text|tex}}{\VAR{p.stack|map("tex")|join(", ")}} \\
 \BLOCK{endfor}
     \resumeListicleEnd
 \BLOCK{endif}

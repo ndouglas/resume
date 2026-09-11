@@ -1,6 +1,6 @@
 from tunable.loader import load_content, load_profile
 from tunable.select import select, pick, all_text
-from tests.conftest import write_profile
+from tests.conftest import write_content, write_profile
 
 BASE = """
 name: {name}
@@ -78,6 +78,46 @@ def test_require_ignores_roles_not_listed(tmp_root):
         "caps: {default: 1}\nrequire: [{tag: leadership, min: 1, roles: [acme-junior]}]\n")
     sel = select(content, profile)
     assert _ids(sel.employers[0].roles[0].bullets) == ["b-one"]
+
+
+def test_two_requires_on_same_role_do_not_evict_each_other(tmp_path):
+    # cap 2, require leadership min 1 and require testing min 1, three bullets:
+    # hi(backend,w5) lead(leadership,w1) test(testing,w1). Before the fix, the
+    # second require's victim search could evict the item the first require
+    # had just promoted, dropping that minimum silently.
+    exp = """
+        employers:
+          - name: Acme
+            start: 2020-10
+            end: present
+            roles:
+              - id: acme-senior
+                title: Senior Engineer
+                start: 2022-01
+                end: present
+                bullets:
+                  - {id: hi, text: Did a thing, tags: [backend], weight: 5, evidence: e}
+                  - {id: lead, text: Led a thing, tags: [leadership], weight: 1, evidence: e}
+                  - {id: test, text: Tested a thing, tags: [testing], weight: 1, evidence: e}
+    """
+    content_dir = write_content(tmp_path, {"experience.yaml": exp})
+    content = load_content(content_dir)
+    path = write_profile(tmp_path, "p", """
+        name: p
+        summary: commercial
+        clearance_line: false
+        email: auto
+        sections: [experience]
+        caps: {default: 2}
+        require:
+          - {tag: leadership, min: 1, roles: [acme-senior]}
+          - {tag: testing, min: 1, roles: [acme-senior]}
+    """)
+    profile = load_profile(path, content)
+    sel = select(content, profile)
+    ids = _ids(sel.employers[0].roles[0].bullets)
+    assert "lead" in ids
+    assert "test" in ids
 
 
 def test_sections_control_presence(tmp_root):

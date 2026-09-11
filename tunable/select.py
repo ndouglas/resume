@@ -56,17 +56,19 @@ def pick(items, profile: Profile, cap: int | None, role_id: str | None = None) -
     if cap is None:
         return ranked
     chosen = ranked[:cap]
+    protected: set[str] = set()
     for req in profile.require:
         if role_id is None or role_id not in req.roles:
             continue
         have = [i for i in chosen if req.tag in i.tags]
         needed = [i for i in ranked if req.tag in i.tags and i not in chosen][: max(0, req.min - len(have))]
         for item in needed:
-            victims = [i for i in reversed(chosen) if req.tag not in i.tags]
+            victims = [i for i in reversed(chosen) if req.tag not in i.tags and i.id not in protected]
             if not victims:
                 break
             chosen.remove(victims[0])
             chosen.append(item)
+        protected.update(i.id for i in chosen if req.tag in i.tags)
     chosen.sort(key=ranked.index)
     return chosen
 

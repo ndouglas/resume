@@ -1,43 +1,67 @@
 groups:
   - name: Languages
     items:
-      - {text: Rust, tags: [rust]}
-      - {text: Python, tags: [backend]}
-      - {text: Bash, tags: [platform]}
-      - {text: JavaScript, tags: [typescript, node]}
-      - {text: TypeScript, tags: [typescript, node]}
+      - {text: "TypeScript/JavaScript (Node.js)", tags: [typescript, node, backend]}
       - {text: PHP, tags: [php, drupal]}
-      - {text: Go, tags: [backend]}
-      - {text: C, tags: [backend]}
+      - {text: Python, tags: [backend]}
+      - {text: Rust, tags: [rust]}
+      - {text: Bash, tags: [platform, ci-cd]}
+      - {text: HCL, tags: [terraform]}
       - {text: Objective-C, tags: [macos]}
       - {text: Clojure, tags: [research]}
-      - {text: LaTeX, tags: [documentation]}
-  - name: Infrastructure-as-Code
+      - {text: Go, tags: [research]}
+      - {text: C, tags: [research]}
+  - name: AWS
     items:
-      - {text: Terraform, tags: [terraform]}
-      - {text: Ansible, tags: [platform]}
-      - {text: CloudFormation, tags: [aws]}
+      - {text: "Lambda (aliases, provisioned concurrency, layers, extensions)", tags: [serverless, aws]}
+      - {text: "API Gateway (private, OpenAPI import, authorizers, usage plans)", tags: [serverless, aws]}
+      - {text: DynamoDB, tags: [serverless, aws, backend]}
+      - {text: AppConfig, tags: [serverless, aws]}
+      - {text: "IAM (OIDC federation, permissions boundaries, tag-conditioned policies)", tags: [security, aws]}
+      - {text: KMS, tags: [security, aws]}
+      - {text: EC2/Auto Scaling, tags: [aws, platform]}
+      - {text: ElastiCache, tags: [aws, backend]}
+      - {text: CloudFormation/SAM, tags: [aws]}
+      - {text: GovCloud, tags: [govcloud, federal]}
+  - name: Infrastructure as Code
+    items:
+      - {text: "Terraform (native tests, import/moved/removed blocks, preconditions)", tags: [terraform]}
       - {text: Terragrunt, tags: [terraform]}
-  - name: Orchestration
+      - {text: Ansible, tags: [platform]}
+      - {text: Packer, tags: [platform]}
+  - name: Delivery
     items:
-      - {text: Kubernetes, tags: [kubernetes]}
-      - {text: Docker, tags: [platform]}
-      - {text: Nomad, tags: [research]}
-  - name: CI/CD
-    items:
-      - {text: GitHub Actions, tags: [ci-cd]}
+      - {text: "GitHub Actions (composite and reusable workflows, OIDC, matrix sharding, self-hosted runners)", tags: [ci-cd]}
       - {text: Jenkins, tags: [ci-cd]}
-      - {text: CodeBuild/CodePipeline, tags: [ci-cd, aws]}
+      - {text: Dependabot and Renovate, tags: [ci-cd, security]}
+      - {text: CodeQL, tags: [security, ci-cd]}
+      - {text: CodeBuild, tags: [ci-cd, aws]}
   - name: Observability
     items:
+      - {text: "Datadog (APM, monitors-as-code, synthetics, log pipelines, CI Visibility)", tags: [observability]}
       - {text: Prometheus, tags: [observability]}
       - {text: Grafana, tags: [observability]}
-      - {text: OpenTelemetry, tags: [observability]}
-      - {text: Datadog, tags: [observability]}
+      - {text: Loki and Tempo, tags: [observability, kubernetes]}
       - {text: CloudWatch, tags: [observability, aws]}
-  - name: Networking/Security
+      - {text: PagerDuty, tags: [observability, incident-response]}
+  - name: Testing
     items:
-      - {text: Consul, tags: [research]}
-      - {text: Envoy, tags: [research]}
-      - {text: Vault, tags: [security]}
-      - {text: Cilium, tags: [kubernetes]}
+      - {text: Jest, tags: [testing, node]}
+      - {text: Cypress, tags: [testing]}
+      - {text: PHPUnit, tags: [testing, php]}
+      - {text: PHPStan, tags: [testing, php]}
+      - {text: "axe / WCAG 2.1", tags: [testing]}
+      - {text: MSW, tags: [testing, node]}
+      - {text: "terraform test", tags: [testing, terraform]}
+      - {text: shellcheck, tags: [testing, platform]}
+  - name: Platforms
+    items:
+      - {text: "Kubernetes (Talos, Flux CD, Cilium, Helm)", tags: [kubernetes]}
+      - {text: Docker, tags: [platform]}
+      - {text: "Drupal 8–10", tags: [drupal, php]}
+      - {text: "React / Next.js", tags: [typescript]}
+  - name: Domain
+    items:
+      - {text: "EHR integration (VistA RPCs)", tags: [healthcare]}
+      - {text: "HIPAA / PHI handling", tags: [healthcare, security]}
+      - {text: "FedRAMP and ATO", tags: [fedramp, ato, federal]}

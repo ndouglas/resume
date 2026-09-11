@@ -62,3 +62,13 @@ def test_projects_reframed():
     assert "TLA" not in gold.text and "TLA+" not in gold.stack
     note = content.project_notes[0]
     assert "OpenTofu" not in note.text and "Couchbase" not in note.text
+
+
+def test_skills_groups_in_evidence_order():
+    content = load_content(ROOT / "content")
+    assert [g.name for g in content.skills] == [
+        "Languages", "AWS", "Infrastructure as Code", "Delivery",
+        "Observability", "Testing", "Platforms", "Domain",
+    ]
+    all_items = {i.text for g in content.skills for i in g.items}
+    assert "TLA+" not in all_items

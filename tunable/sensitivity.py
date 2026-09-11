@@ -11,6 +11,7 @@ PATTERNS: list[tuple[str, re.Pattern]] = [
     ("incident duration", re.compile(
         r"\d+(\.\d+)?[-\s](minute|hour|day|month|year)s?\s+(outage|defect|bug)\b", re.I)),
     ("PHI/PII incident", re.compile(r"\bP[HI]I leak\b", re.I)),
+    ("formal-verification claim", re.compile(r"\bTLA\+|\bformal verification\b|\bLean\s?4\b|\bproof assistant\b", re.I)),
 ]
 
 

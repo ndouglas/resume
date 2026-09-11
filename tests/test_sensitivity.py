@@ -18,6 +18,9 @@ ROOT = Path(__file__).resolve().parent.parent
     "a 4 hour outage",
     "the PHI leak",
     "a PII leak",
+    "exploring TLA+ for distributed systems",
+    "formal verification of the pipeline",
+    "proved in Lean 4",
 ])
 def test_flags_sensitive_text(text):
     assert violations(text), text
@@ -32,6 +35,8 @@ def test_flags_sensitive_text(text):
     "12-person CMS team",
     "14+ years",
     "Drupal 8→9 upgrade",
+    "verified across CPU architectures",
+    "lean startup",
 ])
 def test_allows_ordinary_text(text):
     assert violations(text) == [], text

@@ -106,3 +106,12 @@ def test_cms_bullets():
     joined = " ".join(x.text for x in list(tl.values()) + list(sse.values()))
     assert "performed the upgrade" not in joined
     assert "Lagoon" not in joined
+
+
+def test_earlier_roles_make_the_arc_explicit():
+    content = load_content(ROOT / "content")
+    ain = _bullets(content, "ain")
+    assert "ain-arc" in ain and ain["ain-arc"].weight == 5
+    assert all(b.evidence == "from memory; discuss in interview" for b in ain.values())
+    devon = _bullets(content, "devon")
+    assert len(devon) == 3

@@ -358,44 +358,52 @@ employers:
         start: 2016-01
         end: 2020-10
         bullets:
-          - id: ain-acquia-to-aws
+          - id: ain-arc
             text: >-
-              Led migration from Acquia to AWS, reducing annual infrastructure
-              costs by 70% and eliminating legacy stability issues
-            tags: [aws, migration, cost, ownership, drupal]
+              Joined to improve developer experience and left owning the
+              platform: migrated every service off a managed Drupal host
+              onto AWS at about 70% lower annual cost, and built the
+              backend, subscription platform, and APIs.
+            tags: [ownership, migration, aws, platform, backend]
             weight: 5
             evidence: "from memory; discuss in interview"
           - id: ain-headless-architecture
             text: >-
               Engineered a headless Drupal and Next.js architecture on AWS,
-              integrating Stripe and AWS Cognito for subscription services with
-              independent scaling
+              integrating Stripe and AWS Cognito for subscription services
+              with independent scaling
             tags: [architecture, backend, aws, drupal, typescript]
+            weight: 4
+            evidence: "from memory; discuss in interview"
+          - id: ain-ci-cd
+            text: >-
+              Established CI/CD pipelines and containerized development
+              environments, taking deployments from occasional to multiple
+              times daily
+            tags: [ci-cd, platform]
             weight: 4
             evidence: "from memory; discuss in interview"
           - id: ain-lambda-services
             text: >-
               Built Lambda-based subscriber services and data pipelines with
-              CloudWatch and Slack for real-time monitoring; optimized
-              performance via Varnish and Redis caching
+              CloudWatch and Slack for real-time monitoring; improved
+              performance with Varnish and Redis caching
             tags: [serverless, backend, observability, aws]
             weight: 3
             evidence: "from memory; discuss in interview"
-          - id: ain-ci-cd
-            text: >-
-              Established CI/CD pipelines and containerized development
-              environments, increasing deployment frequency to multiple times
-              daily
-            tags: [ci-cd, platform]
-            weight: 4
-            evidence: "from memory; discuss in interview"
           - id: ain-mentoring
             text: >-
-              Mentored junior engineers on clean code practices and peer
-              review, improving ticket turnaround and codebase
-              maintainability
+              Mentored junior engineers on clean code and peer review,
+              improving ticket turnaround and codebase maintainability
             tags: [mentoring, leadership]
             weight: 3
+            evidence: "from memory; discuss in interview"
+          - id: ain-devex
+            text: >-
+              Built the Vagrant-based local development environment every
+              engineer used, later containerized, so the team ran one stack
+            tags: [platform, ci-cd]
+            weight: 2
             evidence: "from memory; discuss in interview"
   - name: DEVONtechnologies
     start: 2012-01
@@ -406,14 +414,6 @@ employers:
         start: 2012-01
         end: 2015-12
         bullets:
-          - id: devon-sync-features
-            text: >-
-              Developed client-side features and synchronization functionality
-              for DEVONthink across macOS and iOS, working across cloud storage
-              and peer-to-peer sync backends
-            tags: [backend, macos]
-            weight: 3
-            evidence: "from memory; discuss in interview"
           - id: devon-sync-ownership
             text: >-
               Took ownership of a complex sync subsystem during a high-risk
@@ -422,10 +422,18 @@ employers:
             tags: [ownership, backend, macos]
             weight: 4
             evidence: "from memory; discuss in interview"
+          - id: devon-sync-features
+            text: >-
+              Developed client-side features and synchronization for
+              DEVONthink across macOS and iOS, spanning cloud-storage and
+              peer-to-peer sync backends
+            tags: [backend, macos]
+            weight: 3
+            evidence: "from memory; discuss in interview"
           - id: devon-legacy-objc
             text: >-
-              Contributed to release engineering and iterative debugging in a
-              legacy Objective-C codebase with significant performance,
+              Contributed to release engineering and iterative debugging in
+              a legacy Objective-C codebase with significant performance,
               reliability, and memory-management constraints
             tags: [backend, macos, ci-cd]
             weight: 2

@@ -15,6 +15,7 @@
 - Throughline (spec §2): identity = makes production systems safe to change; proof = finds what is silently wrong; outcome = becomes owner of record by earning trust. Tone: report what happened. No selling language, no superlatives, no aspirational claims. Formal verification, TLA+, and Lean never appear. Team size never appears.
 - Sensitivity rule (spec §3), enforced by `tunable/sensitivity.py`: no dollar amounts ("significant"), no durations of defects or outages ("long-standing"), no counts of affected people, no PHI/PII incident, no blame language, no postmortem quotes.
 - Evidence-file caveats: Drupal 10 was "led the program," not "performed the upgrade"; the Lagoon migration did not ship and is not claimed; cost figures are never stated; the Cypress ~60% figure is stated as approximate.
+- Numbers are rounded or relaxed (500+, a dozen, dozens, more than half); no count is stated to the unit except years, versions, and small structural facts (four services, five modules, 17 nodes).
 - Every bullet: unique kebab-case `id`, non-empty `tags` from `content/tags.yaml`, integer `weight` 1–5, non-empty `evidence`. Bullets from roles without evidence files use `evidence: "from memory; discuss in interview"`.
 - Each tuned profile must render to at most 2 pages (`tests/test_build.py::test_page_budget`, which runs locally because lualatex is installed) and must select at least one `leadership` bullet for roles `cie`, `cms-tl`, `cms-sse`.
 - Cap-reduction order when a profile exceeds 2 pages (apply one step at a time, re-test after each): `projects 6→5`, `cms-sse 5→4`, `ain 4→3`, `cie 7→6`, `cms-tl 4→3`, `devon 2→1`, `projects 5→4`, `cms-sse 4→3`.
@@ -143,24 +144,32 @@ Expected: FAIL on the variant set.
 clearance: "U.S. Public Trust (Tier 2, active) · Prior Top Secret clearance"
 variants:
   commercial: >-
-    Senior software engineer with 14 years in production systems. Makes
-    systems safe to change: tests as the gate for every migration, legacy
-    code deleted only after parity, monitors that fail loud, CI with no
-    long-lived credentials. Most recently the engineer of record for four
-    production healthcare services at ~1.8M requests/day, owning application
-    code, infrastructure, delivery pipeline, and on-call.
+    Senior software engineer and generalist with 14 years in production
+    systems, most recently the engineer of record for four healthcare
+    services handling nearly two million requests a day. Comfortable
+    anywhere between application code and the platform beneath it, and drawn
+    to the unglamorous work that makes systems safe to change: tests that
+    gate every migration, monitors that fail loud, credentials that cannot
+    leak, legacy that gets deleted rather than accumulated. Tends to arrive
+    as a contributor and leave as the person others come to with questions.
+    Works AI-assisted end to end, with the evidence discipline that makes
+    that trustworthy.
   govtech: >-
-    Senior software engineer with 14 years in production systems, six of
-    them on VA.gov. Makes systems safe to change: tests as the gate for every
-    migration, legacy code deleted only after parity, monitors that fail
-    loud, CI with no long-lived credentials. Most recently the engineer of
-    record for the VA.gov Check-In platform (~1.8M requests/day) in AWS
-    GovCloud, owning application code, infrastructure, delivery pipeline,
-    and on-call under ATO and FedRAMP constraints.
+    Senior software engineer and generalist with 14 years in production
+    systems, six of them on VA.gov, most recently the engineer of record for
+    the VA.gov Check-In platform in AWS GovCloud, nearly two million requests
+    a day under ATO and FedRAMP constraints. Comfortable anywhere between
+    application code and the platform beneath it, and drawn to the
+    unglamorous work that makes systems safe to change: tests that gate
+    every migration, monitors that fail loud, credentials that cannot leak,
+    legacy that gets deleted rather than accumulated. Tends to arrive as a
+    contributor and leave as the person others come to with questions. Works
+    AI-assisted end to end, with the evidence discipline that makes that
+    trustworthy.
   short: >-
-    Senior software engineer, 14 years. Makes production systems safe to
-    change and ends up owning them: code, infrastructure, delivery, and
-    on-call.
+    Senior software engineer and generalist, 14 years. Makes production
+    systems safe to change, ends up owning them, and works AI-assisted with
+    the evidence discipline that makes that trustworthy.
 ```
 
 Set `summary: govtech` in `profiles/govtech-platform.yaml`.
@@ -211,8 +220,8 @@ projects:
       17-node Talos Linux Kubernetes cluster run entirely through Flux
       GitOps: Cilium, cert-manager with an internal ACME CA, SeaweedFS,
       Prometheus/Loki/Tempo observability, Chaos Mesh fault injection,
-      Falco runtime security, and a 117-entry engineering journal of what
-      broke and why
+      Falco runtime security, and a hundred-plus-entry engineering
+      journal of what broke and why
     stack: [Talos, Kubernetes, Flux CD, Cilium]
     tags: [kubernetes, observability, platform, security]
     weight: 5
@@ -529,151 +538,163 @@ Change the role title to `Senior Platform Engineer, VA.gov Check-In` and replace
           - id: cie-ownership
             text: >-
               Engineer of record for the four production services behind
-              VA.gov patient check-in (~1.8M requests/day): Node.js Lambdas
-              behind private API Gateways, DynamoDB, and the integration
-              layer to the VA's electronic health record; owned application
-              code, infrastructure, delivery pipeline, and on-call
+              VA.gov patient check-in, nearly two million requests a
+              day: Node.js Lambdas behind private API Gateways,
+              DynamoDB, and the integration layer to the VA's electronic
+              health record. Owned the application code, the
+              infrastructure, the delivery pipeline, and the pager.
             tags: [ownership, backend, serverless, aws, healthcare, govcloud]
             weight: 5
             evidence: "checkin-devops 74% of commits; chip 58%; lorota 64%; 15 CIE repos, ~5,970 commits Feb 2024–Sep 2026"
           - id: cie-platform-founded
             text: >-
-              Founded the team's internal developer platform: Terraform and
-              Terragrunt for a new AWS GovCloud account, 41 reusable modules
-              integration-tested against live AWS on every pull request, 18
-              composite GitHub Actions, and one OIDC role per repository so
-              no long-lived AWS credentials exist anywhere in CI
+              Founded the team's internal developer platform: Terraform
+              and Terragrunt for a new AWS GovCloud account, 40+
+              reusable modules integration-tested against live AWS on
+              every pull request, a library of composite GitHub Actions,
+              and one OIDC role per repository so no long-lived AWS
+              credentials exist anywhere in CI.
             tags: [platform, terraform, aws, ci-cd, security, architecture]
             weight: 5
             evidence: "cie-terraform-modules, cie-github-actions, cie-iam-manager founded 2024-08-28; cd#533"
           - id: cie-account-cutover
             text: >-
-              Led a multi-year migration of four production services to a
-              new AWS account through a hard cutover, then decommissioned
-              the legacy estate with evidence-gated, dry-run-default
-              tooling and deleted the teardown tooling itself
+              Led a multi-year migration of four production services to
+              a new AWS account through a hard cutover, then
+              decommissioned the legacy estate with evidence-gated, dry-
+              run-by-default tooling, and deleted the teardown tooling
+              itself when it was done.
             tags: [migration, aws, terraform, ownership, leadership]
             weight: 5
             evidence: "cutover 2026-07-29; chip#2532; cd#1912, cd#1958, cd#2002"
           - id: cie-silent-defect
             text: >-
-              Found and fixed a long-standing silent authorization defect in
-              one afternoon after noticing a sub-0.01% error rate while
-              triaging old tickets; wrote the team's first postmortem and
-              established its 24-hour postmortem policy; all 27 action items
-              closed, three of them became new services
+              Noticed a sub-0.01% error rate while triaging old tickets,
+              traced it to a long-standing silent authorization defect,
+              and had the fix in production the next morning. Wrote the
+              team's first postmortem and established its 24-hour
+              postmortem policy; every action item closed, and three of
+              them became new services.
             tags: [incident-response, backend, healthcare, leadership, documentation]
             weight: 5
             evidence: "checkin-devops#575; cd#420 (policy)"
           - id: cie-upstream-api
             text: >-
-              Founded a 26-function integration layer between the check-in
+              Founded the integration layer between the check-in
               services and the VA's EHR, text-messaging, and facilities
               systems, with pluggable per-endpoint backends selected by
-              runtime configuration; used it to migrate 13 EHR integrations
-              to a new provider endpoint by endpoint with zero downtime, then
-              deleted the legacy path
+              runtime configuration. Used it to move a dozen EHR
+              integrations to a new provider endpoint by endpoint with
+              zero downtime, then deleted the legacy path.
             tags: [architecture, backend, healthcare, migration, node]
             weight: 5
             evidence: "cie-upstream-api (201 PRs, 764 tests); cd#1393–1403; upstream#468"
           - id: cie-self-describing-lambda
             text: >-
               Designed the self-describing Lambda convention (package
-              manifest → Terraform autodiscovery → generated OpenAPI) adopted
-              across four services, so adding an endpoint means adding a
-              directory
+              manifest → Terraform autodiscovery → generated OpenAPI),
+              adopted across four services, so adding an endpoint means
+              adding a directory.
             tags: [architecture, serverless, terraform, backend]
             weight: 4
             evidence: "chip#2085 (Dec 2024); upstream-api lambda_functions module"
           - id: cie-system-tests
             text: >-
-              Built the end-to-end system-test suite (213 tests) that
-              exercises real EHR appointment flows against deployed
+              Built the end-to-end system-test suite, 200+ tests that
+              exercise real EHR appointment flows against deployed
               infrastructure, with trace context propagated into every
-              service so a failing assertion links to the traces behind it;
-              one codebase runs against mocks locally and real AWS in CI
+              service so a failing assertion links straight to the
+              traces behind it. One codebase runs against mocks locally
+              and real AWS in CI.
             tags: [testing, healthcare, observability, aws]
             weight: 4
             evidence: "cie-system-tests (76 suites; 30-PR stabilization Aug–Nov 2025)"
           - id: cie-cost
             text: >-
-              Identified and eliminated significant idle serverless capacity
-              using a reproducible cost model, including two tiers of
-              provisioned Lambda capacity that had never served a request;
-              sized production concurrency from measured peaks with Little's
-              Law
+              Identified and eliminated significant idle serverless
+              capacity with a reproducible cost model, including two
+              tiers of provisioned Lambda capacity that had never served
+              a request, and sized production concurrency from measured
+              peaks rather than guesses.
             tags: [cost, serverless, aws, observability]
             weight: 4
             evidence: "docs/chip-idle-capacity-cost-analysis.md; cd#1687; upstream#542; chip#2572"
           - id: cie-monitors-as-code
             text: >-
-              Monitors-as-code across two Datadog organizations (46
-              monitors, 7 dashboards) with dead-man switches on both
-              check-in activity and the monitoring itself, cutover-aware
-              queries, and thresholds derived from 30 days of measured error
-              rates; adopted 21 hand-built monitors by import without
-              changing their IDs
+              Put monitoring under version control across two Datadog
+              organizations: dozens of monitors and dashboards with
+              dead-man switches on both check-in activity and the
+              monitoring itself, cutover-aware queries, and thresholds
+              derived from a month of measured error rates. Adopted the
+              existing hand-built monitors by import without changing
+              their IDs.
             tags: [observability, terraform, incident-response]
             weight: 4
             evidence: "cie-datadog-monitoring (Nov 2025–Aug 2026)"
           - id: cie-credentials
             text: >-
               Eliminated long-lived credentials from CI/CD: OIDC-assumed
-              roles in every repository, GitHub App tokens replacing stored
-              bot tokens, SHA-pinned actions from day one, and an hourly
-              poller publishing vulnerability-alert counts with a dead-man
-              monitor so a broken poller can never read as clean
+              roles in every repository, GitHub App tokens in place of
+              stored bot tokens, SHA-pinned actions from day one, and an
+              hourly poller publishing vulnerability-alert counts with a
+              dead-man monitor so a broken poller can never read as
+              clean.
             tags: [security, ci-cd, aws, observability]
             weight: 4
             evidence: "cd#514, cd#520, cd#1953, cd#1955"
           - id: cie-dependency-hygiene
             text: >-
               Closed the GitHub auto-merge hole where a skipped required
-              check counted as a pass, then safely automated over a thousand
-              dependency updates across 15 repositories with per-advisory
-              security PRs and reachability analysis
+              check counted as a pass, then safely automated more than a
+              thousand dependency updates across a dozen-plus
+              repositories with per-advisory security PRs and
+              reachability analysis.
             tags: [security, ci-cd]
             weight: 3
             evidence: "cd#1933, cd#1939; if: always() aggregating gate"
           - id: cie-cross-team
             text: >-
-              Drove the platform-API side of the account migration across
-              eight merged pull requests in another team's Rails service,
-              plus reverse-proxy, manifest, and forward-proxy changes owned
-              by three other teams, documenting and proposing rather than
-              changing systems uninvited
+              Drove the platform-API side of the account migration
+              through a series of pull requests in another team's Rails
+              service, plus reverse-proxy, manifest, and forward-proxy
+              changes owned by three other teams, documenting and
+              proposing rather than changing other people's systems
+              uninvited.
             tags: [cross-team, leadership, backend]
             weight: 3
             evidence: "vets-api#23348, #28346, #28723, #28809, #29137; vsp-platform-revproxy#1281"
           - id: cie-structural-fixes
             text: >-
-              Wrote four production postmortems with minute-level timelines
-              and ticketed action items, then made the structural fixes:
-              removed a flaky deploy-time dependency on an internal
-              certificate server across seven repositories by moving
-              certificate bundles to S3, and added a post-deploy health gate
-              that caught a gateway Terraform had reported green
+              Wrote four production postmortems with minute-level
+              timelines and ticketed action items, then made the
+              structural fixes: removed a flaky deploy-time dependency
+              on an internal certificate server across every affected
+              repository by moving certificate bundles to S3, and added
+              a post-deploy health gate that caught a gateway Terraform
+              had reported green.
             tags: [incident-response, documentation, aws]
             weight: 3
             evidence: "cd#1570–1578; cd#1919; lorota#585"
           - id: cie-modernization
             text: >-
-              Upgraded every service from Node 18 to 22 and the frontends
-              across major React, MUI, and router versions; moved system
-              tests off CodeBuild onto GitHub-hosted runners with a proxy
-              client that let 198 tests reach private APIs with zero test
-              edits
+              Upgraded every service from Node 18 to 22 and the
+              frontends across major React, MUI, and router versions;
+              moved the system tests off CodeBuild onto GitHub-hosted
+              runners with a proxy client that let ~200 tests reach
+              private APIs with zero test edits.
             tags: [migration, node, typescript, ci-cd]
             weight: 3
             evidence: "cd#1515–1521; cie-system-tests#196"
           - id: cie-ai-workflow
             text: >-
-              Adopted spec-then-plan AI-assisted engineering with design
-              specs and plans committed alongside the code, paired every
-              time with hand-verified evidence: hashes of deployed
-              configuration, CloudWatch tables, red-to-green test counts
-            tags: [documentation, architecture]
-            weight: 2
+              Works AI-assisted end to end, since 2025 under a spec-
+              then-plan workflow with design specs, implementation
+              plans, and review artifacts committed beside the code;
+              every claim is paired with hand-verified evidence such as
+              hashes of deployed configuration, CloudWatch tables, and
+              red-to-green test counts.
+            tags: [documentation, architecture, ci-cd]
+            weight: 4
             evidence: "~200 Co-Authored-By commits, ~90 PR footers, Aug 2025 onward; chip#2514 hash proof"
 ```
 
@@ -731,30 +752,32 @@ Title `Technical Lead, VA.gov CMS`; bullets:
         bullets:
           - id: cms-tl-content-release
             text: >-
-              Designed and executed a zero-downtime re-architecture of the
-              VA.gov publishing pipeline into five tested Drupal modules with
-              a plugin and resolver design, shipping ~15 pull requests
-              alongside the legacy path and deleting it only after test
-              parity (legacy module: 0 test files; replacement: 56)
+              Designed and executed a zero-downtime re-architecture of
+              the VA.gov publishing pipeline into five tested Drupal
+              modules with a plugin and resolver design, shipping the
+              replacement alongside the legacy path and deleting the old
+              code only after test parity. The legacy module had no
+              tests; the replacement shipped with dozens of test files.
             tags: [architecture, drupal, php, testing, migration]
             weight: 5
             evidence: "va.gov-cms#13844 (problem statement), #14160/#14191/#14212, #14157, #14424, #14478, #14794 (deletion)"
           - id: cms-tl-drupal10
             text: >-
-              Led the Drupal 10 program for a multi-vendor CMS with ~30
-              active contributors: seeded it 20 months early with a
-              60-module checklist, opened 24 per-module compatibility
-              tickets in a day for other teams to pick up, and de-risked the
-              final 100-commit branch by backporting discrete concerns to
-              main before it landed
+              Led the Drupal 10 program for a multi-vendor CMS with
+              dozens of active contributors: seeded it more than a year
+              and a half early with a module-by-module checklist, opened
+              two dozen compatibility tickets in a day for other teams
+              to pick up, and de-risked the final large branch by
+              backporting discrete concerns to main before it landed.
             tags: [drupal, migration, leadership, cross-team]
             weight: 5
             evidence: "va.gov-cms#8159 (epic), #11014, #14852; D10 shipped 2023-11-29 by teammates with me as program owner"
           - id: cms-tl-cypress-parallel
             text: >-
-              Cut end-to-end test wall time by roughly 60% with weighted
-              three-way parallelization, and retired the last of the legacy
-              Behat suite after a scenario-by-scenario audit (−3,170 lines)
+              Cut end-to-end test wall time by more than half with
+              weighted parallelization, and retired the last of the
+              legacy Behat suite after a scenario-by-scenario audit,
+              thousands of lines removed.
             tags: [testing, ci-cd]
             weight: 4
             evidence: "va.gov-cms#14540, #14834, #14340"
@@ -770,10 +793,11 @@ Title `Technical Lead, VA.gov CMS`; bullets:
             evidence: "va.gov-team-sensitive#1255, #1310, #1354; va.gov-cms#14923, #14920, #14319, #15086"
           - id: cms-tl-pre-refinement
             text: >-
-              Ran Engineering Pre-Refinement with a published review rubric
-              and estimation guide, keeping unrefined tickets out of sprint
-              refinement; wrote the CODEOWNERS taxonomy for a ~10-team
-              repository as an open request for comments
+              Ran Engineering Pre-Refinement with a published review
+              rubric and estimation guide, keeping unrefined tickets out
+              of sprint refinement; wrote the CODEOWNERS taxonomy for a
+              repository shared by ten teams as an open request for
+              comments.
             tags: [leadership, documentation, cross-team]
             weight: 4
             evidence: "va.gov-cms#15581 (CODEOWNERS RfC); pre-refinement Q4 2023"
@@ -803,32 +827,35 @@ Title `Senior Software/DevOps Engineer, VA.gov CMS`; bullets:
           - id: cms-sse-quality-program
             text: >-
               Hired as a backend engineer; started and led the quality
-              program that became the team's written test strategy: owned
-              the Behat-to-Cypress migration from first port to removal,
-              grew PHPUnit from 20 to 106 classes, introduced PHPStan with a
-              committed baseline cut from 288 to 100 findings, and added
-              axe-based WCAG 2.1 checks to the create and view flow of every
-              content type; 62% of the test codebase by blame at exit
+              program that became the team's written test strategy:
+              owned the Behat-to-Cypress migration from first port to
+              removal, grew the unit-test suite fivefold, introduced
+              static analysis with a committed baseline and cut it by
+              two-thirds, and added accessibility (WCAG 2.1) checks to
+              the create and view flow of every content type. Most of
+              the test codebase by blame at exit.
             tags: [testing, leadership, mentoring, drupal, php]
             weight: 5
             evidence: "va.gov-cms#4589, #8746, #6026, #10737, #12620, #14133; #9882 (QA & Testing Strategy)"
           - id: cms-sse-ci-unification
             text: >-
-              Moved CI from preview-environment scripts into GitHub Actions
-              and unified every check into one command surface that runs
-              identically on a laptop, in previews, on the deploy platform,
-              and in CI (−4,081 lines); added a set-pending action so status
-              can never read green before tests run
+              Moved CI from preview-environment scripts into GitHub
+              Actions and unified every check into one command surface
+              that runs identically on a laptop, in previews, on the
+              deploy platform, and in CI, thousands of lines removed in
+              the process; added a set-pending action so status can
+              never read green before tests run.
             tags: [ci-cd, platform, architecture]
             weight: 5
             evidence: "va.gov-cms#12192, #10712, #10715, #4880"
           - id: cms-sse-scope
             text: >-
               Top human committer on the Drupal platform behind VA.gov
-              content for 39 months, across ~30 active contributors from
-              several vendors: 532 merged pull requests, 743 issues
-              authored, and 1,068 code reviews across 12 repositories,
-              reviewing roughly twice as many changes as I wrote
+              content for more than three years, across dozens of
+              contributors from several vendors: 500+ merged pull
+              requests, 700+ issues written, and 1,000+ code reviews
+              across a dozen repositories, reviewing roughly twice as
+              much as I wrote.
             tags: [ownership, drupal, php, backend, cross-team]
             weight: 4
             evidence: "git and GitHub counts as of 2026-09-11; 580 non-merge commits vs next 263"
@@ -843,21 +870,22 @@ Title `Senior Software/DevOps Engineer, VA.gov CMS`; bullets:
             evidence: "va.gov-cms#13948 → #14089; devops#13155; preceded by 13-ticket QA-metrics epic #11070"
           - id: cms-sse-supply-chain
             text: >-
-              Hardened GitHub Actions as a supply-chain surface: SHA-pinned
-              every action, wrote the hardening guide, built an action that
-              posts a security checklist on any workflow edit, and responded
-              the same day to a CISA advisory; wrote a risk-based
-              dependency-alert policy and triaged 545 dependency PRs
+              Hardened GitHub Actions as a supply-chain surface: SHA-
+              pinned every action, wrote the hardening guide, built an
+              action that posts a security checklist on any workflow
+              edit, and responded the same day to a CISA advisory; wrote
+              a risk-based dependency-alert policy and triaged hundreds
+              of dependency PRs.
             tags: [security, ci-cd, documentation]
             weight: 4
             evidence: "va.gov-cms#10617, #11199, #10955, #13622, #10703; content-build#1291"
           - id: cms-sse-drupal9
             text: >-
               Drove the Drupal 8 to 9 upgrade end to end: compatibility
-              sweep across every custom module, removed ~14 blocking contrib
-              modules, replaced a task runner with a framework conflict, and
-              kept core current through ~16 bumps including same-day security
-              releases
+              sweep across every custom module, a dozen-plus blocking
+              contrib modules removed or replaced, a task runner with a
+              framework conflict swapped out, and core kept current
+              through every release including same-day security fixes.
             tags: [drupal, migration, php]
             weight: 4
             evidence: "va.gov-cms#4321, #5259, #5667, #5350–#5354"
@@ -875,19 +903,21 @@ Title `Senior Software/DevOps Engineer, VA.gov CMS`; bullets:
           - id: cms-sse-guest
             text: >-
               Sustained a guest-contributor role in seven other teams'
-              repositories for three years, 121 merged pull requests and 219
-              reviews, from early Ansible fixes to platform-wide corrections
-              in autoscaling lifecycle and machine-image build code; every PR
-              stated blast radius, testing done, and merge ordering
+              repositories for three years, 100+ merged pull requests
+              and 200+ reviews, from early Ansible fixes to platform-
+              wide corrections in autoscaling lifecycle and machine-
+              image build code. Every PR stated blast radius, testing
+              done, and merge ordering.
             tags: [cross-team, aws, platform, leadership]
             weight: 4
             evidence: "devops#10930, #12461, #8305; content-build#965"
           - id: cms-sse-flaky
             text: >-
-              Ran a systematic flaky-test program with 20+ root-cause fixes,
-              including cross-suite epoch timestamps so concurrent test logs
-              could be merged to locate database deadlocks; every disabled
-              test got a re-enable issue, several closed a year later
+              Ran a systematic flaky-test program with dozens of root-
+              cause fixes, including cross-suite epoch timestamps so
+              concurrent test logs could be merged to locate database
+              deadlocks. Every disabled test got a re-enable issue, and
+              several were closed a year later.
             tags: [testing, incident-response]
             weight: 4
             evidence: "va.gov-cms#11238, #12633, #12418, #11527"
@@ -924,10 +954,10 @@ Title `Senior Software/DevOps Engineer, VA.gov CMS`; bullets:
             text: >-
               Introduced Memcache across every environment with a kill
               switch, benchmarked it under load and reported the modest
-              gains honestly, and diagnosed a connection-exhaustion problem
-              (512 → 13 connections) that unblocked a 640-test suite;
-              appended trace IDs to every application log line and exported
-              content-health metrics to Prometheus
+              gains honestly, and diagnosed a connection-exhaustion
+              problem that had been blocking the full unit suite;
+              appended trace IDs to every application log line and
+              exported content-health metrics to Prometheus.
             tags: [backend, drupal, observability]
             weight: 3
             evidence: "va.gov-cms#5065–#5083, #6745, #8898, #5386, #12856"

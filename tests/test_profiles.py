@@ -35,3 +35,34 @@ def test_tuned_profiles_have_leadership_in_each_agile_six_role(name, role_id):
     sel = _sel(name)
     roles = {sr.role.id: sr for sr in sel.employers[0].roles}
     assert any("leadership" in b.tags for b in roles[role_id].bullets)
+
+
+def _selected_ids(name):
+    sel = _sel(name)
+    return {b.id for e in sel.employers for r in e.roles for b in r.bullets}
+
+
+@pytest.mark.parametrize("name", ["commercial-senior-swe", "govtech-platform"])
+def test_tuned_profiles_carry_the_throughline(name):
+    ids = _selected_ids(name)
+    # identity: safe to change
+    assert "cie-platform-founded" in ids or "cie-platform-founded-testing" in ids
+    assert "cms-tl-content-release" in ids
+    assert "cms-sse-quality-program" in ids
+    # proof: finds what is silently wrong
+    assert "cie-silent-defect" in ids
+    assert "cms-sse-release-safety" in ids or "cms-sse-flaky" in ids
+    # outcome: owner of record
+    assert "cie-ownership" in ids
+    assert "ain-arc" in ids
+    assert "devon-sync-ownership" in ids
+
+
+def test_commercial_hides_federal_only_bullets():
+    ids = _selected_ids("commercial-senior-swe")
+    assert "cms-tl-ato" not in ids
+
+
+def test_govtech_shows_ato():
+    ids = _selected_ids("govtech-platform")
+    assert "cms-tl-ato" in ids

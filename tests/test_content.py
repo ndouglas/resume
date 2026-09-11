@@ -52,3 +52,13 @@ def test_summary_variants_exist_and_are_assigned():
     assert govtech.summary == "govtech"
     commercial = load_profile(ROOT / "profiles" / "commercial-senior-swe.yaml", content)
     assert commercial.summary == "commercial"
+
+
+def test_projects_reframed():
+    content = load_content(ROOT / "content")
+    ids = {p.id for p in content.projects}
+    assert {"goldentooth", "hornvale", "wiz6", "bitwit", "blackpool", "longtable", "greenstone", "clork", "whispers", "distillation"} <= ids
+    gold = next(p for p in content.projects if p.id == "goldentooth")
+    assert "TLA" not in gold.text and "TLA+" not in gold.stack
+    note = content.project_notes[0]
+    assert "OpenTofu" not in note.text and "Couchbase" not in note.text

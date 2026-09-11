@@ -4,46 +4,52 @@ projects:
     emoji: "🦷"
     url: https://github.com/goldentooth/
     text: >-
-      Personal research lab: multi-node Kubernetes cluster exploring
-      infrastructure verification (TLA+), GPU compute, full observability, and
-      GitOps deployment
-    stack: [Talos, Kubernetes, Flux CD, TLA+]
-    tags: [kubernetes, observability, platform]
+      17-node Talos Linux Kubernetes cluster run entirely through Flux
+      GitOps: Cilium, cert-manager with an internal ACME CA, SeaweedFS,
+      Prometheus/Loki/Tempo observability, Chaos Mesh fault injection,
+      Falco runtime security, and a hundred-plus-entry engineering
+      journal of what broke and why
+    stack: [Talos, Kubernetes, Flux CD, Cilium]
+    tags: [kubernetes, observability, platform, security]
     weight: 5
-    evidence: ~/Projects/goldentooth
+    evidence: ~/Projects/goldentooth (gitops, cluster, clog)
+  - id: hornvale
+    name: Hornvale
+    emoji: "🏔️"
+    url: https://github.com/hornvale/
+    text: >-
+      Large Rust world simulation whose guardrails are the point:
+      architecture rules and documentation invariants enforced as tests,
+      byte-identical deterministic output verified across CPU
+      architectures, a serialized merge queue, and mutation tooling written
+      after false-green results
+    stack: [Rust]
+    tags: [rust, testing, architecture]
+    weight: 4
+    evidence: ~/Projects/hornvale/hornvale (cli/tests/suite, docs/decisions, scripts/mutate.py)
+  - id: wiz6
+    name: Wiz6
+    emoji: "🧙"
+    url: https://wiz6.goldentooth.net/
+    text: >-
+      Reverse-engineering a 1990 DOS RPG into typed decoders, a CLI, and a
+      data explorer, with pristine fixtures kept separate from the mutable
+      emulator workspace
+    stack: [TypeScript, Ghidra]
+    tags: [typescript, research, backend]
+    weight: 3
+    evidence: ~/Projects/ndouglas/wiz6
   - id: bitwit
     name: Bitwit
     emoji: "📚"
     url: https://bit-wit.com/
     text: >-
-      Spaced repetition platform for CS education with time-based grading and
-      parameterized card generation
+      Spaced repetition platform for CS education with time-based grading
+      and parameterized card generation
     stack: [TypeScript, AWS Lambda, DynamoDB]
     tags: [typescript, serverless, backend]
     weight: 3
     evidence: https://bit-wit.com/
-  - id: whispers
-    name: Whispers
-    emoji: "🗣️"
-    url: https://github.com/ndouglas/whispers/
-    text: >-
-      Gossip-based mesh network with fraud-resistant distributed optimization
-      via audited CRDTs
-    stack: [Rust]
-    tags: [rust, research]
-    weight: 2
-    evidence: https://github.com/ndouglas/whispers/
-  - id: distillation
-    name: Distillation
-    emoji: "🧪"
-    url: https://github.com/ndouglas/distillation/
-    text: >-
-      Knowledge distillation with Jacobian/Hessian regularization and
-      adversarial training
-    stack: [Python, PyTorch]
-    tags: [ml, research]
-    weight: 2
-    evidence: https://github.com/ndouglas/distillation/
   - id: blackpool
     name: Blackpool
     emoji: "💻"
@@ -60,8 +66,8 @@ projects:
     emoji: "🎲"
     url: https://github.com/ndouglas/longtable/
     text: >-
-      Rule-based simulation engine with LISP DSL, immutable world state, and
-      time-travel debugging
+      Rule-based simulation engine with a LISP DSL, immutable world state,
+      and time-travel debugging
     stack: [Rust]
     tags: [rust, backend]
     weight: 3
@@ -86,11 +92,34 @@ projects:
     tags: [research, backend]
     weight: 2
     evidence: ~/Projects/ndouglas/clork
+  - id: whispers
+    name: Whispers
+    emoji: "🗣️"
+    url: https://github.com/ndouglas/whispers/
+    text: >-
+      Gossip-based mesh network with fraud-resistant distributed
+      optimization via audited CRDTs
+    stack: [Rust]
+    tags: [rust, research]
+    weight: 2
+    evidence: https://github.com/ndouglas/whispers/
+  - id: distillation
+    name: Distillation
+    emoji: "🧪"
+    url: https://github.com/ndouglas/distillation/
+    text: >-
+      Knowledge distillation with Jacobian/Hessian regularization and
+      adversarial training
+    stack: [Python, PyTorch]
+    tags: [ml, research]
+    weight: 2
+    evidence: https://github.com/ndouglas/distillation/
 notes:
   - id: open-source-note
     text: >-
-      Open-source contributor to Terraform, Argo CD, Datadog,
-      Couchbase, and Drupal, among others
+      Occasional upstream contributor: Ansible community.general, Lando,
+      Datadog serverless functions, Drupal Console, the Drupal core issue
+      queue, ReactiveCocoa; documentation fixes to Terraform and Argo CD
     tags: [open-source]
     weight: 1
-    evidence: "gh search prs --author ndouglas --merged (verified 2026-09-11)"
+    evidence: "gh search prs --author ndouglas --merged, verified 2026-09-11; drupal.org schemata patch committed upstream 2024"

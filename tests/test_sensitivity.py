@@ -55,3 +55,17 @@ def test_every_profile_is_clean(path):
     for s in all_text(select(content, profile)):
         found += violations(s)
     assert found == []
+
+
+def test_raw_content_is_clean():
+    """Lint every string in content/, selected or not, so an unselected `alt`
+    form (or anything else no profile currently picks) can't hide a violation."""
+    content = load_content(ROOT / "content")
+    texts = [b.text for e in content.employers for r in e.roles for b in r.bullets]
+    texts += [p.text for p in content.projects] + [n.text for n in content.project_notes]
+    texts += [i.text for g in content.skills for i in g.items]
+    texts += list(content.summaries.values())
+    found = []
+    for s in texts:
+        found += violations(s)
+    assert found == []

@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 from tunable.loader import load_content, load_profile, load_config
 
@@ -115,3 +116,28 @@ def test_earlier_roles_make_the_arc_explicit():
     assert all(b.evidence == "from memory; discuss in interview" for b in ain.values())
     devon = _bullets(content, "devon")
     assert len(devon) == 3
+
+
+def test_no_broken_hyphenation():
+    content = load_content(ROOT / "content")
+    texts = [b.text for e in content.employers for r in e.roles for b in r.bullets]
+    texts += [p.text for p in content.projects] + [n.text for n in content.project_notes]
+    texts += list(content.summaries.values())
+    for t in texts:
+        assert not re.search(r"\w- \w", t), t
+
+
+def test_experience_bullets_within_word_budget():
+    content = load_content(ROOT / "content")
+    for e in content.employers:
+        for r in e.roles:
+            for b in r.bullets:
+                assert len(b.text.split()) <= 34, b.id
+
+
+def test_experience_bullets_end_with_period():
+    content = load_content(ROOT / "content")
+    for e in content.employers:
+        for r in e.roles:
+            for b in r.bullets:
+                assert b.text.endswith("."), b.id

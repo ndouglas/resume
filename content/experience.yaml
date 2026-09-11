@@ -19,10 +19,10 @@ employers:
             evidence: "checkin-devops 74% of commits; chip 58%; lorota 64%; 15 CIE repos, ~5,970 commits Feb 2024–Sep 2026"
           - id: cie-platform-founded
             text: >-
-              Founded the team's developer platform: Terraform and Terragrunt
-              for a new AWS GovCloud account, one OIDC role per repository so
-              no long-lived credentials exist in CI, and a library of
-              composite GitHub Actions used across a dozen-plus repositories
+              Founded the team's developer platform: Terraform and
+              Terragrunt for a new AWS GovCloud account, one OIDC role per
+              repository so no long-lived credentials exist in CI, and
+              shared composite GitHub Actions.
             tags: [platform, terraform, aws, ci-cd, security, architecture]
             weight: 5
             evidence: "cie-terraform-modules, cie-github-actions, cie-iam-manager founded 2024-08-28; cd#533"
@@ -32,7 +32,7 @@ employers:
               Founded the team's developer platform: Terraform and Terragrunt
               for a new AWS GovCloud account and 40+ reusable modules, each
               integration-tested by applying real infrastructure in two AWS
-              accounts on every pull request
+              accounts on every pull request.
             tags: [platform, terraform, aws, testing, architecture]
             weight: 5
             evidence: "cie-terraform-modules: 42 terraform test suites / 234 run blocks, 10-way sharded matrix; 183 releases"
@@ -41,8 +41,8 @@ employers:
             text: >-
               Led a multi-year migration of four production services to
               a new AWS account through a hard cutover, then
-              decommissioned the legacy estate with evidence-gated, dry-
-              run-by-default tooling.
+              decommissioned the legacy estate with evidence-gated,
+              dry-run-by-default tooling.
             tags: [migration, aws, terraform, ownership, leadership]
             weight: 5
             evidence: "cutover 2026-07-29; chip#2532; cd#1912, cd#1958, cd#2002"
@@ -102,10 +102,10 @@ employers:
             evidence: "cie-datadog-monitoring (Nov 2025–Aug 2026)"
           - id: cie-credentials
             text: >-
-              Eliminated long-lived credentials from CI/CD with OIDC-
-              assumed roles in every repository, GitHub App tokens, SHA-
-              pinned actions, and an hourly vulnerability-count poller
-              with its own dead-man monitor.
+              Eliminated long-lived credentials from CI/CD with
+              OIDC-assumed roles in every repository, GitHub App tokens,
+              SHA-pinned actions, and an hourly vulnerability-count
+              poller with its own dead-man monitor.
             tags: [security, ci-cd, aws, observability]
             weight: 4
             evidence: "cd#514, cd#520, cd#1953, cd#1955"
@@ -147,10 +147,10 @@ employers:
             evidence: "cd#1515–1521; cie-system-tests#196"
           - id: cie-ai-workflow
             text: >-
-              Works AI-assisted end to end under a spec-then-plan
-              workflow, with specs, plans, and review artifacts
-              committed beside the code and every claim backed by hand-
-              verified evidence.
+              Adopted AI-assisted engineering end to end under a
+              spec-then-plan workflow, with specs, plans, and review
+              artifacts committed beside the code and every claim backed
+              by hand-verified evidence.
             tags: [documentation, architecture, ci-cd]
             weight: 4
             evidence: "~200 Co-Authored-By commits, ~90 PR footers, Aug 2025 onward; chip#2514 hash proof"
@@ -207,7 +207,7 @@ employers:
           - id: cms-tl-recruiting
             text: >-
               Recruited senior engineers and a QA architect to remediate
-              systemic technical debt and flaky tests
+              systemic technical debt and flaky tests.
             tags: [leadership, testing]
             weight: 3
             evidence: "from memory; discuss in interview"
@@ -215,7 +215,8 @@ employers:
             text: >-
               Maintained Authority to Operate (ATO) for EHR-integrated
               systems handling protected health information, resolving
-              regulatory identity gaps through audits and tabletop exercises
+              regulatory identity gaps through audits and tabletop
+              exercises.
             tags: [ato, federal, security, healthcare]
             weight: 3
             evidence: "from memory; discuss in interview"
@@ -244,10 +245,10 @@ employers:
             evidence: "va.gov-cms#12192, #10712, #10715, #4880"
           - id: cms-sse-scope
             text: >-
-              Top human committer on the Drupal platform behind VA.gov
-              content for over three years: 500+ merged pull requests,
-              700+ issues, and 1,000+ code reviews, reviewing roughly
-              twice as much as I wrote.
+              Most active contributor by commits on the Drupal platform
+              behind VA.gov content for over three years, with 500+
+              merged pull requests and 1,000+ code reviews across a
+              dozen repositories.
             tags: [ownership, drupal, php, backend, cross-team]
             weight: 4
             evidence: "git and GitHub counts as of 2026-09-11; 580 non-merge commits vs next 263"
@@ -262,8 +263,8 @@ employers:
             evidence: "va.gov-cms#13948 → #14089; devops#13155; preceded by 13-ticket QA-metrics epic #11070"
           - id: cms-sse-supply-chain
             text: >-
-              Hardened GitHub Actions as a supply-chain surface: SHA-
-              pinned every action, wrote the hardening guide and an
+              Hardened GitHub Actions as a supply-chain surface:
+              SHA-pinned every action, wrote the hardening guide and an
               auto-posted security checklist, and answered a CISA
               advisory the same day.
             tags: [security, ci-cd, documentation]
@@ -299,8 +300,8 @@ employers:
             evidence: "devops#10930, #12461, #8305; content-build#965"
           - id: cms-sse-flaky
             text: >-
-              Ran a systematic flaky-test program with dozens of root-
-              cause fixes, including cross-suite timestamps so
+              Ran a systematic flaky-test program with dozens of
+              root-cause fixes, including cross-suite timestamps so
               concurrent test logs could be merged to locate database
               deadlocks; every disabled test got a re-enable issue.
             tags: [testing, incident-response]
@@ -310,8 +311,8 @@ employers:
             text: >-
               Caught a release-safety hole where auto-deploy read
               combined status before checks had reported and shipped a
-              commit whose tests had failed; fixed it at the status-
-              reporting layer.
+              commit whose tests had failed; fixed it at the
+              status-reporting layer.
             tags: [ci-cd, testing, incident-response]
             weight: 4
             evidence: "va.gov-cms#12851 → #14668; devops#13306"
@@ -345,7 +346,7 @@ employers:
             text: >-
               Wrote the lifecycle service that retires aging self-hosted CI
               runner instances using GitHub's own view of runner idleness,
-              with dry-run and threshold controls
+              with dry-run and threshold controls.
             tags: [ci-cd, aws, node]
             weight: 2
             evidence: "content-build#1676, #1687; devops#13366"
@@ -362,7 +363,7 @@ employers:
             text: >-
               Joined to improve developer experience and left owning the
               platform: migrated every service off a managed Drupal host
-              onto AWS at about 70% lower annual cost, and built the
+              onto AWS at substantially lower annual cost, and built the
               backend, subscription platform, and APIs.
             tags: [ownership, migration, aws, platform, backend]
             weight: 5
@@ -371,7 +372,7 @@ employers:
             text: >-
               Engineered a headless Drupal and Next.js architecture on AWS,
               integrating Stripe and AWS Cognito for subscription services
-              with independent scaling
+              with independent scaling.
             tags: [architecture, backend, aws, drupal, typescript]
             weight: 4
             evidence: "from memory; discuss in interview"
@@ -379,7 +380,7 @@ employers:
             text: >-
               Established CI/CD pipelines and containerized development
               environments, taking deployments from occasional to multiple
-              times daily
+              times daily.
             tags: [ci-cd, platform]
             weight: 4
             evidence: "from memory; discuss in interview"
@@ -387,21 +388,21 @@ employers:
             text: >-
               Built Lambda-based subscriber services and data pipelines with
               CloudWatch and Slack for real-time monitoring; improved
-              performance with Varnish and Redis caching
+              performance with Varnish and Redis caching.
             tags: [serverless, backend, observability, aws]
             weight: 3
             evidence: "from memory; discuss in interview"
           - id: ain-mentoring
             text: >-
               Mentored junior engineers on clean code and peer review,
-              improving ticket turnaround and codebase maintainability
+              improving ticket turnaround and codebase maintainability.
             tags: [mentoring, leadership]
             weight: 3
             evidence: "from memory; discuss in interview"
           - id: ain-devex
             text: >-
               Built the Vagrant-based local development environment every
-              engineer used, later containerized, so the team ran one stack
+              engineer used, later containerized, so the team ran one stack.
             tags: [platform, ci-cd]
             weight: 2
             evidence: "from memory; discuss in interview"
@@ -416,9 +417,9 @@ employers:
         bullets:
           - id: devon-sync-ownership
             text: >-
-              Took ownership of a complex sync subsystem during a high-risk
-              engineer transition, supporting release stabilization, defect
-              resolution, and customer issue triage
+              Took ownership of DEVONthink's sync subsystem during a
+              high-risk engineer transition, supporting release
+              stabilization, defect resolution, and customer issue triage.
             tags: [ownership, backend, macos]
             weight: 4
             evidence: "from memory; discuss in interview"
@@ -426,7 +427,7 @@ employers:
             text: >-
               Developed client-side features and synchronization for
               DEVONthink across macOS and iOS, spanning cloud-storage and
-              peer-to-peer sync backends
+              peer-to-peer sync backends.
             tags: [backend, macos]
             weight: 3
             evidence: "from memory; discuss in interview"
@@ -434,7 +435,7 @@ employers:
             text: >-
               Contributed to release engineering and iterative debugging in
               a legacy Objective-C codebase with significant performance,
-              reliability, and memory-management constraints
+              reliability, and memory-management constraints.
             tags: [backend, macos, ci-cd]
             weight: 2
             evidence: "from memory; discuss in interview"

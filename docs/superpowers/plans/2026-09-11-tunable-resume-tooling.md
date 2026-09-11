@@ -1864,7 +1864,7 @@ def test_renders_all_sections(tmp_root):
     assert r"\resumeSubSubheading" in out and "Engineer" in out
     assert "Did the first thing" in out
     assert r"\section{Technical Skills}" in out and "Cypress" in out
-    assert r"\section{Projects}" in out and "Widget" in out and "(\\emph{Rust})" in out
+    assert r"\section{Projects}" in out and "Widget" in out and "{A widget}{Rust}" in out
     assert "Open-source contributor" in out
     assert r"\section{Education}" in out and "State U" in out
     assert r"\section{Languages}" in out and "Native" in out

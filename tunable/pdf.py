@@ -27,7 +27,10 @@ def compile(tex_path: Path, out_dir: Path) -> Path:
 
 
 def to_text(pdf: Path, txt: Path) -> None:
-    subprocess.run(["pdftotext", "-raw", str(pdf), str(txt)], check=True)
+    r = subprocess.run(["pdftotext", "-raw", str(pdf), str(txt)], capture_output=True, text=True)
+    if r.returncode != 0:
+        tail = r.stderr[-3000:]
+        raise RuntimeError(f"pdftotext failed for {pdf.name}: {tail}")
 
 
 def page_count(pdf: Path) -> int:

@@ -1,4 +1,5 @@
 from pathlib import Path
+import shutil
 import pytest
 from tunable import pdf
 
@@ -24,3 +25,11 @@ def test_compile_and_count_pages(tmp_path: Path):
     txt = tmp_path / "min.txt"
     pdf.to_text(out, txt)
     assert "Hello" in txt.read_text()
+
+
+@pytest.mark.skipif(shutil.which("pdftotext") is None, reason="pdftotext not installed")
+def test_to_text_raises_runtime_error_on_failure(tmp_path: Path):
+    bad = tmp_path / "not.pdf"
+    bad.write_text("hello")
+    with pytest.raises(RuntimeError, match="pdftotext failed"):
+        pdf.to_text(bad, tmp_path / "not.txt")

@@ -1,5 +1,17 @@
 name: commercial-senior-swe
 summary: commercial
-clearance_line: true
+clearance_line: false
 email: auto
-sections: [experience, skills, projects, education, languages]
+page_limit: 2
+sections: [experience, skills, projects, education]
+tags: [backend, platform, aws, kubernetes, terraform, serverless, node, typescript, rust,
+       testing, ci-cd, security, observability, incident-response, cost, migration,
+       architecture, ownership, leadership, mentoring, cross-team, macos]
+caps:
+  default: 5
+  roles: {cie: 7, cms-tl: 4, cms-sse: 5, ain: 4, devon: 2}
+  projects: 6
+include: []
+exclude: []
+require:
+  - {tag: leadership, min: 1, roles: [cie, cms-tl, cms-sse]}

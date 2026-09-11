@@ -80,6 +80,14 @@ def _bullet(raw: dict, where: str, vocab, errors: _Errors) -> Bullet:
     return Bullet(bid, text, _tags(raw.get("tags"), f"{where} ({bid})", vocab, errors), weight, evidence)
 
 
+def _int(raw, where: str, errors: _Errors, default: int | None) -> int | None:
+    try:
+        return int(raw)
+    except (TypeError, ValueError):
+        errors.add(f"{where} must be an integer")
+        return default
+
+
 def _check_unique(ids: list[str], errors: _Errors) -> None:
     seen: set[str] = set()
     for i in ids:
@@ -183,7 +191,10 @@ def load_profile(path: Path, content: Content) -> Profile:
 
     role_ids = content.role_ids()
     caps_raw = raw.get("caps") or {}
-    role_caps = {str(k): int(v) for k, v in (caps_raw.get("roles") or {}).items()}
+    role_caps = {
+        str(k): _int(v, f"{where}: cap for role '{k}'", errors, 0)
+        for k, v in (caps_raw.get("roles") or {}).items()
+    }
     for r in role_caps:
         if r not in role_ids:
             errors.add(f"{where}: unknown role id '{r}' in caps")
@@ -198,12 +209,17 @@ def load_profile(path: Path, content: Content) -> Profile:
         for r in roles:
             if r not in role_ids:
                 errors.add(f"{where}: unknown role id '{r}' in require")
-        require.append(Require(tag, int(q.get("min", 1)), roles))
+        min_ = _int(q.get("min", 1), f"{where}: min for tag '{tag}'", errors, 1)
+        require.append(Require(tag, min_, roles))
 
-    page_limit = raw.get("page_limit")
+    page_limit_raw = raw.get("page_limit")
+    page_limit = (
+        _int(page_limit_raw, f"{where}: page_limit", errors, None)
+        if page_limit_raw is not None else None
+    )
     errors.raise_if_any()
     return Profile(name, summary, bool(raw.get("clearance_line", False)), str(raw.get("email", "auto")),
-                   int(page_limit) if page_limit is not None else None, sections, tags, caps,
+                   page_limit, sections, tags, caps,
                    include, exclude, tuple(require))
 
 

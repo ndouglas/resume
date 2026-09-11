@@ -33,6 +33,35 @@ def test_duplicate_bullet_id_fails(tmp_path):
         load_content(content_dir)
 
 
+def test_duplicate_role_id_across_employers_fails(tmp_path):
+    exp = """
+        employers:
+          - name: Acme
+            start: 2020-10
+            end: present
+            roles:
+              - id: dup
+                title: T
+                start: 2020-10
+                end: present
+                bullets:
+                  - {id: x, text: a, tags: [backend], weight: 1, evidence: e}
+          - name: Widgetco
+            start: 2018-01
+            end: 2020-09
+            roles:
+              - id: dup
+                title: T
+                start: 2018-01
+                end: 2020-09
+                bullets:
+                  - {id: y, text: a, tags: [backend], weight: 1, evidence: e}
+    """
+    content_dir = write_content(tmp_path, {"experience.yaml": exp})
+    with pytest.raises(ContentError, match="duplicate id 'dup'"):
+        load_content(content_dir)
+
+
 def test_unknown_tag_fails(tmp_path):
     exp = """
         employers:
@@ -169,6 +198,9 @@ def test_master_profile_defaults(tmp_root):
     ("summary: commercial\nsections: [experience]\ncaps: {roles: {ghost: 1}}", "unknown role id 'ghost'"),
     ("summary: commercial\nsections: [experience]\nrequire: [{tag: backend, min: 1, roles: [ghost]}]", "unknown role id 'ghost'"),
     ("summary: commercial\nsections: [experience]\nrequire: [{tag: nope, min: 1, roles: [acme-senior]}]", "unknown tag 'nope'"),
+    ("summary: commercial\nsections: [experience]\ncaps: {roles: {acme-senior: seven}}", "cap for role 'acme-senior' must be an integer"),
+    ("summary: commercial\nsections: [experience]\nrequire: [{tag: backend, min: two, roles: [acme-senior]}]", "min for tag 'backend' must be an integer"),
+    ("summary: commercial\nsections: [experience]\npage_limit: two", "page_limit must be an integer"),
 ])
 def test_profile_validation(tmp_root, body, msg):
     content = load_content(tmp_root / "content")

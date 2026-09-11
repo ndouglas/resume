@@ -1,9 +1,12 @@
 """Pick which content a profile renders.
 
 The rule, in order: tag filter, exclude, include, sort by (shared tags desc,
-weight desc, original order), drop lower-ranked alternative forms, enforce
-require minimums, cap. Nothing else, so the reason an item appears is
-predictable from the profile file alone.
+weight desc, original order), keep one alternative form per `alt` key (an
+included one if named, else the best ranked), cap, promote included ids into
+the cap, then enforce require minimums. Nothing else, so the reason an item
+appears is predictable from the profile file alone; a promotion evicts the
+lowest-ranked item that is neither included nor required, so the reason an
+item disappeared may be an include or require elsewhere in the same role.
 """
 from __future__ import annotations
 
@@ -54,23 +57,34 @@ def pick(items, profile: Profile, cap: int | None, role_id: str | None = None) -
     kept = [i for i in items if (_matches(i, profile) or i.id in profile.include) and i.id not in profile.exclude]
     ranked = sorted(enumerate(kept), key=lambda p: (-_shared(p[1], profile), -p[1].weight, p[0]))
     ranked = [i for _, i in ranked]
+    included = set(profile.include)
     # Alternative forms: bullets sharing an `alt` key are one line written two ways.
-    # Keep the best-ranked form and drop the rest before caps and minimums apply,
-    # so a profile can never render both.
-    seen_alt: set[str] = set()
-    deduped = []
+    # Keep one form per key before caps and minimums apply, so a profile can never
+    # render both: an included form if the profile names one, else the best-ranked.
+    best_by_alt: dict[str, object] = {}
     for i in ranked:
         alt = getattr(i, "alt", "")
-        if alt:
-            if alt in seen_alt:
-                continue
-            seen_alt.add(alt)
-        deduped.append(i)
-    ranked = deduped
+        if not alt:
+            continue
+        current = best_by_alt.get(alt)
+        if current is None or (i.id in included and current.id not in included):
+            best_by_alt[alt] = i
+    ranked = [i for i in ranked if not getattr(i, "alt", "") or best_by_alt[i.alt] is i]
     if cap is None:
         return ranked
     chosen = ranked[:cap]
-    protected: set[str] = set()
+    # Included ids always appear: promote each one the cap left out, evicting the
+    # lowest-ranked item that is neither included nor already promoted.
+    protected: set[str] = {i.id for i in chosen if i.id in included}
+    for item in ranked:
+        if item.id not in included or item in chosen:
+            continue
+        victims = [i for i in reversed(chosen) if i.id not in protected]
+        if not victims:
+            break
+        chosen.remove(victims[0])
+        chosen.append(item)
+        protected.add(item.id)
     for req in profile.require:
         if role_id is None or role_id not in req.roles:
             continue

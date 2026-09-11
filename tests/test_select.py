@@ -52,13 +52,45 @@ def test_sort_is_shared_tags_then_weight_then_order(tmp_root):
 
 
 def test_exclude_beats_include(tmp_root):
-    # b-two matches the tag filter and would be selected on its own; excluding
-    # it must still win even though b-one is separately forced in via include.
-    content, profile = _profile(tmp_root, "tags: [leadership, testing]\ninclude: [b-one]\nexclude: [b-two]\n")
-    sel = select(content, profile)
-    ids = _ids(sel.employers[0].roles[0].bullets)
-    assert "b-two" not in ids
-    assert "b-one" in ids
+    # The loader rejects an id in both lists, so build the conflict directly on
+    # the Profile: exclude must win for the same id.
+    from dataclasses import replace
+    content, profile = _profile(tmp_root, "")
+    conflicted = replace(profile, include=("b-one",), exclude=("b-one",))
+    sel = select(content, conflicted)
+    assert "b-one" not in _ids(sel.employers[0].roles[0].bullets)
+
+
+def test_include_promotes_within_cap(tmp_root):
+    # cap 1 would keep b-one (weight 5); including b-two must force it in.
+    content, profile = _profile(tmp_root, "caps: {default: 1}\ninclude: [b-two]\n")
+    ids = _ids(select(content, profile).employers[0].roles[0].bullets)
+    assert ids == ["b-two"]
+
+
+def test_include_and_require_are_both_kept(tmp_path):
+    from tests.conftest import write_content
+    exp = """
+        employers:
+          - name: Acme
+            start: 2020-10
+            end: present
+            roles:
+              - id: acme-senior
+                title: Senior Engineer
+                start: 2020-10
+                end: present
+                bullets:
+                  - {id: hi, text: a, tags: [backend], weight: 5, evidence: e}
+                  - {id: mid, text: b, tags: [backend], weight: 4, evidence: e}
+                  - {id: lead, text: c, tags: [leadership], weight: 1, evidence: e}
+                  - {id: pin, text: d, tags: [backend], weight: 1, evidence: e}
+    """
+    write_content(tmp_path, {"experience.yaml": exp})
+    content, profile = _profile(
+        tmp_path, "caps: {default: 2}\ninclude: [pin]\nrequire: [{tag: leadership, min: 1, roles: [acme-senior]}]\n")
+    ids = _ids(select(content, profile).employers[0].roles[0].bullets)
+    assert set(ids) == {"pin", "lead"}
 
 
 def test_caps_apply_per_role_with_default(tmp_root):
@@ -202,3 +234,22 @@ def test_alt_forms_exclude_lets_the_other_form_through(tmp_path):
     content, profile = _profile(tmp_path, "exclude: [plat-security]\n", name="master")
     ids = _ids(select(content, profile).employers[0].roles[0].bullets)
     assert ids == ["plat-testing", "other"]
+
+
+def test_include_wins_alt_dedupe(tmp_path):
+    from tests.conftest import write_content
+    write_content(tmp_path, {"experience.yaml": ALT_EXP})
+    content, profile = _profile(tmp_path, "include: [plat-testing]\n", name="master")
+    ids = _ids(select(content, profile).employers[0].roles[0].bullets)
+    assert ids == ["plat-testing", "other"]
+
+
+def test_require_cannot_resurrect_a_deduped_form(tmp_path):
+    from tests.conftest import write_content
+    write_content(tmp_path, {"experience.yaml": ALT_EXP})
+    # plat-security carries leadership; with cap 2 and require leadership the
+    # promotion must not bring back the deduped plat-testing or duplicate the group.
+    content, profile = _profile(
+        tmp_path, "caps: {default: 2}\nrequire: [{tag: leadership, min: 1, roles: [acme-senior]}]\n", name="master")
+    ids = _ids(select(content, profile).employers[0].roles[0].bullets)
+    assert ids == ["plat-security", "other"]

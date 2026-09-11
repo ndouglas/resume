@@ -4,26 +4,156 @@ employers:
     end: present
     roles:
       - id: cie
-        title: Senior Platform Engineer
+        title: Senior Platform Engineer, VA.gov Check-In
         start: 2024-02
         end: present
         bullets:
-          - id: cie-account-migration
+          - id: cie-ownership
             text: >-
-              Migrated VA.gov Check-In infrastructure between AWS accounts with
-              zero downtime; converted CloudFormation to Terraform with
-              automated testing to resolve configuration drift
-            tags: [aws, terraform, migration, ownership, govcloud]
+              Engineer of record for the four production services behind
+              VA.gov patient check-in, nearly two million requests a
+              day, owning application code, infrastructure, delivery
+              pipeline, and the pager.
+            tags: [ownership, backend, serverless, aws, healthcare, govcloud]
             weight: 5
-            evidence: "cutover 2026-07-29; checkin-devops#1958"
+            evidence: "checkin-devops 74% of commits; chip 58%; lorota 64%; 15 CIE repos, ~5,970 commits Feb 2024–Sep 2026"
+          - id: cie-platform-founded
+            text: >-
+              Founded the team's developer platform: Terraform and Terragrunt
+              for a new AWS GovCloud account, one OIDC role per repository so
+              no long-lived credentials exist in CI, and a library of
+              composite GitHub Actions used across a dozen-plus repositories
+            tags: [platform, terraform, aws, ci-cd, security, architecture]
+            weight: 5
+            evidence: "cie-terraform-modules, cie-github-actions, cie-iam-manager founded 2024-08-28; cd#533"
+            alt: cie-platform
+          - id: cie-platform-founded-testing
+            text: >-
+              Founded the team's developer platform: Terraform and Terragrunt
+              for a new AWS GovCloud account and 40+ reusable modules, each
+              integration-tested by applying real infrastructure in two AWS
+              accounts on every pull request
+            tags: [platform, terraform, aws, testing, architecture]
+            weight: 5
+            evidence: "cie-terraform-modules: 42 terraform test suites / 234 run blocks, 10-way sharded matrix; 183 releases"
+            alt: cie-platform
+          - id: cie-account-cutover
+            text: >-
+              Led a multi-year migration of four production services to
+              a new AWS account through a hard cutover, then
+              decommissioned the legacy estate with evidence-gated, dry-
+              run-by-default tooling.
+            tags: [migration, aws, terraform, ownership, leadership]
+            weight: 5
+            evidence: "cutover 2026-07-29; chip#2532; cd#1912, cd#1958, cd#2002"
+          - id: cie-silent-defect
+            text: >-
+              Traced a sub-0.01% error rate to a long-standing silent
+              authorization defect and shipped the fix overnight; wrote
+              the team's first postmortem and its 24-hour postmortem
+              policy, every action item closed.
+            tags: [incident-response, backend, healthcare, leadership, documentation]
+            weight: 5
+            evidence: "checkin-devops#575; cd#420 (policy)"
+          - id: cie-upstream-api
+            text: >-
+              Founded the integration layer between check-in and the
+              VA's EHR, messaging, and facilities systems, with
+              pluggable backends that moved a dozen EHR integrations to
+              a new provider with zero downtime.
+            tags: [architecture, backend, healthcare, migration, node]
+            weight: 5
+            evidence: "cie-upstream-api (201 PRs, 764 tests); cd#1393–1403; upstream#468"
+          - id: cie-self-describing-lambda
+            text: >-
+              Designed the self-describing Lambda convention (package
+              manifest → Terraform autodiscovery → generated OpenAPI)
+              adopted across four services, so adding an endpoint means
+              adding a directory.
+            tags: [architecture, serverless, terraform, backend]
+            weight: 4
+            evidence: "chip#2085 (Dec 2024); upstream-api lambda_functions module"
           - id: cie-system-tests
             text: >-
-              Engineered cross-product system tests for VA.gov, automating
-              integrations with VistA EHR, Oracle Health, and VEText to verify
-              PHI/PII compliance across critical veteran healthcare workflows
-            tags: [testing, healthcare, aws, serverless]
+              Built the end-to-end system-test suite, 200+ tests
+              exercising real EHR appointment flows against deployed
+              infrastructure, with trace context propagated so a failing
+              assertion links to the traces behind it.
+            tags: [testing, healthcare, observability, aws]
             weight: 4
-            evidence: "cie-system-tests repo"
+            evidence: "cie-system-tests (76 suites; 30-PR stabilization Aug–Nov 2025)"
+          - id: cie-cost
+            text: >-
+              Identified and eliminated significant idle serverless
+              capacity with a reproducible cost model, including two
+              tiers of provisioned Lambda capacity that had never served
+              a request.
+            tags: [cost, serverless, aws, observability]
+            weight: 4
+            evidence: "docs/chip-idle-capacity-cost-analysis.md; cd#1687; upstream#542; chip#2572"
+          - id: cie-monitors-as-code
+            text: >-
+              Put monitoring under version control across two Datadog
+              organizations: dozens of monitors and dashboards with
+              dead-man switches, cutover-aware queries, and thresholds
+              derived from a month of measured error rates.
+            tags: [observability, terraform, incident-response]
+            weight: 4
+            evidence: "cie-datadog-monitoring (Nov 2025–Aug 2026)"
+          - id: cie-credentials
+            text: >-
+              Eliminated long-lived credentials from CI/CD with OIDC-
+              assumed roles in every repository, GitHub App tokens, SHA-
+              pinned actions, and an hourly vulnerability-count poller
+              with its own dead-man monitor.
+            tags: [security, ci-cd, aws, observability]
+            weight: 4
+            evidence: "cd#514, cd#520, cd#1953, cd#1955"
+          - id: cie-dependency-hygiene
+            text: >-
+              Closed the GitHub auto-merge hole where a skipped required
+              check counted as a pass, then safely automated more than a
+              thousand dependency updates across a dozen-plus
+              repositories.
+            tags: [security, ci-cd]
+            weight: 3
+            evidence: "cd#1933, cd#1939; if: always() aggregating gate"
+          - id: cie-cross-team
+            text: >-
+              Drove the platform-API side of the account migration
+              through a series of pull requests in another team's Rails
+              service and proxy changes owned by three other teams,
+              proposing rather than mutating.
+            tags: [cross-team, leadership, backend]
+            weight: 3
+            evidence: "vets-api#23348, #28346, #28723, #28809, #29137; vsp-platform-revproxy#1281"
+          - id: cie-structural-fixes
+            text: >-
+              Wrote four production postmortems with minute-level
+              timelines, then made the structural fixes: moved
+              certificate bundles to S3 to remove a flaky deploy
+              dependency, and added a post-deploy health gate.
+            tags: [incident-response, documentation, aws]
+            weight: 3
+            evidence: "cd#1570–1578; cd#1919; lorota#585"
+          - id: cie-modernization
+            text: >-
+              Upgraded every service from Node 18 to 22 and the
+              frontends across major React versions; moved system tests
+              onto GitHub-hosted runners through a proxy client with
+              zero test edits.
+            tags: [migration, node, typescript, ci-cd]
+            weight: 3
+            evidence: "cd#1515–1521; cie-system-tests#196"
+          - id: cie-ai-workflow
+            text: >-
+              Works AI-assisted end to end under a spec-then-plan
+              workflow, with specs, plans, and review artifacts
+              committed beside the code and every claim backed by hand-
+              verified evidence.
+            tags: [documentation, architecture, ci-cd]
+            weight: 4
+            evidence: "~200 Co-Authored-By commits, ~90 PR footers, Aug 2025 onward; chip#2514 hash proof"
       - id: cms-tl
         title: Technical Lead
         start: 2023-07

@@ -72,3 +72,25 @@ def test_skills_groups_in_evidence_order():
     ]
     all_items = {i.text for g in content.skills for i in g.items}
     assert "TLA+" not in all_items
+
+
+def _bullets(content, role_id):
+    for e in content.employers:
+        for r in e.roles:
+            if r.id == role_id:
+                return {b.id: b for b in r.bullets}
+    raise KeyError(role_id)
+
+
+def test_cie_bullets():
+    from tunable.select import select
+    content = load_content(ROOT / "content")
+    b = _bullets(content, "cie")
+    assert len(b) >= 15
+    assert any("leadership" in x.tags for x in b.values())
+    assert "two-person" not in " ".join(x.text for x in b.values())
+    assert b["cie-platform-founded"].alt == b["cie-platform-founded-testing"].alt == "cie-platform"
+    for p in sorted((ROOT / "profiles").glob("*.yaml")):
+        sel = select(content, load_profile(p, content))
+        ids = [x.id for e in sel.employers for r in e.roles for x in r.bullets]
+        assert not ({"cie-platform-founded", "cie-platform-founded-testing"} <= set(ids)), p.name

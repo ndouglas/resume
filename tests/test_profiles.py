@@ -28,7 +28,7 @@ def test_govtech_profile_shows_clearance():
 
 @pytest.mark.parametrize("name", ["commercial-senior-swe", "govtech-platform"])
 @pytest.mark.parametrize("role_id", [
-    pytest.param("cie", marks=pytest.mark.xfail(strict=True, reason="cie leadership bullet arrives with the content rewrite")),
+    "cie",
     "cms-tl", "cms-sse",
 ])
 def test_tuned_profiles_have_leadership_in_each_agile_six_role(name, role_id):

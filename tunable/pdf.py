@@ -12,9 +12,11 @@ def have_lualatex() -> bool:
 
 def compile(tex_path: Path, out_dir: Path) -> Path:
     """Run lualatex twice (for cross-references) and return the PDF path."""
+    tex_path = tex_path.resolve()
+    out_dir = out_dir.resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
     cmd = ["lualatex", "-interaction=nonstopmode", "-halt-on-error",
-           f"-output-directory={out_dir}", str(tex_path)]
+           f"-output-directory={out_dir}", tex_path.name]
     for _ in range(2):
         r = subprocess.run(cmd, capture_output=True, text=True, cwd=tex_path.parent)
         if r.returncode != 0:

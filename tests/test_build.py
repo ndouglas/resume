@@ -48,6 +48,13 @@ def test_cli_reports_validation_errors(tmp_path: Path):
 
 
 @pytest.mark.skipif(not pdf.have_lualatex(), reason="lualatex not installed")
+def test_build_with_relative_out_dir(tmp_path: Path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    build_mod.build("master", root=ROOT, out_dir=Path("relative-out-dir"), pdf=True)
+    assert (tmp_path / "relative-out-dir" / "resume-master.pdf").exists()
+
+
+@pytest.mark.skipif(not pdf.have_lualatex(), reason="lualatex not installed")
 @pytest.mark.parametrize("name", PROFILES)
 def test_page_budget(tmp_path: Path, name):
     content = load_content(ROOT / "content")

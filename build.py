@@ -23,8 +23,8 @@ ROOT = Path(__file__).resolve().parent
 def build(profile_name: str, *, root: Path = ROOT, out_dir: Path | None = None,
           email: str | None = None, pdf: bool = True) -> Path:
     """Render a profile. Returns the .tex path; the PDF and .txt sit beside it in out_dir."""
-    out_dir = out_dir or root / "dist"
-    build_dir = root / "build"
+    out_dir = (out_dir or root / "dist").resolve()
+    build_dir = (root / "build").resolve()
     config = load_config(root / "resume.yaml")
     content = load_content(root / "content")
     profile = load_profile(root / "profiles" / f"{profile_name}.yaml", content)

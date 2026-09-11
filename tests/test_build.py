@@ -3,7 +3,7 @@ import subprocess
 import sys
 import pytest
 from tunable import pdf
-from tunable.loader import load_content, load_profile
+from tunable.loader import load_config, load_content, load_profile
 import build as build_mod
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -52,6 +52,21 @@ def test_build_with_relative_out_dir(tmp_path: Path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     build_mod.build("master", root=ROOT, out_dir=Path("relative-out-dir"), pdf=True)
     assert (tmp_path / "relative-out-dir" / "resume-master.pdf").exists()
+
+
+def test_non_default_profile_without_pdf_skips_resume_alias(tmp_path: Path):
+    config = load_config(ROOT / "resume.yaml")
+    non_default = next(p for p in PROFILES if p != config.default_profile)
+    build_mod.build(non_default, root=ROOT, out_dir=tmp_path, pdf=False)
+    assert not (tmp_path / "resume.pdf").exists()
+
+
+@pytest.mark.skipif(not pdf.have_lualatex(), reason="lualatex not installed")
+def test_default_profile_pdf_creates_resume_alias(tmp_path: Path):
+    config = load_config(ROOT / "resume.yaml")
+    build_mod.build(config.default_profile, root=ROOT, out_dir=tmp_path, pdf=True)
+    assert (tmp_path / "resume.pdf").exists()
+    assert (tmp_path / "resume.txt").exists()
 
 
 @pytest.mark.skipif(not pdf.have_lualatex(), reason="lualatex not installed")

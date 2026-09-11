@@ -239,3 +239,25 @@ default_profile: commercial-senior-swe
     config = load_config(cfg)
     assert config.github == "ndouglas"
     assert config.default_profile == "commercial-senior-swe"
+
+
+def test_bullet_alt_is_optional_and_loaded(tmp_path):
+    exp = """
+        employers:
+          - name: Acme
+            start: 2020-10
+            end: present
+            roles:
+              - id: r
+                title: T
+                start: 2020-10
+                end: present
+                bullets:
+                  - {id: a, text: a, tags: [backend], weight: 1, evidence: e, alt: line-one}
+                  - {id: b, text: b, tags: [backend], weight: 1, evidence: e}
+    """
+    content_dir = write_content(tmp_path, {"experience.yaml": exp})
+    content = load_content(content_dir)
+    bullets = {b.id: b for b in content.employers[0].roles[0].bullets}
+    assert bullets["a"].alt == "line-one"
+    assert bullets["b"].alt == ""

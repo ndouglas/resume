@@ -1,8 +1,9 @@
 """Pick which content a profile renders.
 
 The rule, in order: tag filter, exclude, include, sort by (shared tags desc,
-weight desc, original order), enforce `require` minimums, cap. Nothing else,
-so the reason an item appears is predictable from the profile file alone.
+weight desc, original order), drop lower-ranked alternative forms, enforce
+require minimums, cap. Nothing else, so the reason an item appears is
+predictable from the profile file alone.
 """
 from __future__ import annotations
 
@@ -53,6 +54,19 @@ def pick(items, profile: Profile, cap: int | None, role_id: str | None = None) -
     kept = [i for i in items if (_matches(i, profile) or i.id in profile.include) and i.id not in profile.exclude]
     ranked = sorted(enumerate(kept), key=lambda p: (-_shared(p[1], profile), -p[1].weight, p[0]))
     ranked = [i for _, i in ranked]
+    # Alternative forms: bullets sharing an `alt` key are one line written two ways.
+    # Keep the best-ranked form and drop the rest before caps and minimums apply,
+    # so a profile can never render both.
+    seen_alt: set[str] = set()
+    deduped = []
+    for i in ranked:
+        alt = getattr(i, "alt", "")
+        if alt:
+            if alt in seen_alt:
+                continue
+            seen_alt.add(alt)
+        deduped.append(i)
+    ranked = deduped
     if cap is None:
         return ranked
     chosen = ranked[:cap]

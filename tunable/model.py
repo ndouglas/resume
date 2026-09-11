@@ -9,6 +9,7 @@ class Bullet:
     tags: tuple[str, ...]
     weight: int
     evidence: str
+    alt: str = ""  # bullets sharing an alt key are alternative forms of one line
 
 
 @dataclass(frozen=True)

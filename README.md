@@ -36,6 +36,11 @@ boring: keep bullets sharing a tag with the profile, sort by shared tags then
 weight, enforce any `require` minimums, cut at the cap. `exclude` beats
 `include` beats tags.
 
+A bullet may carry `alt: <key>`. Bullets sharing a key are alternative forms
+of the same line (say, one emphasizing security, one emphasizing testing);
+a profile renders only the best-ranked form, so tags decide which reading a
+given job sees. To force the other form, `exclude` the one you do not want.
+
 ## Design
 
 See `docs/superpowers/specs/2026-09-11-tunable-resume-design.md`.

@@ -77,7 +77,8 @@ def _bullet(raw: dict, where: str, vocab, errors: _Errors) -> Bullet:
     evidence = str(raw.get("evidence") or "").strip()
     if not evidence:
         errors.add(f"{where} ({bid}): evidence must be non-empty")
-    return Bullet(bid, text, _tags(raw.get("tags"), f"{where} ({bid})", vocab, errors), weight, evidence)
+    return Bullet(bid, text, _tags(raw.get("tags"), f"{where} ({bid})", vocab, errors), weight, evidence,
+                  str(raw.get("alt") or ""))
 
 
 def _int(raw, where: str, errors: _Errors, default: int | None) -> int | None:

@@ -143,3 +143,58 @@ def test_all_text_covers_every_rendered_string(tmp_root):
     assert "B.A. Computer Science" in text
     assert "Native" in text
     assert content.clearance in text
+
+
+ALT_EXP = """
+    employers:
+      - name: Acme
+        start: 2020-10
+        end: present
+        roles:
+          - id: acme-senior
+            title: Senior Engineer
+            start: 2020-10
+            end: present
+            bullets:
+              - id: plat-security
+                text: Built the platform with no long-lived credentials
+                tags: [backend, leadership]
+                weight: 5
+                evidence: e
+                alt: platform
+              - id: plat-testing
+                text: Built the platform with modules tested against live AWS
+                tags: [testing]
+                weight: 5
+                evidence: e
+                alt: platform
+              - id: other
+                text: Did something else
+                tags: [backend]
+                weight: 2
+                evidence: e
+"""
+
+
+def test_alt_forms_keep_only_the_best_ranked(tmp_path):
+    from tests.conftest import write_content
+    write_content(tmp_path, {"experience.yaml": ALT_EXP})
+    content, profile = _profile(tmp_path, "tags: [testing]\n")
+    ids = _ids(select(content, profile).employers[0].roles[0].bullets)
+    assert ids == ["plat-testing"]
+
+
+def test_alt_forms_master_keeps_first_by_weight_then_order(tmp_path):
+    from tests.conftest import write_content
+    write_content(tmp_path, {"experience.yaml": ALT_EXP})
+    content, profile = _profile(tmp_path, "", name="master")
+    ids = _ids(select(content, profile).employers[0].roles[0].bullets)
+    assert ids == ["plat-security", "other"]
+
+
+def test_alt_forms_exclude_lets_the_other_form_through(tmp_path):
+    from tests.conftest import write_content
+    write_content(tmp_path, {"experience.yaml": ALT_EXP})
+    content, profile = _profile(tmp_path, "exclude: [plat-security]\n", name="master")
+    ids = _ids(select(content, profile).employers[0].roles[0].bullets)
+    assert ids == ["plat-testing", "other"]

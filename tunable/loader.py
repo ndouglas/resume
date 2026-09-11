@@ -233,6 +233,19 @@ def load_profile(path: Path, content: Content) -> Profile:
         _int(page_limit_raw, f"{where}: page_limit", errors, None)
         if page_limit_raw is not None else None
     )
+
+    # `include` means the item appears, which is impossible when a role's cap is
+    # smaller than the number of its included ids. Refuse rather than drop one silently.
+    included = set(include)
+    for e in content.employers:
+        for r in e.roles:
+            cap = role_caps.get(r.id, caps.default)
+            n = sum(1 for b in r.bullets if b.id in included)
+            if cap is not None and n > cap:
+                errors.add(f"{where}: role '{r.id}' includes {n} ids but its cap is {cap}")
+    n_projects = sum(1 for p in content.projects if p.id in included)
+    if caps.projects is not None and n_projects > caps.projects:
+        errors.add(f"{where}: projects include {n_projects} ids but the cap is {caps.projects}")
     errors.raise_if_any()
     return Profile(name, summary, bool(raw.get("clearance_line", False)), str(raw.get("email", "auto")),
                    page_limit, sections, tags, caps,

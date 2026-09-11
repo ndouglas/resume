@@ -244,6 +244,15 @@ def test_include_wins_alt_dedupe(tmp_path):
     assert ids == ["plat-testing", "other"]
 
 
+def test_two_included_alt_forms_rank_decides(tmp_path):
+    from tests.conftest import write_content
+    write_content(tmp_path, {"experience.yaml": ALT_EXP})
+    # both forms included, no tag filter: equal weight, so authored order wins
+    content, profile = _profile(tmp_path, "include: [plat-testing, plat-security]\n", name="master")
+    ids = _ids(select(content, profile).employers[0].roles[0].bullets)
+    assert ids == ["plat-security", "other"]
+
+
 def test_require_cannot_resurrect_a_deduped_form(tmp_path):
     from tests.conftest import write_content
     write_content(tmp_path, {"experience.yaml": ALT_EXP})

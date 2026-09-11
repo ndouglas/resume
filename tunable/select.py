@@ -81,7 +81,7 @@ def pick(items, profile: Profile, cap: int | None, role_id: str | None = None) -
             continue
         victims = [i for i in reversed(chosen) if i.id not in protected]
         if not victims:
-            break
+            continue  # cannot happen for a loaded profile; the loader checks includes against caps
         chosen.remove(victims[0])
         chosen.append(item)
         protected.add(item.id)

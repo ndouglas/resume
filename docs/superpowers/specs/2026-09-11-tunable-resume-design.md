@@ -185,7 +185,7 @@ caps:
   default: 5
   roles: {cie: 7, cms-tl: 4, cms-sse: 5, ain: 4, devon: 2}
   projects: 6
-include: []                 # bullet or project ids forced in
+include: []                 # bullet or project ids that must appear (never more than the cap)
 exclude: []                 # ids forced out
 require:                    # per-role minimums for a tag, applied before the cap
   - {tag: leadership, min: 1, roles: [cie, cms-tl, cms-sse]}
@@ -203,8 +203,8 @@ For each role (and for projects, and for each skills group):
    rule dropped it; the loader rejects an id in both lists).
 3. Sort by number of shared tags descending, then weight descending, then
    original order.
-4. Keep one form per `alt` key: the included form if the profile names one,
-   otherwise the best-ranked.
+4. Keep one form per `alt` key: an included form if the profile names one
+   (the best-ranked of them if it names several), otherwise the best-ranked.
 5. Truncate to the cap.
 6. Promote every included item the cap left out, each evicting the
    lowest-ranked item that is neither included nor already promoted.

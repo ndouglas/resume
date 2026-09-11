@@ -28,3 +28,16 @@ def test_words_list_is_usable():
     words = [w for w in (ROOT / "content" / "words.txt").read_text().split() if w]
     assert len(words) >= 50
     assert all(w.isalpha() and w.islower() for w in words)
+
+
+def test_core_tag_keeps_education_in_every_tuned_profile():
+    from tunable.select import select
+    content = load_content(ROOT / "content")
+    for p in sorted((ROOT / "profiles").glob("*.yaml")):
+        profile = load_profile(p, content)
+        if profile.tags is None:
+            continue
+        assert "core" in profile.tags, f"{p.name} must list the core tag"
+        sel = select(content, profile)
+        if "education" in profile.sections:
+            assert sel.education, f"{p.name} dropped education"

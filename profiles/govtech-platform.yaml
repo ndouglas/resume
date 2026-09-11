@@ -4,7 +4,7 @@ clearance_line: true
 email: auto
 page_limit: 2
 sections: [experience, skills, projects, education]
-tags: [backend, platform, aws, kubernetes, terraform, serverless, drupal, php, node, typescript,
+tags: [core, backend, platform, aws, kubernetes, terraform, serverless, drupal, php, node, typescript,
        testing, ci-cd, security, observability, incident-response, cost, migration,
        architecture, ownership, leadership, mentoring, documentation, cross-team,
        federal, ato, fedramp, govcloud, healthcare]

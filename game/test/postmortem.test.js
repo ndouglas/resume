@@ -32,14 +32,16 @@ test('summary: change failure rate, filtered timeline, grouped picks', () => {
   s.stats.shots = 8; s.stats.balls = 10; s.stats.misses = 3;
   log(s, 'stage', 'Stage 1');
   log(s, 'card', 'Merged');
+  log(s, 'budget', 'Error budget below 75%');
+  log(s, 'intro', 'First Flaky Test');
   s.picks = ['b1'];
   const sum = summarize(s);
   assert.equal(sum.deploys, 8);
   assert.equal(sum.changeFailureRate, 0.3);
-  assert.deepEqual(sum.timeline.map((e) => e.text), ['Stage 1']);
+  assert.deepEqual(sum.timeline.map((e) => e.text), ['Stage 1', 'Merged', 'Error budget below 75%']);
   assert.deepEqual(sum.picks, [{ role: 'Engineer', employer: 'Acme (contract)', bullets: ['Did a thing'] }]);
   s.mods.docs = 1;
-  assert.equal(summarize(s).timeline.length, 2);
+  assert.equal(summarize(s).timeline.length, 4);
 });
 
 test('best-run storage keeps the better run', () => {

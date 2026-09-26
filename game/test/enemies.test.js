@@ -99,3 +99,11 @@ test('the first appearance of a kind emits one intro event', () => {
   updateEnemies(s, 0);
   assert.deepEqual(s.events.filter((e) => e.type === 'intro'), [{ type: 'intro', kind: 'flaky' }]);
 });
+
+test('first appearances are logged for the detailed postmortem', () => {
+  const s = fixtureState();
+  s.stageDef = { ...s.stageDef, speed: 0 };
+  s.enemies.push(makeEnemy(s, 'flaky', 0, 100));
+  updateEnemies(s, 0);
+  assert.deepEqual(s.stats.timeline.map((e) => [e.kind, e.text]), [['intro', 'First Flaky Test appeared']]);
+});

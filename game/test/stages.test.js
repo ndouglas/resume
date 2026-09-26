@@ -47,3 +47,15 @@ test('rows spawn below the boss during a fight, and rate ramps with stage time',
   s.stageTime = 10;
   assert.equal(stageRate(s), 2);
 });
+
+test('traffic keeps rising through a boss fight on a ramping stage', () => {
+  const s = fixtureState();
+  s.stageDef = { ...s.stageDef, ramp: 0.8, duration: 10, bossRate: 1 };
+  s.boss = { id: 'hard-cutover' };
+  s.stageTime = 10;
+  const atStart = stageRate(s);
+  s.stageTime = 15;
+  assert.ok(stageRate(s) > atStart);
+  s.stageTime = 1000;
+  assert.equal(stageRate(s), 1 + 0.8 * 2);
+});

@@ -4,7 +4,10 @@ import { kindInfo } from './balls.js';
 const BG = '#0d1117';
 const GRID = 'rgba(240, 246, 252, 0.035)';
 const BOSS = '#f0883e';
-const FONT = '10px ui-monospace, SFMono-Regular, Menlo, monospace';
+const FONT_FAMILY = 'ui-monospace, SFMono-Regular, Menlo, monospace';
+
+// Label size in playfield pixels so text is never smaller than 10 CSS pixels on a narrow screen.
+export const labelPx = (cssWidth) => 10 * Math.max(1, W / cssWidth);
 
 const hexA = (hex, a) => {
   const n = parseInt(hex.slice(1), 16);
@@ -16,12 +19,14 @@ export function createRenderer(canvas, { reducedMotion = false } = {}) {
   const particles = [];
   const colors = new Map();
   let shake = 0;
+  let font = `10px ${FONT_FAMILY}`;
 
   function resize() {
     const dpr = window.devicePixelRatio || 1;
     const r = canvas.getBoundingClientRect();
     canvas.width = Math.max(1, Math.round(r.width * dpr));
     canvas.height = Math.max(1, Math.round(r.height * dpr));
+    font = `${labelPx(r.width || W).toFixed(1)}px ${FONT_FAMILY}`;
   }
 
   const ballColor = (state, kind) => {
@@ -46,7 +51,7 @@ export function createRenderer(canvas, { reducedMotion = false } = {}) {
   }
 
   function label(text, x, y, color, align = 'left', maxWidth = 0) {
-    ctx.font = FONT;
+    ctx.font = font;
     ctx.fillStyle = color;
     ctx.textAlign = align;
     if (maxWidth) ctx.fillText(text, x, y, maxWidth);
@@ -106,7 +111,7 @@ export function createRenderer(canvas, { reducedMotion = false } = {}) {
       if (e.phased) ctx.setLineDash([4, 3]);
       ctx.strokeRect(e.x + 0.5, e.y + 0.5, e.w - 1, e.h - 1);
       ctx.setLineDash([]);
-      label(unrevealed ? '✓ PASS' : def.label, e.x + e.w / 2, e.y + e.h / 2 + 4, color, 'center');
+      label(unrevealed ? '✓ PASS' : def.label, e.x + e.w / 2, e.y + e.h / 2 + 4, color, 'center', e.w - 4);
       if (e.hp < e.maxHp) {
         ctx.fillStyle = color;
         ctx.fillRect(e.x, e.y + e.h - 2, e.w * Math.max(0, e.hp / e.maxHp), 2);

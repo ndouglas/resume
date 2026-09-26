@@ -48,6 +48,7 @@ export function spawnBoss(state) {
 }
 
 function spawnShield(state, boss) {
+  boss.shielded = true; // immediately, not at the next updateBosses
   const w = state.design.enemies.module.w ?? 52;
   for (let c = 0; c < COLS; c++) {
     state.enemies.push(makeEnemy(state, 'module', colX(c, w), boss.y + boss.h + 14,

@@ -55,6 +55,24 @@ def test_unknown_start_mod_is_reported():
     assert "start_mods: unknown mod 'luck'" in game.validate(design, content)
 
 
+def test_unknown_mod_format_is_reported():
+    design, content = real()
+    design["mods"]["fireRate"]["format"] = "percent"
+    assert "mods.fireRate: unknown format 'percent'" in game.validate(design, content)
+
+
+def test_missing_mentee_ball_is_reported():
+    design, content = real()
+    design["balls"] = [b for b in design["balls"] if b["id"] != "mentee"]
+    assert "balls: a 'mentee' ball is required (teammates fire it)" in game.validate(design, content)
+
+
+def test_cite_of_a_project_note_is_reported():
+    design, content = real()
+    design["enemies"]["request"]["cites"] = ["open-source-note"]
+    assert "enemies.request: cites unknown id 'open-source-note'" in game.validate(design, content)
+
+
 def test_sensitive_design_text_is_reported():
     design, content = real()
     design["bosses"][0]["blurb"] = "Cost $5,000 a month"

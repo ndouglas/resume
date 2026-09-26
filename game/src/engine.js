@@ -14,6 +14,14 @@ export const INTRO_TIME = 2.5;
 export const CLEAR_TIME = 2.5;
 const PLAYER_SPEED = 380;
 const MAX_EVENTS = 400;
+const ROUTINE_EVENTS = new Set(['fire', 'hit', 'block', 'kill', 'breach']);
+
+// Keep every non-routine event (stages, intros, level-ups) and the newest routine ones.
+function trimEvents(state) {
+  const keep = state.events.filter((e) => !ROUTINE_EVENTS.has(e.type));
+  const routine = state.events.filter((e) => ROUTINE_EVENTS.has(e.type));
+  state.events = keep.concat(routine.slice(Math.max(0, routine.length - (MAX_EVENTS - keep.length))));
+}
 
 export function newRun(data, seed = 1) {
   const design = data.design;
@@ -50,7 +58,7 @@ function enterStage(state, index) {
 }
 
 export function step(state, dt, input = {}) {
-  if (state.events.length > MAX_EVENTS) state.events.splice(0, state.events.length - MAX_EVENTS);
+  if (state.events.length > MAX_EVENTS) trimEvents(state);
   if (state.phase === 'levelup' || state.phase === 'over') return;
   state.t += dt;
   movePlayer(state, dt, input);

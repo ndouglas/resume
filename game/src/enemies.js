@@ -1,4 +1,5 @@
 import { COL_W, DANGER_Y, REVEAL_BASE, W } from './world.js';
+import { log } from './postmortem.js';
 
 const DEFAULT_W = 52;
 const DEFAULT_H = 24;
@@ -96,6 +97,7 @@ export function updateEnemies(state, dt) {
     if (!state.seen.includes(e.kind)) {
       state.seen.push(e.kind);
       state.events.push({ type: 'intro', kind: e.kind });
+      log(state, 'intro', `First ${state.design.enemies[e.kind].name} appeared`);
     }
     if (!e.static) e.y += fall;
     if (e.kind === 'flaky') e.phased = state.t >= e.pinnedUntil && (state.t + e.phaseOffset) % 1.6 > 1.0;

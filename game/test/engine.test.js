@@ -153,3 +153,13 @@ test('clearing the last stage meets the SLO', () => {
   assert.equal(s.phase, 'over');
   assert.equal(s.outcome, 'met');
 });
+
+test('trimming the event queue drops routine events before stage and intro events', () => {
+  const s = playing();
+  s.events.push({ type: 'stage', index: 0 }, { type: 'intro', kind: 'flaky' });
+  for (let i = 0; i < 1000; i++) s.events.push({ type: 'hit', x: 0, y: 0, kind: 'bash', cached: false });
+  step(s, STEP, { fire: false });
+  assert.ok(s.events.length <= 400);
+  assert.ok(s.events.some((e) => e.type === 'stage'));
+  assert.ok(s.events.some((e) => e.type === 'intro'));
+});

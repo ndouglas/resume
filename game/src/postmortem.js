@@ -1,5 +1,5 @@
 const THRESHOLDS = [0.75, 0.5, 0.25];
-const HEADLINE = new Set(['stage', 'boss', 'fusion', 'outcome']);
+const DETAIL_ONLY = new Set(['intro']); // shown when a documentation card was picked
 const BEST_KEY = 'error-budget.best';
 
 export function newStats() {
@@ -38,7 +38,7 @@ export function fmtClock(sec) {
 export function summarize(state) {
   const s = state.stats;
   const detailed = state.mods.docs > 0;
-  const events = detailed ? s.timeline : s.timeline.filter((e) => HEADLINE.has(e.kind));
+  const events = detailed ? s.timeline : s.timeline.filter((e) => !DETAIL_ONLY.has(e.kind));
   const picks = [];
   for (const role of state.data.roles) {
     const bullets = role.bullets.filter((b) => state.picks.includes(b.id)).map((b) => b.text);

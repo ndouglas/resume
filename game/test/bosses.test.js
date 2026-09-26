@@ -75,3 +75,13 @@ test('the cutover moves between halves every 8 s', () => {
   assert.equal(e.x, W * 0.75 - e.w / 2);
   assert.ok(s.events.some((x) => x.type === 'banner' && x.text === 'Cutover'));
 });
+
+test('a fresh drupal shield blocks damage before the next boss update', () => {
+  const { s, e } = withBoss('drupal-upgrade');
+  assert.equal(e.shielded, true);
+  for (const m of s.enemies.filter((x) => x.shieldOf === e.id)) m.dead = true;
+  updateBosses(s, 0);
+  e.dead = true;
+  onBossKilled(s, e);
+  assert.equal(e.shielded, true);
+});

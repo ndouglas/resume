@@ -3,7 +3,9 @@ import { makeEnemy, colX, spawnDeadlockPair } from './enemies.js';
 
 export function stageRate(state) {
   const s = state.stageDef;
-  const ramp = 1 + (s.ramp ?? 0) * Math.min(1, state.stageTime / s.duration);
+  // Traffic keeps ramping through the boss fight, up to twice the stage's ramp.
+  const progress = Math.min(state.boss ? 2 : 1, state.stageTime / s.duration);
+  const ramp = 1 + (s.ramp ?? 0) * progress;
   return state.boss ? ramp * (s.bossRate ?? 0.5) : ramp;
 }
 

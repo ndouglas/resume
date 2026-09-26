@@ -24,6 +24,7 @@ TRAITS = {"split", "trace", "pierce", "noFalloff", "security", "pin", "cache", "
 BONUSES = {"copiesInherit", "shatter", "autoTarget", "evenSplit", "cacheAlways", "traceArea"}
 ENEMY_IDS = {"request", "flaky", "silent", "credential", "idle", "deadlock", "dependency", "skipped", "module"}
 BOSS_IDS = {"sync-conflict", "managed-host-invoice", "drupal-upgrade", "hard-cutover"}
+FORMATS = {"pct", "rate", "px", "num", "frac", "flag"}  # cards.js FORMATS plus flag
 STAGE_NUMBERS = ("duration", "speed", "hpScale", "spawnEvery", "rowMin", "rowMax")
 SHIP_EXCLUDE = {"design.yaml", "test", "package.json"}
 
@@ -46,7 +47,8 @@ def _strings(node):
 
 def validate(design: dict, content: Content) -> list[str]:
     errors: list[str] = []
-    items = content.item_ids()
+    # Only bullets and projects are exported to the game; project notes are not.
+    items = {b.id for e in content.employers for r in e.roles for b in r.bullets} | {p.id for p in content.projects}
     roles = content.role_ids()
     mods = design.get("mods") or {}
     effects = design.get("tag_effects") or {}
@@ -72,6 +74,9 @@ def validate(design: dict, content: Content) -> list[str]:
             if mod not in mods:
                 errors.append(f"tag_effects.{tag}: unknown mod '{mod}'")
 
+    for mod, spec in mods.items():
+        if (spec or {}).get("format") not in FORMATS:
+            errors.append(f"mods.{mod}: unknown format '{(spec or {}).get('format')}'")
     for mod in design.get("start_mods") or {}:
         if mod not in mods:
             errors.append(f"start_mods: unknown mod '{mod}'")
@@ -80,6 +85,8 @@ def validate(design: dict, content: Content) -> list[str]:
         for t in b.get("traits") or []:
             if t not in TRAITS:
                 errors.append(f"balls.{bid}: unknown trait '{t}'")
+    if "mentee" not in balls:
+        errors.append("balls: a 'mentee' ball is required (teammates fire it)")
     if sum(1 for b in balls.values() if b.get("start")) != 1:
         errors.append("balls: exactly one ball must have start: true")
 

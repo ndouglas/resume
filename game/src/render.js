@@ -176,10 +176,11 @@ export function createRenderer(canvas, { reducedMotion = false } = {}) {
     label(`LV ${state.level}`, W - 8, 14, '#e6edf3', 'right');
     const f = Math.max(0, state.budget / state.maxBudget);
     label('ERROR BUDGET', 8, 30, '#8b949e');
+    const barX = 16 + ctx.measureText('ERROR BUDGET').width; // the label grows on narrow screens
     ctx.fillStyle = 'rgba(240, 246, 252, 0.08)';
-    ctx.fillRect(100, 22, W - 108, 8);
+    ctx.fillRect(barX, 22, W - 8 - barX, 8);
     ctx.fillStyle = f > 0.5 ? '#3fb950' : f > 0.25 ? '#d29922' : '#f85149';
-    ctx.fillRect(100, 22, (W - 108) * f, 8);
+    ctx.fillRect(barX, 22, (W - 8 - barX) * f, 8);
     ctx.fillStyle = '#58a6ff';
     ctx.fillRect(0, 35, W * Math.min(1, state.xp / state.xpToNext), 1.5);
     const b = state.enemies.find((e) => e.boss && !e.dead);

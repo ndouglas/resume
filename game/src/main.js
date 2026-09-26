@@ -11,7 +11,16 @@ const wrapEl = document.querySelector('.stage-wrap');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const storage = (() => { try { return window.localStorage; } catch { return null; } })();
 
-let data;
+let data = null;
+let state = null;
+let paused = false;
+
+// Wired before the data loads, so Skip works even if it never does.
+document.getElementById('skip').addEventListener('click', () => {
+  if (data) openResume();
+  else window.location.href = document.getElementById('pdf').href;
+});
+
 try {
   const res = await fetch('game-data.json');
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -26,8 +35,6 @@ const renderer = createRenderer(canvas, { reducedMotion });
 const input = { aim: null, moveX: null };
 const keys = new Set();
 let movePointer = null;
-let state = null;
-let paused = false;
 let last = performance.now();
 let acc = 0;
 
@@ -79,12 +86,14 @@ window.addEventListener('keyup', (ev) => { if (KEYS[ev.code]) keys.delete(KEYS[e
 window.addEventListener('blur', () => { keys.clear(); if (running()) setPaused(true); });
 document.addEventListener('visibilitychange', () => { if (document.hidden && running()) setPaused(true); });
 
+const pauseBtn = document.getElementById('pausebtn');
 function setPaused(on) {
   paused = on;
   ui.showPause(on);
+  pauseBtn.textContent = on ? 'Resume' : 'Pause';
 }
 document.getElementById('resume').addEventListener('click', () => setPaused(false));
-document.getElementById('skip').addEventListener('click', openResume);
+pauseBtn.addEventListener('click', () => { if (running()) setPaused(!paused); });
 
 let closeOverlay = ui.hidePostmortem;
 
@@ -146,7 +155,11 @@ function handle(ev) {
     case 'over': {
       const summary = summarize(state);
       saveBest(storage, summary);
-      setTimeout(() => showOverlay(summary, () => { ui.hidePostmortem(); showTitleScreen(); }), 900);
+      const ended = state;
+      // Only if nobody has started another run in the meantime.
+      setTimeout(() => {
+        if (state === ended) showOverlay(summary, () => { ui.hidePostmortem(); showTitleScreen(); });
+      }, 900);
       break;
     }
     default:
@@ -155,19 +168,24 @@ function handle(ev) {
 }
 
 function frame(now) {
-  const dt = Math.min(0.1, (now - last) / 1000);
-  last = now;
-  if (state && !paused) {
-    acc += dt;
-    const moveDir = (keys.has('right') ? 1 : 0) - (keys.has('left') ? 1 : 0);
-    const inp = { aim: input.aim, moveX: input.moveX, moveDir };
-    let n = 0;
-    while (acc >= STEP && n < 12) { step(state, STEP, inp); acc -= STEP; n++; }
-    if (n === 12) acc = 0;
+  // Always schedule the next frame, so one bad frame can't freeze the game for good.
+  try {
+    const dt = Math.min(0.1, (now - last) / 1000);
+    last = now;
+    pauseBtn.hidden = !running();
+    if (state && !paused) {
+      acc += dt;
+      const moveDir = (keys.has('right') ? 1 : 0) - (keys.has('left') ? 1 : 0);
+      const inp = { aim: input.aim, moveX: input.moveX, moveDir };
+      let n = 0;
+      while (acc >= STEP && n < 12) { step(state, STEP, inp); acc -= STEP; n++; }
+      if (n === 12) acc = 0;
+    }
+    if (state) for (const ev of state.events.splice(0)) handle(ev);
+    renderer.draw(state, dt, paused);
+  } finally {
+    requestAnimationFrame(frame);
   }
-  if (state) for (const ev of state.events.splice(0)) handle(ev);
-  renderer.draw(state, dt, paused);
-  requestAnimationFrame(frame);
 }
 
 showTitleScreen();

@@ -131,7 +131,9 @@ followed by its boss. The stage banner shows employer, title, and dates.
 
 ### Balls
 
-The player starts with one ball and is offered new kinds on level-up (as a
+The player starts with Bash, two copies of it (`start_mods` in the design
+file: with a single ball every miss leaves nothing to fire), and is offered
+new kinds on level-up (as a
 card slot alongside bullet cards). Each kind levels 1–3. At most five tool
 kinds at once; a fusion frees a slot.
 

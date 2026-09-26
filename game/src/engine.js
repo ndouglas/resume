@@ -214,6 +214,11 @@ function collide(state, b) {
       setSpeed(b, b.speed);
     }
     b.hits += 1;
+    // Tracing reveals what it touches, including a skipped check that would otherwise block the hit.
+    if (b.traits.has('trace') && !e.revealed) {
+      e.revealed = true;
+      e.traced = true;
+    }
     if (immune(e)) {
       state.events.push({ type: 'block', x: b.x, y: b.y });
     } else {

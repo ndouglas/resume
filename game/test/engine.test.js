@@ -67,6 +67,19 @@ test('hitting an enemy damages it, and a kill grants XP', () => {
   assert.ok(s.xp > 0);
 });
 
+test('a tracing ball reveals a skipped check it hits', () => {
+  const s = playing();
+  s.spawnTimer = 999;
+  s.inventory = { datadog: 1 };
+  s.slots = [{ kind: 'datadog', out: 0 }];
+  const e = rect(s, { kind: 'skipped', revealed: false, x: s.player.x - 26, y: 300, hp: 30, maxHp: 30 });
+  s.enemies.push(e);
+  step(s, STEP, { aim: { x: s.player.x, y: 0 } });
+  run(1, s, { fire: false });
+  assert.equal(e.revealed, true);
+  assert.equal(e.traced, true);
+});
+
 test('the player moves toward moveX at a bounded speed and stays on screen', () => {
   const s = playing();
   step(s, 0.1, { moveX: W, fire: false });

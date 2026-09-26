@@ -57,11 +57,15 @@ export function showError(message, href) {
   $('title').hidden = false;
 }
 
+// Touch players are usually mid-tap when a level-up appears; ignore taps until the cards have been visible briefly.
+const CARD_TAP_GRACE_MS = 300;
+
 export function showCards(views, onPick) {
   const c = $('cards');
+  const shownAt = performance.now();
   c.replaceChildren(
     el('div', { class: 'cards-head' }, 'Level up. Pick one.'),
-    ...views.map((v, i) => el('button', { class: 'card', type: 'button', onclick: () => onPick(i) },
+    ...views.map((v, i) => el('button', { class: 'card', type: 'button', onclick: () => { if (performance.now() - shownAt >= CARD_TAP_GRACE_MS) onPick(i); } },
       el('span', { class: 'kicker' }, `${i + 1} · ${v.kicker}`),
       el('strong', {}, v.title),
       v.sub ? el('span', { class: 'kicker' }, v.sub) : null,

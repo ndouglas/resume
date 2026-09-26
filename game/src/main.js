@@ -66,6 +66,11 @@ canvas.addEventListener('pointercancel', release);
 const KEYS = { ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right' };
 const running = () => state && state.phase !== 'over';
 window.addEventListener('keydown', (ev) => {
+  // While the résumé/postmortem page covers the game, Esc closes it and nothing reaches the run behind it.
+  if (!document.getElementById('postmortem').hidden) {
+    if (ev.code === 'Escape') closeOverlay();
+    return;
+  }
   if (KEYS[ev.code]) { keys.add(KEYS[ev.code]); ev.preventDefault(); return; }
   if (ev.code === 'KeyP' || ev.code === 'Escape') { if (running()) setPaused(!paused); return; }
   if (/^Digit[1-3]$/.test(ev.code) && !paused) pick(Number(ev.code.slice(5)) - 1);
@@ -81,9 +86,16 @@ function setPaused(on) {
 document.getElementById('resume').addEventListener('click', () => setPaused(false));
 document.getElementById('skip').addEventListener('click', openResume);
 
+let closeOverlay = ui.hidePostmortem;
+
+function showOverlay(summary, onClose) {
+  closeOverlay = onClose;
+  ui.showPostmortem(data, summary, { onRestart: start, onClose });
+}
+
 function openResume() {
   if (running()) setPaused(true);
-  ui.showPostmortem(data, null, { onRestart: start, onClose: ui.hidePostmortem });
+  showOverlay(null, ui.hidePostmortem);
 }
 
 function start() {
@@ -134,10 +146,7 @@ function handle(ev) {
     case 'over': {
       const summary = summarize(state);
       saveBest(storage, summary);
-      setTimeout(() => ui.showPostmortem(data, summary, {
-        onRestart: start,
-        onClose: () => { ui.hidePostmortem(); showTitleScreen(); },
-      }), 900);
+      setTimeout(() => showOverlay(summary, () => { ui.hidePostmortem(); showTitleScreen(); }), 900);
       break;
     }
     default:

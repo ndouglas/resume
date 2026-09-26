@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Error Budget</title>
+  <meta name="description" content="A roguelike built from Nathan Douglas's résumé: production is the pit, and every failure mode that lands burns error budget.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="bar">
+    <span class="brand">error_budget<span class="dim"> · a résumé you can play</span></span>
+    <nav>
+      <a id="pdf" class="btn" href="../resume.pdf">PDF</a>
+      <button id="skip" type="button">Skip to résumé</button>
+    </nav>
+  </header>
+  <main class="stage-wrap">
+    <div class="frame">
+      <canvas id="pit" aria-label="Game playfield. Card text and the résumé are available as page text."></canvas>
+      <section id="title" class="overlay">
+        <h1>Error Budget</h1>
+        <p>Loading… If nothing happens, <a href="../resume.pdf">the résumé PDF is here</a>.</p>
+      </section>
+      <section id="cards" class="overlay" hidden aria-live="polite"></section>
+      <section id="pause" class="overlay" hidden>
+        <h1>Paused</h1>
+        <p>Press <span class="kbd">P</span> or <span class="kbd">Esc</span> to resume.</p>
+        <div class="actions"><button id="resume" class="primary" type="button">Resume</button></div>
+      </section>
+      <div id="banner" class="banner" hidden></div>
+      <div id="toast" class="toast" hidden role="status"></div>
+    </div>
+  </main>
+  <section id="postmortem" class="postmortem" hidden></section>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

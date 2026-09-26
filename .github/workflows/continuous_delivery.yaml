@@ -25,7 +25,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Test (no TeX; page-budget tests skip)
-        run: make test
+        run: python3 -m pytest -q
+      - name: Game unit tests
+        run: cd game && node --test test/*.test.js
 
   build:
     needs: test

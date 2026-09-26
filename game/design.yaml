@@ -1,0 +1,328 @@
+# Game design for Error Budget, the résumé roguelike.
+#
+# Every enemy, boss, and fusion cites the bullet or project it is drawn from;
+# the build fails if a cited id does not exist. Every string here passes the
+# sensitivity lint. Every tag in content/tags.yaml needs a tag_effects entry.
+# Balance numbers are tuned against the headless simulation (tests/test_game.py).
+
+mods:
+  fireRate:    {label: deploy frequency, format: pct}
+  regen:       {label: budget regen (MTTR), format: rate}
+  reveal:      {label: monitoring coverage, format: px}
+  armorPierce: {label: armor piercing, format: pct}
+  testDmg:     {label: damage vs flaky and skipped, format: pct}
+  bossDmg:     {label: boss damage, format: pct}
+  xpGain:      {label: XP gain, format: pct}
+  maxBudget:   {label: max error budget, format: num}
+  teammates:   {label: teammates, format: frac}
+  fusionEarly: {label: fusion readiness, format: frac}
+  ballCount:   {label: ball copies, format: frac}
+  damage:      {label: damage, format: pct}
+  crossTeam:   {label: bounce speed-up, format: pct}
+  tracedBonus: {label: traced damage, format: pct}
+  docs:        {label: full postmortem timeline, format: flag}
+
+# Effect per point of bullet weight. A weight-5 ci-cd bullet gives +25% fire rate.
+tag_effects:
+  ci-cd:             {fireRate: 0.05}
+  incident-response: {regen: 0.012}
+  observability:     {reveal: 12, tracedBonus: 0.04}
+  security:          {armorPierce: 0.04}
+  testing:           {testDmg: 0.1}
+  migration:         {bossDmg: 0.06}
+  cost:              {xpGain: 0.06}
+  ownership:         {maxBudget: 0.6}
+  mentoring:         {teammates: 0.12}
+  leadership:        {teammates: 0.1}
+  architecture:      {fusionEarly: 0.1}
+  platform:          {ballCount: 0.1}
+  terraform:         {ballCount: 0.08}
+  cross-team:        {crossTeam: 0.02}
+  documentation:     {docs: 1, regen: 0.004}
+  backend:           {damage: 0.03}
+  serverless:        {damage: 0.03}
+  aws:               {damage: 0.03}
+  kubernetes:        {damage: 0.03}
+  node:              {damage: 0.03}
+  typescript:        {damage: 0.03}
+  php:               {damage: 0.03}
+  drupal:            {damage: 0.03}
+  rust:              {damage: 0.03}
+  macos:             {damage: 0.03}
+  federal:           {damage: 0.02}
+  ato:               {damage: 0.02}
+  fedramp:           {damage: 0.02}
+  govcloud:          {damage: 0.02}
+  healthcare:        {damage: 0.02}
+  open-source:       {damage: 0.02}
+  ml:                {damage: 0.02}
+  research:          {damage: 0.02}
+  core:              {damage: 0.02}
+
+balls:
+  - id: bash
+    name: Bash
+    color: "#c9d1d9"
+    traits: []
+    start: true
+    blurb: The one you start with. It bounces, and it is always there.
+  - id: lambda
+    name: Lambda
+    color: "#ff9900"
+    traits: [split]
+    blurb: Scales out. Each hit spawns short-lived concurrent copies.
+  - id: datadog
+    name: Datadog
+    color: "#e05cc1"
+    traits: [trace]
+    blurb: Traces what it hits for bonus damage and reveals silent defects.
+  - id: terraform
+    name: Terraform
+    color: "#844fba"
+    traits: [pierce, noFalloff]
+    blurb: Idempotent. Pierces, and repeat hits never lose damage.
+  - id: oidc
+    name: OIDC
+    color: "#3fb950"
+    traits: [security]
+    blurb: Short-lived credentials. Security damage cuts through armor.
+  - id: cypress
+    name: Cypress
+    color: "#69d3a7"
+    traits: [pin]
+    blurb: Pins flaky tests solid so they can be hit.
+  - id: redis
+    name: Redis
+    color: "#ff4438"
+    traits: [cache]
+    blurb: Cache hits repeat the damage for free.
+  - id: rust
+    name: Rust
+    color: "#dea584"
+    traits: [heavy, pierce]
+    blurb: Heavy and slow. Pierces everything; same damage every time.
+  - id: pagerduty
+    name: PagerDuty
+    color: "#57c7ff"
+    traits: [homing]
+    blurb: Pages toward whatever is closest to breaching.
+  - id: gha
+    name: GitHub Actions
+    color: "#2f81f7"
+    traits: [matrix]
+    blurb: Matrix build. Fires a fan of shards.
+  - id: mentee
+    name: Teammate
+    color: "#8b949e"
+    traits: []
+    offer: false
+    blurb: Fired by the engineers you have mentored.
+
+fusions:
+  - id: self-describing-lambda
+    name: Self-describing Lambda
+    parts: [lambda, terraform]
+    bonus: copiesInherit
+    color: "#ffb454"
+    cites: [cie-self-describing-lambda]
+    blurb: Copies inherit pierce. Adding an endpoint means adding a directory.
+  - id: zero-long-lived-credentials
+    name: Zero Long-lived Credentials
+    parts: [oidc, gha]
+    bonus: shatter
+    color: "#56d364"
+    cites: [cie-credentials]
+    blurb: Every shard does security damage, and a hit strips armor for good.
+  - id: dead-man-switch
+    name: Dead-man Switch
+    parts: [datadog, pagerduty]
+    bonus: autoTarget
+    color: "#f778ba"
+    cites: [cie-monitors-as-code]
+    blurb: Homes on traced enemies first. Silence is an alert.
+  - id: weighted-parallelization
+    name: Weighted Parallelization
+    parts: [cypress, gha]
+    bonus: evenSplit
+    color: "#79c0ff"
+    cites: [cms-tl-cypress-parallel]
+    blurb: Twice the shards, spread across the whole pit.
+  - id: deterministic-replay
+    name: Deterministic Replay
+    parts: [rust, redis]
+    bonus: cacheAlways
+    color: "#ffa198"
+    cites: [hornvale]
+    blurb: Byte-identical every time. Every hit is a cache hit.
+  - id: monitors-as-code
+    name: Monitors as Code
+    parts: [datadog, terraform]
+    bonus: traceArea
+    color: "#d2a8ff"
+    cites: [cie-monitors-as-code]
+    blurb: Traces everything near the hit.
+
+enemies:
+  request:
+    name: Request
+    label: REQ
+    color: "#58a6ff"
+    hp: 20
+    budget: 1
+    xp: 1
+    cites: [cie-ownership]
+    blurb: Production traffic. It arrives in bursts.
+  flaky:
+    name: Flaky Test
+    label: FLAKY
+    color: "#d29922"
+    hp: 30
+    budget: 1
+    xp: 2
+    cites: [cms-sse-flaky]
+    blurb: Phases in and out. Shots pass through it half the time.
+  silent:
+    name: Silent Defect
+    label: DEFECT
+    color: "#f85149"
+    hp: 40
+    budget: 3
+    xp: 3
+    cites: [cie-silent-defect]
+    blurb: Invisible until monitoring or a traced hit finds it.
+  credential:
+    name: Long-lived Credential
+    label: CRED
+    color: "#e3b341"
+    hp: 60
+    armored: true
+    budget: 2
+    xp: 3
+    cites: [cie-credentials]
+    blurb: Armored. Only security damage gets through cleanly.
+  idle:
+    name: Idle Capacity
+    label: IDLE
+    color: "#6e7681"
+    hp: 140
+    w: 112
+    budget: 0
+    xp: 12
+    cites: [cie-cost]
+    blurb: Large and harmless, and never served a request. Removing it pays well.
+  deadlock:
+    name: Deadlock
+    label: LOCK
+    color: "#bc8cff"
+    hp: 35
+    budget: 1
+    xp: 2
+    cites: [cms-sse-flaky]
+    blurb: Comes in linked pairs. Kill both close together or one comes back.
+  dependency:
+    name: Unpinned Dependency
+    label: DEP
+    color: "#7ee787"
+    hp: 18
+    budget: 1
+    xp: 1
+    cites: [cie-dependency-hygiene]
+    blurb: Left alone, it pulls in more of itself.
+  skipped:
+    name: Skipped Check
+    label: SKIP
+    color: "#a5d6ff"
+    hp: 30
+    budget: 2
+    xp: 2
+    cites: [cie-dependency-hygiene]
+    blurb: Counted as a pass. Hits do nothing until it is revealed.
+  module:
+    name: Drupal Module
+    label: MOD
+    color: "#0678be"
+    hp: 45
+    budget: 0
+    xp: 1
+    cites: [cms-tl-content-release]
+    blurb: A shield of modules. Break them before the core will take damage.
+
+stages:
+  - id: devon
+    employer: DEVONtechnologies
+    roles: [devon]
+    duration: 70
+    speed: 16
+    hpScale: 1.0
+    spawnEvery: 2.6
+    rowMin: 2
+    rowMax: 4
+    spikeEvery: 0
+    ramp: 0
+    bossRate: 0.5
+    mix: {request: 6, flaky: 2, dependency: 1}
+    boss: sync-conflict
+  - id: ain
+    employer: Convention News
+    roles: [ain]
+    duration: 75
+    speed: 17
+    hpScale: 1.5
+    spawnEvery: 2.5
+    rowMin: 2
+    rowMax: 4
+    spikeEvery: 0
+    ramp: 0.2
+    bossRate: 0.5
+    mix: {request: 5, flaky: 2, idle: 1, dependency: 2, skipped: 1}
+    boss: managed-host-invoice
+  - id: cms
+    employer: VA.gov CMS
+    roles: [cms-tl, cms-sse]
+    duration: 80
+    speed: 18
+    hpScale: 2.2
+    spawnEvery: 2.4
+    rowMin: 3
+    rowMax: 5
+    spikeEvery: 0
+    ramp: 0.3
+    bossRate: 0.5
+    mix: {request: 4, flaky: 3, deadlock: 2, skipped: 2, dependency: 1, silent: 1}
+    boss: drupal-upgrade
+  - id: cie
+    employer: VA.gov Check-In
+    roles: [cie]
+    duration: 85
+    speed: 19
+    hpScale: 3.0
+    spawnEvery: 2.3
+    rowMin: 3
+    rowMax: 5
+    spikeEvery: 14
+    ramp: 0.8
+    bossRate: 0.7
+    mix: {request: 5, silent: 2, credential: 2, idle: 1, deadlock: 1, skipped: 1}
+    boss: hard-cutover
+
+bosses:
+  - id: sync-conflict
+    name: The Sync Conflict
+    hp: 900
+    cites: [devon-owned-sync]
+    blurb: At half health it splits into two replicas. Kill both before they re-merge.
+  - id: managed-host-invoice
+    name: The Managed Host Invoice
+    hp: 1400
+    cites: [ain-arc]
+    blurb: Grows the longer you leave it. Migration damage counts double.
+  - id: drupal-upgrade
+    name: "Drupal 8 → 9 → 10"
+    hp: 2400
+    cites: [cms-sse-drupal9, cms-tl-drupal10]
+    blurb: Three phases. Each upgrade raises a fresh shield of modules.
+  - id: hard-cutover
+    name: The Hard Cutover
+    hp: 3600
+    cites: [cie-account-cutover, cie-ownership]
+    blurb: Moves between the legacy account and the new one while traffic keeps rising.

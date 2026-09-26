@@ -39,11 +39,13 @@ game/
   style.css
   src/
     main.js           # boot: fetch game-data.json, wire input, start loop
+    world.js          # playfield geometry constants
     engine.js         # fixed-timestep loop, state machine (title/play/levelup/boss/postmortem)
     physics.js        # ball–wall, ball–enemy (circle vs rect) collision; pure
     balls.js          # ball kinds and their on-hit behaviours; pure
     enemies.js        # enemy kinds and behaviours; pure
-    stages.js         # wave schedule per stage, boss scripts; pure
+    stages.js         # wave schedule per stage; pure
+    bosses.js         # boss scripts; pure
     cards.js          # tag → effect derivation, card draw; pure
     fusion.js         # fusion recipes; pure
     postmortem.js     # run timeline and DORA-style stats; pure
@@ -52,6 +54,7 @@ game/
     rng.js            # seeded PRNG so runs and tests are reproducible
   design.yaml         # hand-authored game design: balls, enemies, bosses, fusions, tag effects
   test/*.test.js      # node --test
+  test/sim.mjs        # headless run driven by tests/test_game.py
 tunable/game.py       # export content + design.yaml → game-data.json
 tests/test_game.py    # design validation (ids exist, tags covered, sensitivity)
 ```
@@ -93,6 +96,9 @@ with **SLO met**. Either way the postmortem follows.
 Killing enemies drops XP ("merged PRs"). Each level-up pauses play for a
 card choice (§8).
 
+The first time each enemy kind or boss appears, a toast names it and quotes
+the bullet it cites.
+
 Target run length: 5–8 minutes for a winning run on first-time skill.
 
 ## 6. Stages and bosses
@@ -117,7 +123,8 @@ followed by its boss. The stage banner shows employer, title, and dates.
 | Flaky Test | Phases in and out; while phased, balls pass through. | cms-sse-flaky |
 | Silent Defect | Invisible and unhittable until revealed by an observability hit or reveal radius. | cie-silent-defect |
 | Long-lived Credential | Armoured; takes 10% damage except from security damage. | cie-credentials |
-| Idle Capacity | Large, slow, harmless to budget; big XP bonus ("cost savings"). | cie-cost |
+| Idle Capacity | Large and tanky, harmless to budget; big XP bonus ("cost savings"). Falls at row speed so rows never overlap. | cie-cost |
+| Drupal Module | Static shield row raised by the Drupal boss. | cms-tl-content-release |
 | Deadlock | Spawns as a linked pair; if one dies and the other survives 2 s, the dead one respawns. | cms-sse-flaky |
 | Unpinned Dependency | Spawns a copy every few seconds while alive. | cie-dependency-hygiene |
 | Skipped Check | Appears greyed out ("counted as a pass"), ignores hits until revealed. | cie-dependency-hygiene |
@@ -125,7 +132,8 @@ followed by its boss. The stage banner shows employer, title, and dates.
 ### Balls
 
 The player starts with one ball and is offered new kinds on level-up (as a
-card slot alongside bullet cards). Each kind levels 1–3.
+card slot alongside bullet cards). Each kind levels 1–3. At most five tool
+kinds at once; a fusion frees a slot.
 
 | Ball | Behaviour |
 |---|---|
@@ -146,12 +154,12 @@ behaviours plus a bonus, and its card shows the cited bullet verbatim.
 
 | Fusion | Parts | Bonus | Cites |
 |---|---|---|---|
-| Self-describing Lambda | Lambda + Terraform | Copies inherit pierce. | cie-self-describing-lambda |
-| Zero Long-lived Credentials | OIDC + GitHub Actions | Security damage to everything. | cie-credentials |
-| Dead-man Switch | Datadog + PagerDuty | Revealed enemies are auto-targeted. | cie-monitors-as-code |
-| Weighted Parallelization | Cypress + GitHub Actions | Copies split damage evenly across rows. | cms-tl-cypress-parallel |
-| Deterministic Replay | Rust + Redis | Cache hits always trigger on the same enemy. | hornvale (project) |
-| Monitors as Code | Datadog + Terraform | Traced status is permanent. | cie-monitors-as-code |
+| Self-describing Lambda | Lambda + Terraform | Copies inherit pierce. Adding an endpoint means adding a directory. | cie-self-describing-lambda |
+| Zero Long-lived Credentials | OIDC + GitHub Actions | Every shard does security damage, and a hit strips armor for good. | cie-credentials |
+| Dead-man Switch | Datadog + PagerDuty | Homes on traced enemies first. Silence is an alert. | cie-monitors-as-code |
+| Weighted Parallelization | Cypress + GitHub Actions | Twice the shards, spread across the whole pit. | cms-tl-cypress-parallel |
+| Deterministic Replay | Rust + Redis | Byte-identical every time. Every hit is a cache hit. | hornvale (project) |
+| Monitors as Code | Datadog + Terraform | Traces everything near the hit. | cie-monitors-as-code |
 
 ## 8. Level-up cards: "Merge a PR"
 

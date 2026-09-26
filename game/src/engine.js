@@ -23,7 +23,7 @@ export function newRun(data, seed = 1) {
     t: 0, nextId: 1, phase: 'intro', phaseTimer: INTRO_TIME,
     stageIndex: 0, stageDef: design.stages[0], stageTime: 0, spawnTimer: 0, spikeTimer: 0, spikeDue: false, boss: null,
     player: { x: W / 2, aim: { x: 0, y: -1 } },
-    budget: BASE_BUDGET, maxBudget: BASE_BUDGET, mods: newMods(design),
+    budget: BASE_BUDGET, maxBudget: BASE_BUDGET, mods: { ...newMods(design), ...design.start_mods },
     inventory: { [start]: 1 }, slots: [], slotCursor: 0, fireTimer: 0, teamTimer: 0,
     balls: [], enemies: [], pendingRespawns: [],
     xp: 0, level: 1, xpToNext: 8, pendingLevels: 0, cards: null, cardsPicked: 0,

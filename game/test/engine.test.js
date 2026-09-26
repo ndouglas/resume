@@ -26,6 +26,14 @@ test('a run starts in the stage intro with the start ball and full budget', () =
   assert.equal(s.phase, 'play');
 });
 
+test('design start_mods apply at the start of a run', () => {
+  const data = fixtureData();
+  data.design.start_mods = { ballCount: 1 };
+  const s = newRun(data, 1);
+  assert.equal(s.mods.ballCount, 1);
+  assert.deepEqual(s.slots.map((x) => x.kind), ['bash', 'bash']);
+});
+
 test('a fired ball comes back and refills its slot; a clean miss counts as a failure', () => {
   const s = playing();
   s.stageDef = { ...s.stageDef, spawnEvery: 999 };

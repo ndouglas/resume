@@ -72,6 +72,10 @@ def validate(design: dict, content: Content) -> list[str]:
             if mod not in mods:
                 errors.append(f"tag_effects.{tag}: unknown mod '{mod}'")
 
+    for mod in design.get("start_mods") or {}:
+        if mod not in mods:
+            errors.append(f"start_mods: unknown mod '{mod}'")
+
     for bid, b in balls.items():
         for t in b.get("traits") or []:
             if t not in TRAITS:

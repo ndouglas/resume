@@ -49,6 +49,12 @@ def test_unknown_role_trait_and_mod_are_reported():
     assert any("unknown mod 'luck'" in e for e in errors)
 
 
+def test_unknown_start_mod_is_reported():
+    design, content = real()
+    design["start_mods"] = {"luck": 1}
+    assert "start_mods: unknown mod 'luck'" in game.validate(design, content)
+
+
 def test_sensitive_design_text_is_reported():
     design, content = real()
     design["bosses"][0]["blurb"] = "Cost $5,000 a month"
@@ -122,3 +128,34 @@ def _scratch_root(tmp_path: Path) -> Path:
     (g / "test" / "a.test.js").write_text("")
     (g / "package.json").write_text("{}")
     return root
+import subprocess
+
+NODE = shutil.which("node")
+needs_node = pytest.mark.skipif(NODE is None, reason="node not installed")
+
+
+@pytest.fixture(scope="module")
+def data_file(tmp_path_factory):
+    path = tmp_path_factory.mktemp("sim") / "game-data.json"
+    path.write_text(json.dumps(game.export(ROOT)))
+    return path
+
+
+def simulate(data_file: Path, mode: str, seed: int) -> dict:
+    result = subprocess.run([NODE, str(ROOT / "game" / "test" / "sim.mjs"), str(data_file), mode, str(seed)],
+                            capture_output=True, text=True, timeout=300, check=True)
+    return json.loads(result.stdout)
+
+
+@needs_node
+@pytest.mark.parametrize("seed", [1, 2, 3])
+def test_scripted_player_meets_the_slo(data_file, seed):
+    r = simulate(data_file, "bot", seed)
+    assert r["outcome"] == "met", r
+    assert 240 <= r["t"] <= 720, r
+
+
+@needs_node
+def test_idle_player_breaches_in_stage_one(data_file):
+    r = simulate(data_file, "idle", 1)
+    assert (r["outcome"], r["stage"]) == ("breached", 1), r

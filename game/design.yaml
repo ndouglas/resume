@@ -22,6 +22,11 @@ mods:
   tracedBonus: {label: traced damage, format: pct}
   docs:        {label: full postmortem timeline, format: flag}
 
+# Mods every run starts with. One extra copy of each tool: with a single ball,
+# every miss leaves the player with nothing to fire until it returns.
+start_mods:
+  ballCount: 1
+
 # Effect per point of bullet weight. A weight-5 ci-cd bullet gives +25% fire rate.
 tag_effects:
   ci-cd:             {fireRate: 0.05}
@@ -252,11 +257,11 @@ stages:
     employer: DEVONtechnologies
     roles: [devon]
     duration: 70
-    speed: 16
+    speed: 13
     hpScale: 1.0
-    spawnEvery: 2.6
-    rowMin: 2
-    rowMax: 4
+    spawnEvery: 3.2
+    rowMin: 1
+    rowMax: 3
     spikeEvery: 0
     ramp: 0
     bossRate: 0.5

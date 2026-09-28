@@ -74,6 +74,7 @@ projects:
     evidence: ~/Projects/ndouglas/longtable
   - id: sugarscape
     name: SugarScape
+    emoji: "🧁"
     url: https://github.com/ndouglas/SugarScape
     text: >-
       Built a Rust/WebAssembly platform for investigating published

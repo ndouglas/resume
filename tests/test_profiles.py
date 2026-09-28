@@ -13,12 +13,19 @@ def _sel(name):
     return select(content, load_profile(ROOT / "profiles" / f"{name}.yaml", content))
 
 
-def test_commercial_profile_hides_clearance_and_research():
+def test_commercial_profile_hides_clearance_and_distillation():
     sel = _sel("commercial-senior-swe")
     assert sel.clearance is None
     assert "distillation" not in [p.id for p in sel.projects]
     assert sel.project_notes == ()
     assert "languages" not in sel.sections
+
+
+def test_commercial_profile_selects_sugarscape_in_place_of_longtable():
+    ids = {p.id for p in _sel("commercial-senior-swe").projects}
+    assert ids == {
+        "goldentooth", "hornvale", "bitwit", "wiz6", "blackpool", "sugarscape",
+    }
 
 
 def test_govtech_profile_shows_clearance():

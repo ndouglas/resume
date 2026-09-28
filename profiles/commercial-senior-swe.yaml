@@ -11,7 +11,7 @@ caps:
   default: 5
   roles: {cie: 7, cms-tl: 4, cms-sse: 5, ain: 4, devon: 2}
   projects: 6
-include: [cie-silent-defect, cms-sse-release-safety]
-exclude: []
+include: [cie-silent-defect, cms-sse-release-safety, sugarscape]
+exclude: [longtable]
 require:
   - {tag: leadership, min: 1, roles: [cie, cms-tl, cms-sse]}

@@ -72,6 +72,21 @@ projects:
     tags: [rust, backend]
     weight: 3
     evidence: ~/Projects/ndouglas/longtable
+  - id: sugarscape
+    name: SugarScape
+    url: https://github.com/ndouglas/SugarScape
+    text: >-
+      Built a Rust/WebAssembly platform for investigating published
+      computational social-science models, with seeded experiments,
+      parameter sweeps, replayable sessions, and regression tests.
+      Documents modeling assumptions and where published findings do not
+      reproduce.
+    stack: [Rust, WebAssembly, TypeScript]
+    tags: [rust, typescript, testing, research]
+    weight: 3
+    evidence: >-
+      /Users/nathan/Projects/ndouglas/SugarScape (README.md, docs/papers.md,
+      crates/sugarscape-cli/tests/cli.rs, web/src/sessions.test.ts)
   - id: greenstone
     name: Greenstone
     emoji: "🎮"

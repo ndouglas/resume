@@ -60,6 +60,12 @@ groups:
       - {text: Docker, tags: [platform]}
       - {text: "Drupal 8–10", tags: [drupal, php]}
       - {text: "React / Next.js", tags: [typescript]}
+  - name: AI and ML
+    items:
+      - {text: "PyTorch and Hugging Face Transformers", tags: [ml]}
+      - {text: "scikit-learn, NumPy, Jupyter", tags: [ml]}
+      - {text: "LLM agents and the Claude API", tags: [ai]}
+      - {text: "Agentic coding (Claude Code, spec-then-plan workflows)", tags: [ai]}
   - name: Domain
     items:
       - {text: "EHR integration (VistA RPCs)", tags: [healthcare]}

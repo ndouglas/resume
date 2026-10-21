@@ -16,6 +16,14 @@ variants:
     that makes systems safe to change, and tends to arrive as a contributor
     and leave as the person others come to with questions. Works AI-assisted
     end to end and backs every claim with hand-verified evidence.
+  ai-safety: >-
+    Software engineer and generalist moving into AI safety, 14 years in
+    production systems, most recently the engineer of record for four
+    healthcare services handling nearly two million requests a day.
+    Interested in the collective behavior of interacting AI systems that
+    single-agent evaluations can miss, and in bringing production
+    discipline to research: reproducible experiments, tests as gates, and
+    hand-verified evidence behind every claim.
   short: >-
     Senior software engineer and generalist, 14 years. Makes production
     systems safe to change, ends up owning them, and works AI-assisted with

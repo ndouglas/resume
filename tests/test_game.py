@@ -7,7 +7,7 @@ import pytest
 import build as build_mod
 from tunable import game
 from tunable.emailgen import resolve
-from tunable.loader import ContentError, load_content
+from tunable.loader import ContentError, load_config, load_content
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -89,7 +89,8 @@ def test_export_shape():
 
 
 def test_export_email_matches_default_profile_pdf(tmp_path: Path):
-    tex = build_mod.build("commercial-senior-swe", root=ROOT, out_dir=tmp_path, pdf=False).read_text()
+    default = load_config(ROOT / "resume.yaml").default_profile
+    tex = build_mod.build(default, root=ROOT, out_dir=tmp_path, pdf=False).read_text()
     assert game.export(ROOT)["person"]["email"] in tex
 
 

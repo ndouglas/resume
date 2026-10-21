@@ -29,6 +29,7 @@ govcloud: AWS GovCloud
 healthcare: Healthcare data and EHR integration
 open-source: Upstream contributions
 ml: Machine learning
+ai: LLMs, AI-assisted engineering, AI safety
 research: Exploratory or research-flavoured work
 macos: macOS and iOS
 core: Always-on sections (education, languages); every tuned profile lists it

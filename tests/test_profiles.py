@@ -84,3 +84,19 @@ def test_include_ids_are_selected(path):
     selected |= {p.id for p in sel.projects} | {n.id for n in sel.project_notes}
     for i in profile.include:
         assert i in selected, f"{path.name}: include id '{i}' was not selected"
+
+
+def test_ai_safety_profile_leads_with_ai_work_and_hides_federal_signal():
+    sel = _sel("ai-safety")
+    assert sel.clearance is None
+    ids = {p.id for p in sel.projects}
+    assert {"adaptive-recursive-inference", "sugarscape"} <= ids
+    assert "BlueDot Impact" in {x.institution for x in sel.education}
+    selected = _selected_ids("ai-safety")
+    assert {"cie-ownership", "cie-silent-defect", "cie-ai-workflow"} <= selected
+    assert "cms-tl-ato" not in selected
+
+
+def test_ai_coursework_stays_off_the_other_tuned_profiles():
+    for name in ["commercial-senior-swe", "govtech-platform"]:
+        assert "BlueDot Impact" not in {x.institution for x in _sel(name).education}

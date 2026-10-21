@@ -73,21 +73,52 @@ projects:
     weight: 3
     evidence: ~/Projects/ndouglas/longtable
   - id: sugarscape
-    name: SugarScape
-    emoji: "🧁"
-    url: https://github.com/ndouglas/SugarScape
+    name: BottomUpLab
+    emoji: "🧫"
+    url: https://ndouglas.github.io/BottomUpLab/
     text: >-
-      Built a Rust/WebAssembly platform for investigating published
-      computational social-science models, with seeded experiments,
-      parameter sweeps, replayable sessions, and regression tests.
-      Documents modeling assumptions and where published findings do not
-      reproduce.
+      Agent-based models of societies, markets, games, and minds, each
+      reproduced from its source paper and measured against it, built
+      AI-assisted with seeded experiments, parameter sweeps, replay, and
+      regression tests; a reproducibility register records findings that
+      do not reproduce
     stack: [Rust, WebAssembly, TypeScript]
     tags: [rust, typescript, testing, research]
     weight: 3
     evidence: >-
       /Users/nathan/Projects/ndouglas/SugarScape (README.md, docs/papers.md,
-      crates/sugarscape-cli/tests/cli.rs, web/src/sessions.test.ts)
+      crates/sugarscape-cli/tests/cli.rs, web/src/sessions.test.ts); renamed
+      BottomUpLab 2026-10-16, repo github.com/ndouglas/BottomUpLab;
+      implementation is overwhelmingly agent-produced from Nathan's idea and
+      reference papers, so do not claim personal authorship of subsystems
+  - id: adaptive-recursive-inference
+    name: Adaptive Recursive Inference
+    emoji: "🔁"
+    url: https://github.com/ndouglas/adaptive-recursive-inference-experiment
+    text: >-
+      Looped the middle layers of Qwen2.5-7B until hidden states converged
+      and tested convergence as a cheap uncertainty signal: it predicted
+      math correctness (AUC 0.69) but inverted on multi-step reasoning,
+      with a full write-up
+    stack: [Python, PyTorch, Transformers]
+    tags: [ml, research, ai]
+    weight: 4
+    evidence: >-
+      ~/Projects/ndouglas/adaptive-recursive-inference-experiment (WRITEUP.md,
+      figures/); 100 math + 100 reasoning problems, one model, Apr 2026;
+      AUC 0.69 vs 0.87 for 8-sample agreement at ~14% of its cost
+  - id: rills
+    name: Rills
+    emoji: "🕵️"
+    url: https://github.com/bitterbridge/rills
+    text: >-
+      Social-deduction game played by autonomous Claude agents, with
+      probabilistic night actions, deliberately ambiguous trait-based
+      evidence, and a tested resolution engine
+    stack: [Python, Claude API]
+    tags: [ai, research]
+    weight: 2
+    evidence: "~/Projects/bitterbridge/rills (README.md, tests/); Jan–Feb 2026"
   - id: greenstone
     name: Greenstone
     emoji: "🎮"

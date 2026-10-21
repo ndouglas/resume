@@ -61,6 +61,7 @@ tag_effects:
   healthcare:        {damage: 0.02}
   open-source:       {damage: 0.02}
   ml:                {damage: 0.02}
+  ai:                {damage: 0.02}
   research:          {damage: 0.02}
   core:              {damage: 0.02}
 

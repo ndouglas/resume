@@ -151,7 +151,7 @@ employers:
               spec-then-plan workflow, with specs, plans, and review
               artifacts committed beside the code and every claim backed
               by hand-verified evidence.
-            tags: [documentation, architecture, ci-cd]
+            tags: [documentation, architecture, ci-cd, ai]
             weight: 4
             evidence: "~200 Co-Authored-By commits, ~90 PR footers, Aug 2025 onward; chip#2514 hash proof"
       - id: cms-tl

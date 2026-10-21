@@ -46,13 +46,15 @@ def test_core_tag_keeps_education_in_every_tuned_profile():
 
 def test_summary_variants_exist_and_are_assigned():
     content = load_content(ROOT / "content")
-    assert set(content.summaries) == {"commercial", "govtech", "short"}
+    assert set(content.summaries) == {"commercial", "govtech", "short", "ai-safety"}
     for text in content.summaries.values():
         assert "TLA" not in text and "formal verification" not in text.lower()
     govtech = load_profile(ROOT / "profiles" / "govtech-platform.yaml", content)
     assert govtech.summary == "govtech"
     commercial = load_profile(ROOT / "profiles" / "commercial-senior-swe.yaml", content)
     assert commercial.summary == "commercial"
+    ai_safety = load_profile(ROOT / "profiles" / "ai-safety.yaml", content)
+    assert ai_safety.summary == "ai-safety"
 
 
 def test_projects_reframed():
@@ -69,7 +71,7 @@ def test_skills_groups_in_evidence_order():
     content = load_content(ROOT / "content")
     assert [g.name for g in content.skills] == [
         "Languages", "AWS", "Infrastructure as Code", "Delivery",
-        "Observability", "Testing", "Platforms", "Domain",
+        "Observability", "Testing", "Platforms", "AI and ML", "Domain",
     ]
     all_items = {i.text for g in content.skills for i in g.items}
     assert "TLA+" not in all_items

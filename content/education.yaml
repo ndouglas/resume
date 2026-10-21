@@ -1,6 +1,21 @@
 education:
+  - institution: Apart Research
+    location: Online
+    degree: "AI Collusion Research Sprint, October 23–25"
+    date: 2026-10
+    tags: [ai]
+  - institution: BlueDot Impact
+    location: Online
+    degree: "Technical AI Safety course, October 26–31 cohort"
+    date: 2026-10
+    tags: [ai]
+  - institution: BlueDot Impact
+    location: Online
+    degree: "AGI Strategy course; action plan on collective AI behavior, evaluation, and control"
+    date: 2026-10
+    tags: [ai]
   - institution: University of Nevada, Las Vegas
     location: Las Vegas, NV
-    degree: Bachelor of Arts in Computer Science
+    degree: Bachelor of Arts in Computer Science; minors in Psychology and Sociology
     date: 2011-12
     tags: [core]

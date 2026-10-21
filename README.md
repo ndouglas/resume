@@ -4,7 +4,7 @@ My résumé as a content database plus profiles, rendered to LaTeX and PDF.
 Every bullet carries tags, a weight, and an evidence pointer; a profile picks
 which bullets appear for a given kind of job.
 
-The general-purpose PDF is published at
+The default PDF (currently the AI safety profile) is published at
 https://ndouglas.github.io/resume/resume.pdf. Other profiles are alongside it
 as `resume-<profile>.pdf`.
 

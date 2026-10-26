@@ -107,6 +107,27 @@ projects:
       ~/Projects/ndouglas/adaptive-recursive-inference-experiment (WRITEUP.md,
       figures/); 100 math + 100 reasoning problems, one model, Apr 2026;
       AUC 0.69 vs 0.87 for 8-sample agreement at ~14% of its cost
+  - id: apart-collusion
+    name: LLM Cartel Interventions
+    emoji: "⚖️"
+    url: https://apartresearch.com/sprints/projects/a-legal-warning-can-prevent-an-llm-cartel-but-not-break-one-s3jy
+    text: >-
+      Solo Apart Research sprint testing interventions against GPT-4.1
+      seller cartels in a double-auction benchmark: a legal notice given
+      with the CEO's price-fixing order prevented the cartel, but the same
+      notice an hour later barely moved it; benchmark fix merged upstream
+      and all runs released
+    stack: [Python, GPT-4.1]
+    tags: [ai, research, testing]
+    weight: 4
+    evidence: >-
+      Apart project page and report PDF, published 2026-10-25;
+      github.com/ndouglas/collusion_hackathon (undercover branch,
+      llm-agent-collusion/PROJECT.md), release apart-sprint-2026-10-v2
+      (350 runs, reproduces numbers.md); upstream PR #5 merged in
+      poseidon-research/collusion_hackathon; ~/Projects/ndouglas/boot-camp/2026/10/23.md to 25.md.
+      Claude ran experiments and analysis under Nathan's direction, so
+      claim the question, design and conclusions, not hand-written code
   - id: rills
     name: Rills
     emoji: "🕵️"

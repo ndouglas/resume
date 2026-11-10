@@ -1,4 +1,9 @@
 education:
+  - institution: ARENA (self-study)
+    location: Online
+    degree: "Alignment Research Engineer Accelerator curriculum, worked through in public from November 2026"
+    date: 2026-11
+    tags: [ai]
   - institution: Apart Research
     location: Online
     degree: "AI Collusion Research Sprint, October 23–25; solo project submitted"

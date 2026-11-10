@@ -128,6 +128,29 @@ projects:
       poseidon-research/collusion_hackathon; ~/Projects/ndouglas/boot-camp/2026/10/23.md to 25.md.
       Claude ran experiments and analysis under Nathan's direction, so
       claim the question, design and conclusions, not hand-written code
+  - id: swarm-weight-stego
+    name: LLM Weight-Audit Blind Spots
+    emoji: "🔍"
+    url: https://github.com/ndouglas/weight-stego
+    text: >-
+      Solo Apart Research hackathon project on weight-based audits: when
+      frontier LLMs read tiny nets' weights as text, training with Adam
+      instead of SGD made MNIST nets read as Fashion-MNIST with no weight
+      edits, and a message hidden in the weights was flagged reliably only
+      at maximum effort; one reproducibility check re-derives every reported
+      number
+    stack: [Python, PyTorch, Claude API]
+    tags: [ai, ml, research, testing]
+    weight: 4
+    evidence: >-
+      Swarm Alignment Hackathon (AIAF + Apart Research, with AE Studio),
+      Nov 6-8, 2026, solo; report "Is This MNIST? Training Choices Steer What
+      LLM Weight Readers Conclude" submitted 2026-11-08;
+      github.com/ndouglas/weight-stego (report/report.md, PREDICTIONS.md,
+      make check); ~/Projects/ndouglas/boot-camp/2026/11/06.md to 08.md.
+      Claude wrote most of the code and ran the experiments under Nathan's
+      direction (see the report's LLM Usage Statement), so claim the
+      question, design, predictions and conclusions, not hand-written code
   - id: rills
     name: Rills
     emoji: "🕵️"

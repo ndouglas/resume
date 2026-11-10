@@ -12,7 +12,8 @@ caps:
   roles: {cie: 7, cms-tl: 3, cms-sse: 4, ain: 3, devon: 2}
   projects: 6
 include: [cie-silent-defect, cie-ai-workflow, cie-platform-founded-testing, cie-system-tests,
-          adaptive-recursive-inference, apart-collusion, sugarscape, rills]
+          adaptive-recursive-inference, apart-collusion, swarm-weight-stego,
+          sugarscape, rills]
 exclude: [blackpool]
 require:
   - {tag: leadership, min: 1, roles: [cie, cms-tl, cms-sse]}

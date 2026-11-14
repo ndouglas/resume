@@ -50,6 +50,36 @@ def build(profile_name: str, *, root: Path = ROOT, out_dir: Path | None = None,
     return tex_path
 
 
+SITE_URL = "https://resume.bottomuplabs.ai/"
+
+INDEX_HTML = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url=resume.pdf">
+<link rel="canonical" href="{site}resume.pdf">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nathan Douglas: résumé</title>
+</head>
+<body>
+<p><a href="resume.pdf">Nathan Douglas: résumé (PDF)</a></p>
+</body>
+</html>
+"""
+
+
+def write_index(out_dir: Path) -> Path:
+    """Write index.html, sending the site root straight to resume.pdf.
+
+    GitHub Pages has no server-side redirects, so this is a meta refresh with
+    a plain link for anything that doesn't follow it.
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    path = out_dir / "index.html"
+    path.write_text(INDEX_HTML.format(site=SITE_URL))
+    return path
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     g = ap.add_mutually_exclusive_group(required=True)
@@ -73,6 +103,8 @@ def main(argv: list[str] | None = None) -> int:
         if args.all or args.game:
             dest = gamemod.write(args.root, (args.out or args.root / "dist").resolve())
             print(f"built game: {dest}")
+        if args.all:
+            print(f"built index: {write_index((args.out or args.root / 'dist').resolve())}")
     except (ContentError, RuntimeError, FileNotFoundError) as e:
         print(f"error: {e}", file=sys.stderr)
         return 1

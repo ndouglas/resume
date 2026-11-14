@@ -80,3 +80,16 @@ def test_page_budget(tmp_path: Path, name):
     out = tmp_path / f"resume-{name}.pdf"
     assert out.exists()
     assert pdf.page_count(out) <= profile.page_limit
+
+
+def test_index_redirects_to_resume_pdf(tmp_path: Path):
+    build_mod.write_index(tmp_path)
+    html = (tmp_path / "index.html").read_text()
+    assert '<meta http-equiv="refresh" content="0; url=resume.pdf">' in html
+    assert '<a href="resume.pdf">' in html
+    assert '<link rel="canonical" href="https://resume.bottomuplabs.ai/resume.pdf">' in html
+
+
+def test_build_all_writes_index(tmp_path: Path):
+    assert build_mod.main(["--all", "--no-pdf", "--out", str(tmp_path)]) == 0
+    assert (tmp_path / "index.html").is_file()

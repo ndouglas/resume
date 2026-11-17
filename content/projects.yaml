@@ -116,12 +116,14 @@ projects:
       seller cartels in a double-auction benchmark: a legal notice given
       with the CEO's price-fixing order prevented the cartel, but the same
       notice an hour later barely moved it; benchmark fix merged upstream
-      and all runs released
+      and all runs released; placed in the top 25% of submissions
     stack: [Python, GPT-4.1]
     tags: [ai, research, testing]
     weight: 4
     evidence: >-
-      Apart project page and report PDF, published 2026-10-25;
+      Apart project page and report PDF, published 2026-10-25; Apart
+      email of 2026-11-16, "Your project placed in the top 25% of
+      submissions at the AI Collusion Research Sprint" (not top five);
       github.com/ndouglas/collusion_hackathon (undercover branch,
       llm-agent-collusion/PROJECT.md), release apart-sprint-2026-10-v2
       (350 runs, reproduces numbers.md); upstream PR #5 merged in

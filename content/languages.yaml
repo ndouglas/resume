@@ -1,0 +1,3 @@
+languages:
+  - {name: English, level: Native, tags: [core]}
+  - {name: French, level: "B1 (in progress)", tags: [core]}

@@ -1,0 +1,463 @@
+employers:
+  - name: Agile Six Applications, Inc (contract to U.S. Department of Veterans Affairs)
+    start: 2020-10
+    end: present
+    roles:
+      - id: cie
+        title: Senior Platform Engineer, VA.gov Check-In
+        start: 2024-02
+        end: present
+        bullets:
+          - id: cie-ownership
+            text: >-
+              Engineer of record for the four production services behind
+              VA.gov patient check-in, nearly two million requests a
+              day, owning application code, infrastructure, delivery
+              pipeline, and the pager.
+            tags: [ownership, backend, serverless, aws, healthcare, govcloud]
+            weight: 5
+            evidence: "checkin-devops 74% of commits; chip 58%; lorota 64%; 15 CIE repos, ~5,970 commits Feb 2024–Sep 2026"
+          - id: cie-platform-founded
+            text: >-
+              Founded the team's developer platform: Terraform and
+              Terragrunt for a new AWS GovCloud account, one OIDC role per
+              repository so no long-lived credentials exist in CI, and
+              shared composite GitHub Actions.
+            tags: [platform, terraform, aws, ci-cd, security, architecture]
+            weight: 5
+            evidence: "cie-terraform-modules, cie-github-actions, cie-iam-manager founded 2024-08-28; cd#533"
+            alt: cie-platform
+          - id: cie-platform-founded-testing
+            text: >-
+              Founded the team's developer platform: Terraform and Terragrunt
+              for a new AWS GovCloud account and 40+ reusable modules, each
+              integration-tested by applying real infrastructure in two AWS
+              accounts on every pull request.
+            tags: [platform, terraform, aws, testing, architecture]
+            weight: 5
+            evidence: "cie-terraform-modules: 42 terraform test suites / 234 run blocks, 10-way sharded matrix; 183 releases"
+            alt: cie-platform
+          - id: cie-account-cutover
+            text: >-
+              Led a multi-year migration of four production services to
+              a new AWS account through a hard cutover, then
+              decommissioned the legacy estate with evidence-gated,
+              dry-run-by-default tooling.
+            tags: [migration, aws, terraform, ownership, leadership]
+            weight: 5
+            evidence: "cutover 2026-07-29; chip#2532; cd#1912, cd#1958, cd#2002"
+          - id: cie-silent-defect
+            text: >-
+              Traced a sub-0.01% error rate to a long-standing silent
+              authorization defect and shipped the fix overnight; wrote
+              the team's first postmortem and its 24-hour postmortem
+              policy, every action item closed.
+            tags: [incident-response, backend, healthcare, leadership, documentation]
+            weight: 5
+            evidence: "checkin-devops#575; cd#420 (policy)"
+          - id: cie-upstream-api
+            text: >-
+              Founded the integration layer between check-in and the
+              VA's EHR, messaging, and facilities systems, with
+              pluggable backends that moved a dozen EHR integrations to
+              a new provider with zero downtime.
+            tags: [architecture, backend, healthcare, migration, node]
+            weight: 5
+            evidence: "cie-upstream-api (201 PRs, 764 tests); cd#1393–1403; upstream#468"
+          - id: cie-self-describing-lambda
+            text: >-
+              Designed the self-describing Lambda convention (package
+              manifest → Terraform autodiscovery → generated OpenAPI)
+              adopted across four services, so adding an endpoint means
+              adding a directory.
+            tags: [architecture, serverless, terraform, backend]
+            weight: 4
+            evidence: "chip#2085 (Dec 2024); upstream-api lambda_functions module"
+          - id: cie-system-tests
+            text: >-
+              Built the end-to-end system-test suite, 200+ tests
+              exercising real EHR appointment flows against deployed
+              infrastructure, with trace context propagated so a failing
+              assertion links to the traces behind it.
+            tags: [testing, healthcare, observability, aws]
+            weight: 4
+            evidence: "cie-system-tests (76 suites; 30-PR stabilization Aug–Nov 2025)"
+          - id: cie-cost
+            text: >-
+              Identified and eliminated significant idle serverless
+              capacity with a reproducible cost model, including two
+              tiers of provisioned Lambda capacity that had never served
+              a request.
+            tags: [cost, serverless, aws, observability]
+            weight: 4
+            evidence: "docs/chip-idle-capacity-cost-analysis.md; cd#1687; upstream#542; chip#2572"
+          - id: cie-monitors-as-code
+            text: >-
+              Put monitoring under version control across two Datadog
+              organizations: dozens of monitors and dashboards with
+              dead-man switches, cutover-aware queries, and thresholds
+              derived from a month of measured error rates.
+            tags: [observability, terraform, incident-response]
+            weight: 4
+            evidence: "cie-datadog-monitoring (Nov 2025–Aug 2026)"
+          - id: cie-credentials
+            text: >-
+              Eliminated long-lived credentials from CI/CD with
+              OIDC-assumed roles in every repository, GitHub App tokens,
+              SHA-pinned actions, and an hourly vulnerability-count
+              poller with its own dead-man monitor.
+            tags: [security, ci-cd, aws, observability]
+            weight: 4
+            evidence: "cd#514, cd#520, cd#1953, cd#1955"
+          - id: cie-dependency-hygiene
+            text: >-
+              Closed the GitHub auto-merge hole where a skipped required
+              check counted as a pass, then safely automated more than a
+              thousand dependency updates across a dozen-plus
+              repositories.
+            tags: [security, ci-cd]
+            weight: 3
+            evidence: "cd#1933, cd#1939; if: always() aggregating gate"
+          - id: cie-cross-team
+            text: >-
+              Drove the platform-API side of the account migration
+              through a series of pull requests in another team's Rails
+              service and proxy changes owned by three other teams,
+              proposing rather than mutating.
+            tags: [cross-team, leadership, backend]
+            weight: 3
+            evidence: "vets-api#23348, #28346, #28723, #28809, #29137; vsp-platform-revproxy#1281"
+          - id: cie-structural-fixes
+            text: >-
+              Wrote four production postmortems with minute-level
+              timelines, then made the structural fixes: moved
+              certificate bundles to S3 to remove a flaky deploy
+              dependency, and added a post-deploy health gate.
+            tags: [incident-response, documentation, aws]
+            weight: 3
+            evidence: "cd#1570–1578; cd#1919; lorota#585"
+          - id: cie-modernization
+            text: >-
+              Upgraded every service from Node 18 to 22 and the
+              frontends across major React versions; moved system tests
+              onto GitHub-hosted runners through a proxy client with
+              zero test edits.
+            tags: [migration, node, typescript, ci-cd]
+            weight: 3
+            evidence: "cd#1515–1521; cie-system-tests#196"
+          - id: cie-ai-workflow
+            text: >-
+              Adopted AI-assisted engineering end to end under a
+              spec-then-plan workflow, with specs, plans, and review
+              artifacts committed beside the code and every claim backed
+              by hand-verified evidence.
+            tags: [documentation, architecture, ci-cd, ai]
+            weight: 4
+            evidence: "~200 Co-Authored-By commits, ~90 PR footers, Aug 2025 onward; chip#2514 hash proof"
+      - id: cms-tl
+        title: Technical Lead, VA.gov CMS
+        start: 2023-07
+        end: 2024-02
+        bullets:
+          - id: cms-tl-content-release
+            text: >-
+              Re-architected the VA.gov publishing pipeline into five
+              tested Drupal modules with zero downtime, shipping the
+              replacement beside the legacy path and deleting the old
+              code only after test parity.
+            tags: [architecture, drupal, php, testing, migration]
+            weight: 5
+            evidence: "va.gov-cms#13844 (problem statement), #14160/#14191/#14212, #14157, #14424, #14478, #14794 (deletion)"
+          - id: cms-tl-drupal10
+            text: >-
+              Led the Drupal 10 program for a multi-vendor CMS with
+              dozens of contributors: seeded it over a year early with a
+              module-by-module checklist and two dozen tickets other
+              teams could pick up.
+            tags: [drupal, migration, leadership, cross-team]
+            weight: 5
+            evidence: "va.gov-cms#8159 (epic), #11014, #14852; D10 shipped 2023-11-29 by teammates with me as program owner"
+          - id: cms-tl-cypress-parallel
+            text: >-
+              Cut end-to-end test wall time by more than half with
+              weighted parallelization, and retired the legacy Behat
+              suite after a scenario-by-scenario audit, thousands of
+              lines removed.
+            tags: [testing, ci-cd]
+            weight: 4
+            evidence: "va.gov-cms#14540, #14834, #14340"
+          - id: cms-tl-incidents
+            text: >-
+              Ran and wrote up the team's production incidents with
+              minute-level timelines and ticketed action items, then
+              proposed the PagerDuty routing and on-call changes that
+              followed.
+            tags: [incident-response, documentation, leadership]
+            weight: 4
+            evidence: "va.gov-team-sensitive#1255, #1310, #1354; va.gov-cms#14923, #14920, #14319, #15086"
+          - id: cms-tl-pre-refinement
+            text: >-
+              Ran Engineering Pre-Refinement with a published review
+              rubric and estimation guide, and wrote the CODEOWNERS
+              taxonomy for a repository shared by ten teams as an open
+              RFC.
+            tags: [leadership, documentation, cross-team]
+            weight: 4
+            evidence: "va.gov-cms#15581 (CODEOWNERS RfC); pre-refinement Q4 2023"
+          - id: cms-tl-recruiting
+            text: >-
+              Recruited senior engineers and a QA architect to remediate
+              systemic technical debt and flaky tests.
+            tags: [leadership, testing]
+            weight: 3
+            evidence: "from memory; discuss in interview"
+          - id: cms-tl-ato
+            text: >-
+              Maintained Authority to Operate (ATO) for EHR-integrated
+              systems handling protected health information, resolving
+              regulatory identity gaps through audits and tabletop
+              exercises.
+            tags: [ato, federal, security, healthcare]
+            weight: 3
+            evidence: "from memory; discuss in interview"
+      - id: cms-sse
+        title: Senior Software/DevOps Engineer, VA.gov CMS
+        start: 2020-10
+        end: 2023-07
+        bullets:
+          - id: cms-sse-quality-program
+            text: >-
+              Hired as a backend engineer; started and led the quality
+              program that became the team's test strategy, growing unit
+              tests fivefold, adding static analysis and accessibility
+              checks, and writing most of the test codebase.
+            tags: [testing, leadership, mentoring, drupal, php]
+            weight: 5
+            evidence: "va.gov-cms#4589, #8746, #6026, #10737, #12620, #14133; #9882 (QA & Testing Strategy)"
+          - id: cms-sse-ci-unification
+            text: >-
+              Moved CI into GitHub Actions and unified every check into
+              one command surface that runs identically on a laptop, in
+              previews, and in CI, removing thousands of lines in the
+              process.
+            tags: [ci-cd, platform, architecture]
+            weight: 5
+            evidence: "va.gov-cms#12192, #10712, #10715, #4880"
+          - id: cms-sse-scope
+            text: >-
+              Most active contributor by commits on the Drupal platform
+              behind VA.gov content for over three years, with 500+
+              merged pull requests and 1,000+ code reviews across a
+              dozen repositories.
+            tags: [ownership, drupal, php, backend, cross-team]
+            weight: 4
+            evidence: "git and GitHub counts as of 2026-09-11; 580 non-merge commits vs next 263"
+          - id: cms-sse-dora
+            text: >-
+              Built DORA-style delivery metrics from scratch (lead time,
+              change failure rate, time to restore) by walking Git
+              history and GitHub statuses, emitted from the deploy
+              pipeline even when tests fail.
+            tags: [observability, ci-cd, backend, node]
+            weight: 4
+            evidence: "va.gov-cms#13948 → #14089; devops#13155; preceded by 13-ticket QA-metrics epic #11070"
+          - id: cms-sse-supply-chain
+            text: >-
+              Hardened GitHub Actions as a supply-chain surface:
+              SHA-pinned every action, wrote the hardening guide and an
+              auto-posted security checklist, and answered a CISA
+              advisory the same day.
+            tags: [security, ci-cd, documentation]
+            weight: 4
+            evidence: "va.gov-cms#10617, #11199, #10955, #13622, #10703; content-build#1291"
+          - id: cms-sse-drupal9
+            text: >-
+              Drove the Drupal 8 to 9 upgrade end to end: compatibility
+              sweep across every custom module, a dozen-plus blocking
+              modules removed or replaced, core kept current through
+              every security release.
+            tags: [drupal, migration, php]
+            weight: 4
+            evidence: "va.gov-cms#4321, #5259, #5667, #5350–#5354"
+          - id: cms-sse-observability
+            text: >-
+              Built the CMS's Datadog observability layer as Terraform
+              in the platform team's repository, from synthetics with
+              PagerDuty routing to log shipping and error dashboards,
+              then un-Terraformed the dashboards deliberately for
+              velocity.
+            tags: [observability, terraform, cross-team]
+            weight: 4
+            evidence: "devops Oct 2021–Apr 2023; devops#12444, #12761"
+          - id: cms-sse-guest
+            text: >-
+              Sustained a guest-contributor role in seven other teams'
+              repositories for three years, 100+ merged pull requests
+              and 200+ reviews, up to platform-wide fixes in autoscaling
+              and image-build code.
+            tags: [cross-team, aws, platform, leadership]
+            weight: 4
+            evidence: "devops#10930, #12461, #8305; content-build#965"
+          - id: cms-sse-flaky
+            text: >-
+              Ran a systematic flaky-test program with dozens of
+              root-cause fixes, including cross-suite timestamps so
+              concurrent test logs could be merged to locate database
+              deadlocks; every disabled test got a re-enable issue.
+            tags: [testing, incident-response]
+            weight: 4
+            evidence: "va.gov-cms#11238, #12633, #12418, #11527"
+          - id: cms-sse-release-safety
+            text: >-
+              Caught a release-safety hole where auto-deploy read
+              combined status before checks had reported and shipped a
+              commit whose tests had failed; fixed it at the
+              status-reporting layer.
+            tags: [ci-cd, testing, incident-response]
+            weight: 4
+            evidence: "va.gov-cms#12851 → #14668; devops#13306"
+          - id: cms-sse-data-repair
+            text: >-
+              Repaired a content-cloning defect with idempotent,
+              transactional scripts carrying a built-in correctness
+              oracle (serialize, replace, diff, throw on any surprise),
+              promoted from local to production with published logs.
+            tags: [backend, drupal, php]
+            weight: 3
+            evidence: "va.gov-cms#3497, #3592, #5852; later #11719"
+          - id: cms-sse-new-team-tests
+            text: >-
+              Wrote the test strategy, reference suite, and example-test
+              curriculum for a newly created Next.js team two months
+              after its repository existed.
+            tags: [testing, mentoring, documentation, typescript]
+            weight: 3
+            evidence: "next-build#15, #41, #54 (May–Jul 2022)"
+          - id: cms-sse-performance
+            text: >-
+              Introduced Memcache across every environment with a kill
+              switch, benchmarked it honestly under load, and diagnosed
+              the connection exhaustion that had been blocking the full
+              unit suite.
+            tags: [backend, drupal, observability]
+            weight: 3
+            evidence: "va.gov-cms#5065–#5083, #6745, #8898, #5386, #12856"
+          - id: cms-sse-runner-lifecycle
+            text: >-
+              Wrote the lifecycle service that retires aging self-hosted CI
+              runner instances using GitHub's own view of runner idleness,
+              with dry-run and threshold controls.
+            tags: [ci-cd, aws, node]
+            weight: 2
+            evidence: "content-build#1676, #1687; devops#13366"
+  - name: Convention News Company
+    start: 2016-01
+    end: 2020-10
+    roles:
+      - id: ain
+        title: Senior Software/DevOps Engineer
+        start: 2016-01
+        end: 2020-10
+        bullets:
+          - id: ain-arc
+            text: >-
+              Joined to improve developer experience and
+              left owning the platform: migrated every
+              service off a managed Drupal host onto AWS
+              at substantially lower annual cost, and
+              built the backend and its public APIs.
+            tags: [ownership, migration, aws, platform, backend]
+            weight: 5
+            evidence: "from memory; discuss in interview"
+          - id: ain-subscription-service
+            text: >-
+              Designed and built the subscription
+              management service from scratch: Stripe
+              payments, Cognito identity, DynamoDB, and
+              Lambda with CloudWatch monitoring, at full
+              test coverage; it ran in production for
+              years afterward.
+            tags: [backend, serverless, aws, architecture, testing, ownership]
+            weight: 5
+            evidence: "from memory; discuss in interview; total test coverage; ran ~4-5 years after departure, decommissioned ~2024-2025; no defect ever reported to me; source no longer available"
+          - id: ain-headless-architecture
+            text: >-
+              Engineered a headless Drupal and Next.js
+              architecture on AWS with independently
+              scaling frontend and backend.
+            tags: [architecture, backend, aws, drupal, typescript]
+            weight: 4
+            evidence: "from memory; discuss in interview"
+          - id: ain-ci-cd
+            text: >-
+              Established CI/CD pipelines and
+              containerized development environments,
+              taking deployments from occasional to
+              multiple times daily.
+            tags: [ci-cd, platform]
+            weight: 4
+            evidence: "from memory; discuss in interview"
+          - id: ain-drupal-performance
+            text: >-
+              Tuned the Drupal backend with Varnish and
+              Redis caching and CloudWatch-to-Slack
+              alerting so a small team saw problems before
+              readers did.
+            tags: [backend, drupal, observability, aws]
+            weight: 3
+            evidence: "from memory; discuss in interview"
+          - id: ain-mentoring
+            text: >-
+              Mentored junior engineers on clean code and
+              peer review, improving ticket turnaround and
+              codebase maintainability.
+            tags: [mentoring, leadership]
+            weight: 3
+            evidence: "from memory; discuss in interview"
+          - id: ain-devex
+            text: >-
+              Built the Vagrant-based local development
+              environment every engineer used, later
+              containerized, so the team ran one stack.
+            tags: [platform, ci-cd]
+            weight: 2
+            evidence: "from memory; discuss in interview"
+  - name: DEVONtechnologies
+    start: 2012-01
+    end: 2015-12
+    roles:
+      - id: devon
+        title: Software Engineer
+        start: 2012-01
+        end: 2015-12
+        bullets:
+          - id: devon-owned-sync
+            text: >-
+              Owned the sync engine behind DEVONthink and
+              its iOS app, DEVONthink To Go, for four
+              years: took it over during a high-risk
+              engineer transition, shipped the first
+              version, and completed the second before
+              leaving.
+            tags: [ownership, backend, macos]
+            weight: 5
+            evidence: "from memory; discuss in interview; small company; first version brought to market, second completed before departure"
+          - id: devon-sync-engine
+            text: >-
+              Built the client-side features and sync
+              engine across macOS and iOS, spanning
+              cloud-storage and peer-to-peer backends, in
+              a legacy Objective-C codebase with hard
+              performance and memory constraints.
+            tags: [backend, macos]
+            weight: 3
+            evidence: "from memory; discuss in interview"
+          - id: devon-support
+            text: >-
+              Served as front-line support for the product
+              at a small company, turning customer reports
+              into reproductions, fixes, and release
+              notes.
+            tags: [ownership, backend, macos]
+            weight: 3
+            evidence: "from memory; discuss in interview"

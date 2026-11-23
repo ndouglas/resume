@@ -147,12 +147,39 @@ projects:
     evidence: >-
       Swarm Alignment Hackathon (AIAF + Apart Research, with AE Studio),
       Nov 6-8, 2026, solo; report "Is This MNIST? Training Choices Steer What
-      LLM Weight Readers Conclude" submitted 2026-11-08;
+      LLM Weight Readers Conclude" submitted 2026-11-08, Apart page
+      https://apartresearch.com/sprints/projects/is-this-mnist-training-choices-steer-what-llm-weight-readers-conclude-r93gno0nhd;
       github.com/ndouglas/weight-stego (report/report.md, PREDICTIONS.md,
       make check); ~/Projects/ndouglas/boot-camp/2026/11/06.md to 08.md.
       Claude wrote most of the code and ran the experiments under Nathan's
       direction (see the report's LLM Usage Statement), so claim the
       question, design, predictions and conclusions, not hand-written code
+  - id: apart-epistemics
+    name: Missing-Fact Probes for LLM Briefings
+    emoji: "🏠"
+    url: https://apartresearch.com/sprints/projects/did-you-get-the-roof-checked-missingfact-probes-for-llm-decision-briefings-nqkyx5nrni
+    text: >-
+      Solo Apart Research sprint on whether LLM briefings for personal
+      decisions surface what matters: across 94 missing-fact probes and
+      three frontier models, briefings raised facts that would flip the
+      choice more often than inert ones (94% vs 56% by an automated
+      judge), but only 30% told the person to find a decisive unknown
+      out; the build checks every reported number against the data
+    stack: [Python, Claude API, OpenAI API]
+    tags: [ai, research, testing]
+    weight: 4
+    evidence: >-
+      AI x Epistemics Research Sprint (Apart Research), Nov 13-15, 2026,
+      solo; report "Did You Get the Roof Checked? Missing-Fact Probes for
+      LLM Decision Briefings"; github.com/ndouglas/epistemics_sprint
+      (report/report.md, results/claims.md, sprint/build_report.py);
+      ~/Projects/ndouglas/boot-camp/2026/11/13.md to 15.md. The author's
+      blind labels were stricter than the judge, so the 94% and 56%
+      levels are uncertain; the 30% is the clearer finding. Claude wrote
+      the code, ran the experiments and wrote the report under Nathan's
+      direction (see the report's LLM Usage Statement), so claim the
+      question, design, probe edits, hand labels and conclusions, not
+      hand-written code
   - id: rills
     name: Rills
     emoji: "🕵️"
